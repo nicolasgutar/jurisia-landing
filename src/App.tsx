@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -14,6 +15,7 @@ import { motion, AnimatePresence } from 'motion/react';
 
 function App() {
   return (
+    <HelmetProvider>
     <Router>
       <div className="min-h-screen bg-surface flex flex-col">
         <Navbar />
@@ -29,6 +31,7 @@ function App() {
         <Footer />
       </div>
     </Router>
+    </HelmetProvider>
   );
 }
 

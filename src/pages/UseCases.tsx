@@ -1,9 +1,16 @@
 import { motion } from 'motion/react';
 import { GavelIcon, Description, ShieldIcon, ChatBubble, Verified, RocketLaunch, ArrowForward } from '@/src/components/Icons';
+import SEO from '@/src/components/SEO';
 
 export default function UseCases() {
   return (
     <main className="pt-32 pb-20 px-6 md:px-12 lg:px-24 bg-[#000000] min-h-screen">
+      <SEO
+        title="Casos de Uso | JurisIA"
+        description="Descubra cómo JurisIA transforma la práctica jurídica en Colombia: preparación de litigios, redacción de tutelas, due diligence contractual y derechos de petición con IA especializada."
+        canonical="https://jurisia.app/casos-de-uso"
+      />
+
       {/* Hero Header */}
       <header className="max-w-4xl mb-24">
         <span className="text-primary font-sans uppercase tracking-widest text-xs mb-4 block">Aplicación Práctica</span>
@@ -63,10 +70,10 @@ export default function UseCases() {
           <p className="text-on-surface-variant leading-relaxed font-sans font-light">
             Generación de borradores estructurados con base en jurisprudencia vigente. Automatice la protección de derechos fundamentales con argumentos actualizados.
           </p>
-          <div className="mt-auto pt-8 flex items-center gap-2 text-primary font-medium group cursor-pointer font-sans">
+          <a href="https://chat.jurisia.app" target="_blank" rel="noopener noreferrer" className="mt-auto pt-8 flex items-center gap-2 text-primary font-medium group font-sans">
             <span>Comenzar Ahora</span>
             <ArrowForward className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </div>
+          </a>
         </div>
 
         {/* Case 3: Debida Diligencia */}
@@ -78,10 +85,10 @@ export default function UseCases() {
           <p className="text-on-surface-variant leading-relaxed font-sans font-light">
             Análisis masivo de contratos para identificar riesgos y cláusulas abusivas. Mitigue contingencias legales mediante escaneo profundo impulsado por IA.
           </p>
-          <div className="mt-auto pt-8 flex items-center gap-2 text-primary font-medium group cursor-pointer font-sans">
+          <a href="https://chat.jurisia.app" target="_blank" rel="noopener noreferrer" className="mt-auto pt-8 flex items-center gap-2 text-primary font-medium group font-sans">
             <span>Comenzar Ahora</span>
             <ArrowForward className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </div>
+          </a>
         </div>
 
         {/* Case 4: Derecho de Petición */}
@@ -94,10 +101,10 @@ export default function UseCases() {
             <p className="text-on-surface-variant text-lg leading-relaxed font-sans font-light">
               Respuesta rápida y fundamentada a solicitudes ciudadanas. Gestione volúmenes altos de peticiones manteniendo la calidad jurídica en cada respuesta.
             </p>
-            <div className="mt-6 flex items-center gap-2 text-primary font-medium group cursor-pointer font-sans">
+            <a href="https://chat.jurisia.app" target="_blank" rel="noopener noreferrer" className="mt-6 flex items-center gap-2 text-primary font-medium group font-sans">
               <span>Comenzar Ahora</span>
               <ArrowForward className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </div>
+            </a>
           </div>
           <div className="w-full md:w-1/3 aspect-square bg-white/5 rounded-full overflow-hidden relative group-hover:scale-105 transition-transform">
             <img 
@@ -120,7 +127,7 @@ export default function UseCases() {
             <p className="text-on-surface-variant text-xl mb-12 max-w-xl font-sans font-light">
               Estamos expandiendo las fronteras del derecho digital. Cuéntenos qué proceso desea automatizar.
             </p>
-            <a className="metallic-cta px-12 py-5 text-on-primary font-bold text-lg rounded tracking-tight hover:scale-105 active:scale-95 transition-all flex items-center gap-3 shadow-xl shadow-primary/10 font-headline" href="#">
+            <a href="https://forms.gle/CnXoCz6VGoy9aM5f7" target="_blank" rel="noopener noreferrer" className="metallic-cta px-12 py-5 text-on-primary font-bold text-lg rounded tracking-tight hover:scale-105 active:scale-95 transition-all flex items-center gap-3 shadow-xl shadow-primary/10 font-headline">
               Proponer Solución
               <RocketLaunch className="w-6 h-6" />
             </a>

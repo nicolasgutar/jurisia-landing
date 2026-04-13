@@ -1,14 +1,21 @@
 import { motion } from 'motion/react';
 import { ShieldIcon, AccountBalance, EditNote, Bolt, VerifiedUser, Group, CloudDone, Visibility } from '@/src/components/Icons';
+import SEO from '@/src/components/SEO';
 
 export default function Pricing() {
   return (
     <div className="pt-32 pb-24 px-6 md:px-12 max-w-7xl mx-auto min-h-screen">
+      <SEO
+        title="Precios | JurisIA"
+        description="JurisIA es gratuito para todos los abogados colombianos en su fase de co-creación. Acceso ágil a la justicia mediante inteligencia artificial especializada en derecho colombiano."
+        canonical="https://jurisia.app/precios"
+      />
+
       {/* Hero Section */}
       <header className="text-center mb-24">
         <span className="font-sans text-xs uppercase tracking-[0.4em] text-primary/80 mb-6 block">Estructura de Costos</span>
         <h1 className="font-headline text-5xl md:text-8xl font-extrabold tracking-tighter text-on-surface leading-[1.1]">
-          El acceso a la justicia <br/> debe ser <span className="text-transparent bg-clip-text metallic-gradient inline-block">ágil</span>.
+          El acceso a la justicia <br/> debe ser <span style={{ background: 'linear-gradient(135deg, #ffffff 0%, #a8bad4 100%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>ágil</span>.
         </h1>
       </header>
 
@@ -93,9 +100,9 @@ export default function Pricing() {
                 </div>
               </div>
               <div className="mt-auto pt-10 border-t border-white/5">
-                <button className="w-full metallic-gradient text-black py-5 rounded-xl font-bold text-lg hover:brightness-110 active:scale-[0.99] transition-all duration-300 shadow-xl shadow-primary/10">
+                <a href="https://chat.jurisia.app" target="_blank" rel="noopener noreferrer" className="block w-full metallic-gradient text-black py-5 rounded-xl font-bold text-lg text-center hover:brightness-110 active:scale-[0.99] transition-all duration-300 shadow-xl shadow-primary/10">
                   Comenzar Ahora Gratis
-                </button>
+                </a>
                 <p className="text-center text-on-surface-variant text-[10px] mt-6 uppercase tracking-[0.2em] opacity-50">
                   Sin tarjeta de crédito • Registro inmediato • JurisIA
                 </p>

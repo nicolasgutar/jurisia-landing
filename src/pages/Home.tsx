@@ -2,6 +2,24 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Shield, CheckCircle, FileCheck, Gavel, FileText, Lock, Plus, Lightbulb } from 'lucide-react';
 import { cn } from '@/src/lib/utils';
+import SEO from '@/src/components/SEO';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'JurisIA',
+  applicationCategory: 'LegalApplication',
+  operatingSystem: 'Web',
+  description: 'Plataforma de inteligencia artificial especializada en jurisprudencia y legislación colombiana. Acceso semántico a la Corte Constitucional, Corte Suprema y Consejo de Estado con Zero Data Retention.',
+  url: 'https://jurisia.app',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'COP' },
+  inLanguage: 'es-CO',
+  publisher: {
+    '@type': 'Organization',
+    name: 'JurisIA',
+    url: 'https://jurisia.app',
+  },
+};
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -28,6 +46,13 @@ export default function Home() {
 
   return (
     <div className="relative">
+      <SEO
+        title="JurisIA | Inteligencia Artificial para el Derecho Colombiano"
+        description="Precisión jurídica sin precedentes. IA especializada en jurisprudencia y legislación colombiana — Corte Constitucional, Corte Suprema, Consejo de Estado. Zero Data Retention garantizado."
+        canonical="https://jurisia.app/"
+        jsonLd={jsonLd}
+      />
+
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-8 overflow-hidden bg-black">
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
@@ -55,15 +80,15 @@ export default function Home() {
             </motion.p>
             
             <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 pt-4">
-              <button className="bg-gradient-to-br from-primary to-primary-container text-on-primary px-10 py-4 text-lg font-bold rounded-lg flex items-center justify-center gap-2 group hover:scale-[0.98] transition-transform">
+              <a href="https://chat.jurisia.app" target="_blank" rel="noopener noreferrer" className="bg-white text-black px-10 py-4 text-lg font-bold rounded-lg flex items-center justify-center gap-2 group hover:bg-on-surface transition-all duration-200">
                 Comenzar Ahora
-                <motion.span 
+                <motion.span
                   animate={{ x: [0, 5, 0] }}
                   transition={{ repeat: Infinity, duration: 1.5 }}
                 >
                   <ArrowRight className="w-5 h-5" />
                 </motion.span>
-              </button>
+              </a>
             </motion.div>
             
             <motion.div variants={itemVariants} className="flex items-center gap-3 pt-4">
@@ -101,11 +126,10 @@ export default function Home() {
             className="order-2 md:order-1"
           >
             <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-2xl bg-white/5">
-              <img 
-                alt="Jurisprudencia verificable" 
-                className="w-full h-auto" 
-                src="https://lh3.googleusercontent.com/aida/ADBb0uhl4lBQ1YYqc-RXgiICePPp8oRfhBANAyQvol_OaQpH13sixKd3E_CNtDyXpFLGtb7aoc8jhvH-ukW0IhkgbOUE9bT19zmgT1xt3GH9flwx3P-Tc582WYmdmd0S28jCtTnW2oE2k39uzll2clffAssAROBtcxWphzrg4WE698NVhgI_9Yva3Vt55GDKFxRS2DJqWZ0KvjjR-qcfv_9UocTG1Q-XK_11SlLFmIKJULrl_xVeTMKYqySk9ijSLxhuG7-OxHNDVN-XhME"
-                referrerPolicy="no-referrer"
+              <img
+                alt="Jurisprudencia verificable"
+                className="w-full h-auto"
+                src="/product-screenshot.png"
               />
             </div>
           </motion.div>
@@ -260,10 +284,10 @@ export default function Home() {
         <div className="max-w-3xl mx-auto text-center space-y-8">
           <h3 className="text-3xl font-headline font-extrabold">Ayúdanos a transformar el derecho</h3>
           <p className="text-on-surface-variant font-light">JurisIA crece con la retroalimentación de los abogados colombianos. ¿Hay alguna función específica que necesites para tu práctica diaria?</p>
-          <button className="inline-flex items-center gap-3 bg-white/5 border border-white/10 text-on-surface px-8 py-4 text-lg font-bold rounded-lg hover:bg-primary hover:text-on-primary transition-all duration-300 group">
+          <a href="https://forms.gle/CnXoCz6VGoy9aM5f7" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 bg-white/5 border border-white/10 text-on-surface px-8 py-4 text-lg font-bold rounded-lg hover:bg-primary hover:text-on-primary transition-all duration-300 group">
             Sugerir Funcionalidad
             <Lightbulb className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-          </button>
+          </a>
         </div>
       </section>
 
@@ -275,9 +299,9 @@ export default function Home() {
             Deje de perder horas en tareas mecánicas. Permita que la tecnología de JurisIA potencie su despacho hoy mismo con seguridad garantizada.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-6">
-            <button className="bg-gradient-to-br from-primary to-primary-container text-on-primary px-12 py-5 text-xl font-bold rounded-lg shadow-xl hover:scale-105 transition-all">
+            <a href="https://chat.jurisia.app" target="_blank" rel="noopener noreferrer" className="bg-white text-black px-12 py-5 text-xl font-bold rounded-lg shadow-xl hover:bg-on-surface transition-all duration-200">
               Comenzar Ahora
-            </button>
+            </a>
           </div>
         </div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-primary/5 blur-[140px] rounded-full pointer-events-none"></div>
