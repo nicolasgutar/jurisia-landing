@@ -6,16 +6,16 @@ export default function UseCases() {
   return (
     <main className="pt-32 pb-20 px-6 md:px-12 lg:px-24 bg-[#000000] min-h-screen">
       <SEO
-        title="Casos de Uso | JurisIA"
-        description="Descubra cómo JurisIA transforma la práctica jurídica en Colombia: preparación de litigios, redacción de tutelas, due diligence contractual y derechos de petición con IA especializada."
-        canonical="https://jurisia.app/casos-de-uso"
+        title="Casos de Uso | Legisia"
+        description="Descubra cómo Legisia transforma la práctica jurídica en Colombia: preparación de litigios, redacción de tutelas, due diligence contractual y derechos de petición con IA especializada."
+        canonical="https://legisia.co/casos-de-uso"
       />
 
       {/* Hero Header */}
       <header className="max-w-4xl mb-24">
         <span className="text-primary font-sans uppercase tracking-widest text-xs mb-4 block">Aplicación Práctica</span>
         <h1 className="text-5xl md:text-7xl font-extrabold text-on-surface tracking-tight mb-8 font-headline">
-          JurisIA en el ejercicio profesional.
+          Legisia en el ejercicio profesional.
         </h1>
         <p className="text-xl text-on-surface-variant max-w-2xl leading-relaxed font-sans font-light">
           Transformamos la complejidad jurídica en eficiencia operativa a través de IA especializada en el marco legal colombiano.
@@ -70,7 +70,7 @@ export default function UseCases() {
           <p className="text-on-surface-variant leading-relaxed font-sans font-light">
             Generación de borradores estructurados con base en jurisprudencia vigente. Automatice la protección de derechos fundamentales con argumentos actualizados.
           </p>
-          <a href="https://chat.jurisia.app" target="_blank" rel="noopener noreferrer" className="mt-auto pt-8 flex items-center gap-2 text-primary font-medium group font-sans">
+          <a href="https://app.legisia.co" target="_blank" rel="noopener noreferrer" className="mt-auto pt-8 flex items-center gap-2 text-primary font-medium group font-sans">
             <span>Comenzar Ahora</span>
             <ArrowForward className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </a>
@@ -85,7 +85,7 @@ export default function UseCases() {
           <p className="text-on-surface-variant leading-relaxed font-sans font-light">
             Análisis masivo de contratos para identificar riesgos y cláusulas abusivas. Mitigue contingencias legales mediante escaneo profundo impulsado por IA.
           </p>
-          <a href="https://chat.jurisia.app" target="_blank" rel="noopener noreferrer" className="mt-auto pt-8 flex items-center gap-2 text-primary font-medium group font-sans">
+          <a href="https://app.legisia.co" target="_blank" rel="noopener noreferrer" className="mt-auto pt-8 flex items-center gap-2 text-primary font-medium group font-sans">
             <span>Comenzar Ahora</span>
             <ArrowForward className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </a>
@@ -101,7 +101,7 @@ export default function UseCases() {
             <p className="text-on-surface-variant text-lg leading-relaxed font-sans font-light">
               Respuesta rápida y fundamentada a solicitudes ciudadanas. Gestione volúmenes altos de peticiones manteniendo la calidad jurídica en cada respuesta.
             </p>
-            <a href="https://chat.jurisia.app" target="_blank" rel="noopener noreferrer" className="mt-6 flex items-center gap-2 text-primary font-medium group font-sans">
+            <a href="https://app.legisia.co" target="_blank" rel="noopener noreferrer" className="mt-6 flex items-center gap-2 text-primary font-medium group font-sans">
               <span>Comenzar Ahora</span>
               <ArrowForward className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </a>

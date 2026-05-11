@@ -19,10 +19,9 @@ export default function Navbar() {
       <div className="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
         <Link to="/" className="flex items-center gap-2">
           <img
-            alt="JurisIA Logo"
-            className="h-6 w-auto object-contain"
-            src="https://lh3.googleusercontent.com/aida/ADBb0ui_EGOarMXhOoAtr4PyOd5paI-EZcqjHAbgHlL34G-yl73E2nOMoU_uc_VAsTm2H3aYdDHZA2xFYVFDO7TyKpikaE-75Br2MSptsRNFU_mopAeGjClOnpJPifNXzlBwG9VgfN12bZilg1xRCS_Fo18OT8sC0v2h0QLP54Fqky_cwsrwI0kazrWMHx1Vff8NPkIyJZpnP8-LUYOqBHePy2-vHy1fChDWEP4E_GzJ_VBDE1ypypob7O1mgxAkXumZug6h1vgM8P-WBg"
-            referrerPolicy="no-referrer"
+            alt="Legisia Logo"
+            className="h-8 w-auto object-contain"
+            src="/legisia-logo.png"
           />
         </Link>
 
@@ -45,7 +44,7 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-4">
-          <a href="https://chat.jurisia.app" target="_blank" rel="noopener noreferrer" className="bg-white text-black px-5 py-2 rounded-lg font-bold text-xs hover:bg-on-surface transition-all duration-200">
+          <a href="https://app.legisia.co" target="_blank" rel="noopener noreferrer" className="bg-white text-black px-5 py-2 rounded-lg font-bold text-xs hover:bg-on-surface transition-all duration-200">
             Comenzar Ahora
           </a>
           {/* Hamburger — mobile only */}

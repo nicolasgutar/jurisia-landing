@@ -7,17 +7,17 @@ import SEO from '@/src/components/SEO';
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
-  name: 'JurisIA',
+  name: 'Legisia',
   applicationCategory: 'LegalApplication',
   operatingSystem: 'Web',
   description: 'Plataforma de inteligencia artificial especializada en jurisprudencia y legislación colombiana. Acceso semántico a la Corte Constitucional, Corte Suprema y Consejo de Estado con Zero Data Retention.',
-  url: 'https://jurisia.app',
+  url: 'https://legisia.co',
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'COP' },
   inLanguage: 'es-CO',
   publisher: {
     '@type': 'Organization',
-    name: 'JurisIA',
-    url: 'https://jurisia.app',
+    name: 'Legisia',
+    url: 'https://legisia.co',
   },
 };
 
@@ -47,9 +47,9 @@ export default function Home() {
   return (
     <div className="relative">
       <SEO
-        title="JurisIA | Inteligencia Artificial para el Derecho Colombiano"
+        title="Legisia | Inteligencia Artificial para el Derecho Colombiano"
         description="Precisión jurídica sin precedentes. IA especializada en jurisprudencia y legislación colombiana — Corte Constitucional, Corte Suprema, Consejo de Estado. Zero Data Retention garantizado."
-        canonical="https://jurisia.app/"
+        canonical="https://legisia.co/"
         jsonLd={jsonLd}
       />
 
@@ -72,7 +72,7 @@ export default function Home() {
             </motion.div>
             
             <motion.h1 variants={itemVariants} className="text-5xl lg:text-7xl font-extrabold font-headline leading-tight tracking-tight text-on-surface">
-              JurisIA: La inteligencia artificial que <span className="text-primary">evoluciona el derecho.</span>
+              Legisia: La inteligencia artificial que <span className="text-primary">evoluciona el derecho.</span>
             </motion.h1>
             
             <motion.p variants={itemVariants} className="text-xl text-on-surface-variant max-w-xl font-light leading-relaxed">
@@ -80,7 +80,7 @@ export default function Home() {
             </motion.p>
             
             <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 pt-4">
-              <a href="https://chat.jurisia.app" target="_blank" rel="noopener noreferrer" className="bg-white text-black px-10 py-4 text-lg font-bold rounded-lg flex items-center justify-center gap-2 group hover:bg-on-surface transition-all duration-200">
+              <a href="https://app.legisia.co" target="_blank" rel="noopener noreferrer" className="bg-white text-black px-10 py-4 text-lg font-bold rounded-lg flex items-center justify-center gap-2 group hover:bg-on-surface transition-all duration-200">
                 Comenzar Ahora
                 <motion.span
                   animate={{ x: [0, 5, 0] }}
@@ -106,11 +106,10 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="relative flex justify-center items-center h-[400px] bg-black"
           >
-            <img 
-              alt="Legal AI Icon" 
-              className="w-64 h-auto object-contain opacity-90" 
-              src="https://lh3.googleusercontent.com/aida/ADBb0ug6L4QqxOldPdNkwrRzW0BcWrWLpJ_eJtX7jUKIhkKrF_KP40yKYYsE-Be4bdzfGv-dPs5mUeRStwqfeuJaQSoGFeUa5Sk5vKl2LDyyEZ9Cc_kXVhFQZFEv1DxwVEKA2ih6_lTHqrTfWYE_orjQNiFC77o26b1X4nOGbJyVMLx6XaSpXyR2IJpFW4PoV1vLusf_HHmb7G4ozVOTZJp6WgqXlH5xnNXveJa1xTRID5CMmmd48O0m_BDC6hFehfNIzM0QOZdK4UmeJho"
-              referrerPolicy="no-referrer"
+            <img
+              alt="Legal AI Icon"
+              className="w-64 h-auto object-contain opacity-90"
+              src="/logo.png"
             />
           </motion.div>
         </div>
@@ -146,7 +145,7 @@ export default function Home() {
             </div>
             <h2 className="text-4xl lg:text-5xl font-extrabold font-headline leading-tight">No más Alucinaciones</h2>
             <p className="text-xl text-on-surface-variant font-light leading-relaxed">
-              Elimine el riesgo de información errónea. En JurisIA, cada respuesta se fundamenta en jurisprudencia y normativa vigente directamente verificable dentro de la plataforma. Acceda a las fuentes originales sincronizadas en tiempo real con las Altas Cortes.
+              Elimine el riesgo de información errónea. En Legisia, cada respuesta se fundamenta en jurisprudencia y normativa vigente directamente verificable dentro de la plataforma. Acceda a las fuentes originales sincronizadas en tiempo real con las Altas Cortes.
             </p>
             <div className="flex items-center gap-4 pt-4">
               <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center border border-primary/30">
@@ -222,7 +221,7 @@ export default function Home() {
           </div>
           <div className="space-y-8">
             <p className="text-xl text-on-surface leading-relaxed text-center font-light">
-              En JurisIA, garantizamos que sus datos nunca son utilizados para entrenar modelos de IA y no se almacenan de forma permanente, asegurando la total confidencialidad de su información profesional.
+              En Legisia, garantizamos que sus datos nunca son utilizados para entrenar modelos de IA y no se almacenan de forma permanente, asegurando la total confidencialidad de su información profesional.
             </p>
           </div>
         </div>
@@ -283,7 +282,7 @@ export default function Home() {
       <section className="py-24 px-8 bg-black">
         <div className="max-w-3xl mx-auto text-center space-y-8">
           <h3 className="text-3xl font-headline font-extrabold">Ayúdanos a transformar el derecho</h3>
-          <p className="text-on-surface-variant font-light">JurisIA crece con la retroalimentación de los abogados colombianos. ¿Hay alguna función específica que necesites para tu práctica diaria?</p>
+          <p className="text-on-surface-variant font-light">Legisia crece con la retroalimentación de los abogados colombianos. ¿Hay alguna función específica que necesites para tu práctica diaria?</p>
           <a href="https://forms.gle/CnXoCz6VGoy9aM5f7" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 bg-white/5 border border-white/10 text-on-surface px-8 py-4 text-lg font-bold rounded-lg hover:bg-primary hover:text-on-primary transition-all duration-300 group">
             Sugerir Funcionalidad
             <Lightbulb className="w-5 h-5 group-hover:rotate-12 transition-transform" />
@@ -296,10 +295,10 @@ export default function Home() {
         <div className="max-w-4xl mx-auto text-center space-y-10 relative z-10">
           <h2 className="text-5xl lg:text-7xl font-extrabold font-headline leading-tight">Únete a la nueva era del derecho.</h2>
           <p className="text-xl text-on-surface-variant font-light max-w-2xl mx-auto">
-            Deje de perder horas en tareas mecánicas. Permita que la tecnología de JurisIA potencie su despacho hoy mismo con seguridad garantizada.
+            Deje de perder horas en tareas mecánicas. Permita que la tecnología de Legisia potencie su despacho hoy mismo con seguridad garantizada.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-6">
-            <a href="https://chat.jurisia.app" target="_blank" rel="noopener noreferrer" className="bg-white text-black px-12 py-5 text-xl font-bold rounded-lg shadow-xl hover:bg-on-surface transition-all duration-200">
+            <a href="https://app.legisia.co" target="_blank" rel="noopener noreferrer" className="bg-white text-black px-12 py-5 text-xl font-bold rounded-lg shadow-xl hover:bg-on-surface transition-all duration-200">
               Comenzar Ahora
             </a>
           </div>

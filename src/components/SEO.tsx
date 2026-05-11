@@ -7,8 +7,8 @@ interface SEOProps {
   jsonLd?: object;
 }
 
-const SITE_NAME = 'JurisIA';
-const OG_IMAGE = 'https://jurisia.app/product-screenshot.png';
+const SITE_NAME = 'Legisia';
+const OG_IMAGE = 'https://legisia.co/product-screenshot.png';
 
 export default function SEO({ title, description, canonical, jsonLd }: SEOProps) {
   const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;

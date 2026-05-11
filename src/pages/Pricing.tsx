@@ -6,9 +6,9 @@ export default function Pricing() {
   return (
     <div className="pt-32 pb-24 px-6 md:px-12 max-w-7xl mx-auto min-h-screen">
       <SEO
-        title="Precios | JurisIA"
-        description="JurisIA es gratuito para todos los abogados colombianos en su fase de co-creación. Acceso ágil a la justicia mediante inteligencia artificial especializada en derecho colombiano."
-        canonical="https://jurisia.app/precios"
+        title="Precios | Legisia"
+        description="Legisia es gratuito para todos los abogados colombianos en su fase de co-creación. Acceso ágil a la justicia mediante inteligencia artificial especializada en derecho colombiano."
+        canonical="https://legisia.co/precios"
       />
 
       {/* Hero Section */}
@@ -26,7 +26,7 @@ export default function Pricing() {
           <div className="space-y-6">
             <h2 className="font-headline text-3xl font-bold text-white">Co-creando el futuro del derecho</h2>
             <p className="text-on-surface-variant text-lg leading-relaxed">
-              Actualmente, <span className="text-white font-medium">JurisIA</span> es gratuito para todos los abogados colombianos. Estamos en fase de co-creación y valoramos tu feedback para construir la herramienta definitiva.
+              Actualmente, <span className="text-white font-medium">Legisia</span> es gratuito para todos los abogados colombianos. Estamos en fase de co-creación y valoramos tu feedback para construir la herramienta definitiva.
             </p>
           </div>
           <div className="p-8 bg-black border border-white/10 rounded-xl relative overflow-hidden group">
@@ -100,11 +100,11 @@ export default function Pricing() {
                 </div>
               </div>
               <div className="mt-auto pt-10 border-t border-white/5">
-                <a href="https://chat.jurisia.app" target="_blank" rel="noopener noreferrer" className="block w-full metallic-gradient text-black py-5 rounded-xl font-bold text-lg text-center hover:brightness-110 active:scale-[0.99] transition-all duration-300 shadow-xl shadow-primary/10">
+                <a href="https://app.legisia.co" target="_blank" rel="noopener noreferrer" className="block w-full metallic-gradient text-black py-5 rounded-xl font-bold text-lg text-center hover:brightness-110 active:scale-[0.99] transition-all duration-300 shadow-xl shadow-primary/10">
                   Comenzar Ahora Gratis
                 </a>
                 <p className="text-center text-on-surface-variant text-[10px] mt-6 uppercase tracking-[0.2em] opacity-50">
-                  Sin tarjeta de crédito • Registro inmediato • JurisIA
+                  Sin tarjeta de crédito • Registro inmediato • Legisia
                 </p>
               </div>
             </div>
