@@ -20,9 +20,10 @@ export default function Navbar() {
         <Link to="/" className="flex items-center gap-2">
           <img
             alt="Legisia Logo"
-            className="h-8 w-auto object-contain"
-            src="/legisia-logo.png"
+            className="h-8 w-8 rounded-full object-cover"
+            src="/legisia-icon.jpg"
           />
+          <span className="font-headline font-extrabold text-lg tracking-tight text-white">LegisIA</span>
         </Link>
 
         {/* Desktop nav */}
