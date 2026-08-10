@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/src/lib/utils';
+import { trackMetaCustomEvent } from '@/src/lib/meta-pixel';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 
@@ -45,7 +46,7 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-4">
-          <a href="https://app.legisia.co" target="_blank" rel="noopener noreferrer" className="bg-white text-black px-5 py-2 rounded-lg font-bold text-xs hover:bg-on-surface transition-all duration-200">
+          <a href="https://app.legisia.co" target="_blank" rel="noopener noreferrer" onClick={() => trackMetaCustomEvent('ClickToApp')} className="bg-white text-black px-5 py-2 rounded-lg font-bold text-xs hover:bg-on-surface transition-all duration-200">
             Comenzar Ahora
           </a>
           {/* Hamburger — mobile only */}

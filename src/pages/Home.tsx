@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { ArrowRight, Shield, CheckCircle, FileCheck, Gavel, FileText, Lock, Plus, Lightbulb } from 'lucide-react';
 import { cn } from '@/src/lib/utils';
 import SEO from '@/src/components/SEO';
+import { trackMetaCustomEvent } from '@/src/lib/meta-pixel';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -80,7 +81,7 @@ export default function Home() {
             </motion.p>
             
             <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 pt-4">
-              <a href="https://app.legisia.co" target="_blank" rel="noopener noreferrer" className="bg-white text-black px-10 py-4 text-lg font-bold rounded-lg flex items-center justify-center gap-2 group hover:bg-on-surface transition-all duration-200">
+              <a href="https://app.legisia.co" target="_blank" rel="noopener noreferrer" onClick={() => trackMetaCustomEvent('ClickToApp')} className="bg-white text-black px-10 py-4 text-lg font-bold rounded-lg flex items-center justify-center gap-2 group hover:bg-on-surface transition-all duration-200">
                 Comenzar Ahora
                 <motion.span
                   animate={{ x: [0, 5, 0] }}
@@ -298,7 +299,7 @@ export default function Home() {
             Deje de perder horas en tareas mecánicas. Permita que la tecnología de Legisia potencie su despacho hoy mismo con seguridad garantizada.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-6">
-            <a href="https://app.legisia.co" target="_blank" rel="noopener noreferrer" className="bg-white text-black px-12 py-5 text-xl font-bold rounded-lg shadow-xl hover:bg-on-surface transition-all duration-200">
+            <a href="https://app.legisia.co" target="_blank" rel="noopener noreferrer" onClick={() => trackMetaCustomEvent('ClickToApp')} className="bg-white text-black px-12 py-5 text-xl font-bold rounded-lg shadow-xl hover:bg-on-surface transition-all duration-200">
               Comenzar Ahora
             </a>
           </div>

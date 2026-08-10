@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { GavelIcon, Description, ShieldIcon, ChatBubble, Verified, RocketLaunch, ArrowForward } from '@/src/components/Icons';
 import SEO from '@/src/components/SEO';
+import { trackMetaCustomEvent } from '@/src/lib/meta-pixel';
 
 export default function UseCases() {
   return (
@@ -70,7 +71,7 @@ export default function UseCases() {
           <p className="text-on-surface-variant leading-relaxed font-sans font-light">
             Generación de borradores estructurados con base en jurisprudencia vigente. Automatice la protección de derechos fundamentales con argumentos actualizados.
           </p>
-          <a href="https://app.legisia.co" target="_blank" rel="noopener noreferrer" className="mt-auto pt-8 flex items-center gap-2 text-primary font-medium group font-sans">
+          <a href="https://app.legisia.co" target="_blank" rel="noopener noreferrer" onClick={() => trackMetaCustomEvent('ClickToApp')} className="mt-auto pt-8 flex items-center gap-2 text-primary font-medium group font-sans">
             <span>Comenzar Ahora</span>
             <ArrowForward className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </a>
@@ -85,7 +86,7 @@ export default function UseCases() {
           <p className="text-on-surface-variant leading-relaxed font-sans font-light">
             Análisis masivo de contratos para identificar riesgos y cláusulas abusivas. Mitigue contingencias legales mediante escaneo profundo impulsado por IA.
           </p>
-          <a href="https://app.legisia.co" target="_blank" rel="noopener noreferrer" className="mt-auto pt-8 flex items-center gap-2 text-primary font-medium group font-sans">
+          <a href="https://app.legisia.co" target="_blank" rel="noopener noreferrer" onClick={() => trackMetaCustomEvent('ClickToApp')} className="mt-auto pt-8 flex items-center gap-2 text-primary font-medium group font-sans">
             <span>Comenzar Ahora</span>
             <ArrowForward className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </a>
@@ -101,7 +102,7 @@ export default function UseCases() {
             <p className="text-on-surface-variant text-lg leading-relaxed font-sans font-light">
               Respuesta rápida y fundamentada a solicitudes ciudadanas. Gestione volúmenes altos de peticiones manteniendo la calidad jurídica en cada respuesta.
             </p>
-            <a href="https://app.legisia.co" target="_blank" rel="noopener noreferrer" className="mt-6 flex items-center gap-2 text-primary font-medium group font-sans">
+            <a href="https://app.legisia.co" target="_blank" rel="noopener noreferrer" onClick={() => trackMetaCustomEvent('ClickToApp')} className="mt-6 flex items-center gap-2 text-primary font-medium group font-sans">
               <span>Comenzar Ahora</span>
               <ArrowForward className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </a>

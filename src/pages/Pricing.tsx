@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { ShieldIcon, AccountBalance, EditNote, Bolt, VerifiedUser, Group, CloudDone, Visibility } from '@/src/components/Icons';
 import SEO from '@/src/components/SEO';
+import { trackMetaCustomEvent } from '@/src/lib/meta-pixel';
 
 export default function Pricing() {
   return (
@@ -100,7 +101,7 @@ export default function Pricing() {
                 </div>
               </div>
               <div className="mt-auto pt-10 border-t border-white/5">
-                <a href="https://app.legisia.co" target="_blank" rel="noopener noreferrer" className="block w-full metallic-gradient text-black py-5 rounded-xl font-bold text-lg text-center hover:brightness-110 active:scale-[0.99] transition-all duration-300 shadow-xl shadow-primary/10">
+                <a href="https://app.legisia.co" target="_blank" rel="noopener noreferrer" onClick={() => trackMetaCustomEvent('ClickToApp')} className="block w-full metallic-gradient text-black py-5 rounded-xl font-bold text-lg text-center hover:brightness-110 active:scale-[0.99] transition-all duration-300 shadow-xl shadow-primary/10">
                   Comenzar Ahora Gratis
                 </a>
                 <p className="text-center text-on-surface-variant text-[10px] mt-6 uppercase tracking-[0.2em] opacity-50">
