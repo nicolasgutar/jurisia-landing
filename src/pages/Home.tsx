@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { ArrowRight, Shield, CheckCircle, FileCheck, Gavel, FileText, Lock, Plus, Lightbulb } from 'lucide-react';
 import { cn } from '@/src/lib/utils';
 import SEO from '@/src/components/SEO';
+import UserCounter from '@/src/components/UserCounter';
 import { trackMetaCustomEvent } from '@/src/lib/meta-pixel';
 
 const jsonLd = {
@@ -115,6 +116,8 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+
+      <UserCounter />
 
       {/* No más Alucinaciones Section */}
       <section className="py-24 px-8 bg-black relative border-y border-white/5">
