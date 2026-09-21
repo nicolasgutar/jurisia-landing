@@ -80,61 +80,104 @@ export default function Home() {
       <section className="relative pt-32 pb-20 px-8 overflow-hidden bg-black">
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
           <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary/5 blur-[120px]"></div>
+          <div className="absolute bottom-[-15%] right-[-5%] w-[45%] h-[45%] rounded-full bg-primary/[0.04] blur-[140px]"></div>
+          <div
+            className="absolute inset-0 opacity-[0.04]"
+            style={{
+              backgroundImage:
+                'radial-gradient(circle, #b5c8e2 1px, transparent 1px)',
+              backgroundSize: '36px 36px',
+              maskImage:
+                'radial-gradient(ellipse 60% 60% at 50% 40%, black, transparent)',
+            }}
+          ></div>
         </div>
         
-        <div className="max-w-screen-xl mx-auto relative z-10 grid lg:grid-cols-2 gap-12 items-center">
-          <motion.div 
+        <div className="max-w-screen-xl mx-auto relative z-10 space-y-16">
+          {/* Row 1: full-width title, centered like the sections below */}
+          <motion.div
             initial="hidden"
             animate="visible"
             variants={containerVariants}
-            className="space-y-8"
+            className="max-w-4xl mx-auto text-center"
           >
-            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-primary text-xs font-bold tracking-widest uppercase">
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-              La autoridad en Derecho Colombiano
-            </motion.div>
-            
             <motion.h1 variants={itemVariants} className="text-5xl lg:text-7xl font-extrabold font-headline leading-tight tracking-tight text-on-surface">
               Legisia: La inteligencia artificial que <span className="text-primary">evoluciona el derecho.</span>
             </motion.h1>
-            
-            <motion.p variants={itemVariants} className="text-xl text-on-surface-variant max-w-xl font-light leading-relaxed">
-              Precisión jurídica sin precedentes. Potenciado por modelos de lenguaje de última generación optimizados exclusivamente para la legislación y jurisprudencia colombiana.
-            </motion.p>
-            
-            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 pt-4">
-              <a href="https://app.legisia.co" target="_blank" rel="noopener noreferrer" onClick={() => trackMetaCustomEvent('ClickToApp')} className="bg-white text-black px-10 py-4 text-lg font-bold rounded-lg flex items-center justify-center gap-2 group hover:bg-on-surface transition-all duration-200">
-                Comenzar Ahora
-                <motion.span
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{ repeat: Infinity, duration: 1.5 }}
-                >
-                  <ArrowRight className="w-5 h-5" />
-                </motion.span>
-              </a>
-            </motion.div>
-            
-            <motion.div variants={itemVariants} className="flex items-center gap-3 pt-4">
-              <div className="px-3 py-1 bg-green-500/10 border border-green-500/20 rounded text-green-400 text-[10px] font-bold uppercase tracking-wider flex items-center gap-2">
-                <Shield className="w-3 h-3" />
-                ZERO DATA RETENTION (ZDR) ACTIVE
-              </div>
-              <span className="text-xs text-on-surface-variant/60 italic font-light">Tus datos nunca son usados para entrenar modelos.</span>
-            </motion.div>
           </motion.div>
-          
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="relative flex justify-center items-center h-[400px] bg-black"
-          >
-            <img
-              alt="Legal AI Icon"
-              className="w-64 h-auto object-contain opacity-90"
-              src="/logo.png"
-            />
-          </motion.div>
+
+          {/* Row 2: description + CTA alongside the visual */}
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={containerVariants}
+              className="space-y-8"
+            >
+              <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-primary text-xs font-bold tracking-widest uppercase">
+                <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                La autoridad en Derecho Colombiano
+              </motion.div>
+
+              <motion.p variants={itemVariants} className="text-xl text-on-surface-variant max-w-xl font-light leading-relaxed">
+                Precisión jurídica sin precedentes. Potenciado por modelos de lenguaje de última generación optimizados exclusivamente para la legislación y jurisprudencia colombiana.
+              </motion.p>
+
+              <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 pt-4">
+                <a href="https://app.legisia.co" target="_blank" rel="noopener noreferrer" onClick={() => trackMetaCustomEvent('ClickToApp')} className="bg-white text-black px-10 py-4 text-lg font-bold rounded-lg flex items-center justify-center gap-2 group hover:bg-on-surface transition-all duration-200">
+                  Comenzar Ahora
+                  <motion.span
+                    animate={{ x: [0, 5, 0] }}
+                    transition={{ repeat: Infinity, duration: 1.5 }}
+                  >
+                    <ArrowRight className="w-5 h-5" />
+                  </motion.span>
+                </a>
+              </motion.div>
+
+              <motion.div variants={itemVariants} className="flex items-center gap-3 pt-4">
+                <div className="px-3 py-1 bg-green-500/10 border border-green-500/20 rounded text-green-400 text-[10px] font-bold uppercase tracking-wider flex items-center gap-2">
+                  <Shield className="w-3 h-3" />
+                  ZERO DATA RETENTION (ZDR) ACTIVE
+                </div>
+                <span className="text-xs text-on-surface-variant/60 italic font-light">Tus datos nunca son usados para entrenar modelos.</span>
+              </motion.div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              className="relative flex justify-center items-center h-[420px]"
+            >
+              {/* Soft glow behind the mark */}
+              <div className="absolute w-[380px] h-[380px] rounded-full bg-primary/10 blur-[110px]" />
+
+              {/* Concentric orbit rings, echoing the mark's circuit motif */}
+              <motion.div
+                className="absolute w-[360px] h-[360px] rounded-full border border-primary/10"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 50, repeat: Infinity, ease: 'linear' }}
+              >
+                <span className="absolute top-0 left-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/50" />
+              </motion.div>
+              <motion.div
+                className="absolute w-[280px] h-[280px] rounded-full border border-primary/[0.08]"
+                animate={{ rotate: -360 }}
+                transition={{ duration: 70, repeat: Infinity, ease: 'linear' }}
+              >
+                <span className="absolute bottom-0 left-1/2 h-1.5 w-1.5 -translate-x-1/2 translate-y-1/2 rounded-full bg-primary/30" />
+              </motion.div>
+
+              <motion.img
+                alt="Legal AI Icon"
+                className="relative w-56 h-auto object-contain drop-shadow-[0_0_50px_rgba(181,200,226,0.25)]"
+                src="/logo.png"
+                animate={{ y: [0, -14, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+              />
+            </motion.div>
+          </div>
         </div>
       </section>
 
