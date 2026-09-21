@@ -11,6 +11,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Pricing from './pages/Pricing';
 import UseCases from './pages/UseCases';
+import DataPolicy from './pages/DataPolicy';
 import { motion, AnimatePresence } from 'motion/react';
 
 function App() {
@@ -25,6 +26,9 @@ function App() {
               <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
               <Route path="/precios" element={<PageWrapper><Pricing /></PageWrapper>} />
               <Route path="/casos-de-uso" element={<PageWrapper><UseCases /></PageWrapper>} />
+              <Route path="/politica-de-tratamiento-de-datos" element={<PageWrapper><DataPolicy /></PageWrapper>} />
+              <Route path="/politica-de-privacidad" element={<PageWrapper><DataPolicy /></PageWrapper>} />
+              <Route path="/privacidad" element={<PageWrapper><DataPolicy /></PageWrapper>} />
             </Routes>
           </AnimatePresence>
         </main>

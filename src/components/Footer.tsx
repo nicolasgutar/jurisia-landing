@@ -18,10 +18,11 @@ export default function Footer() {
           />
           <span className="font-headline font-extrabold text-xl tracking-tight text-white">LegisIA</span>
         </div>
-        <div className="flex gap-8 text-primary-container font-headline text-xs uppercase tracking-widest text-center">
+        <div className="flex flex-wrap justify-center gap-6 md:gap-8 text-on-surface-variant font-headline text-xs uppercase tracking-widest text-center">
           <Link to="/" className="hover:text-primary transition-colors">Jurisprudencia</Link>
           <Link to="/precios" className="hover:text-primary transition-colors">Precios</Link>
           <Link to="/casos-de-uso" className="hover:text-primary transition-colors">Casos de Uso</Link>
+          <Link to="/politica-de-tratamiento-de-datos" className="hover:text-primary transition-colors">Política de Tratamiento de Datos</Link>
         </div>
         <div className="flex gap-6">
           {socialLinks.map(({ name, href, Icon }) => (
@@ -31,14 +32,14 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={name}
-              className="text-primary-container hover:text-primary transition-colors"
+              className="text-on-surface-variant hover:text-primary transition-colors"
             >
               <Icon className="w-5 h-5" />
             </a>
           ))}
         </div>
-        <div className="text-primary-container/60 font-headline text-[10px] uppercase tracking-widest text-center">
-          © 2024 Legisia. Digital Authority.
+        <div className="text-on-surface-variant/60 font-headline text-[10px] uppercase tracking-widest text-center">
+          © {new Date().getFullYear()} Legisia • PVGA S.A.S. Todos los derechos reservados.
         </div>
       </div>
     </footer>
