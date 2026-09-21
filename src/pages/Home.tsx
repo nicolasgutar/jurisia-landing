@@ -41,9 +41,30 @@ const itemVariants = {
 export default function Home() {
   const [activeTab, setActiveTab] = useState<'jurisprudencia' | 'normatividad'>('jurisprudencia');
 
+  // Keep in sync with App/lib/legal-filters.ts's LEGAL_CATEGORIES — that's
+  // the canonical list of what's actually indexed and searchable.
   const knowledgeBase = {
-    jurisprudencia: ["Corte Constitucional", "Corte Suprema", "Consejo de Estado", "SIC"],
-    normatividad: ["Leyes", "Decretos", "Código Civil", "Código Penal", "Código de Comercio"]
+    jurisprudencia: [
+      "Corte Constitucional",
+      "Corte Suprema",
+      "Consejo de Estado",
+      "SIC",
+      "Comunidad Andina",
+    ],
+    normatividad: [
+      "Leyes",
+      "Decretos",
+      "Código Civil",
+      "Código Penal",
+      "Código de Comercio",
+      "Código General del Proceso",
+      "CPACA",
+      "DIAN",
+      "Mintransporte",
+      "Supersociedades",
+      "CREG",
+      "Superservicios",
+    ],
   };
 
   return (
