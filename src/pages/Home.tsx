@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, Shield, CheckCircle, FileCheck, Gavel, FileText, Lock, Plus, Lightbulb } from 'lucide-react';
+import { ArrowRight, Shield, CheckCircle, FileCheck, Gavel, FileText, Lock, Plus, Lightbulb, Quote } from 'lucide-react';
 import { cn } from '@/src/lib/utils';
 import SEO from '@/src/components/SEO';
 import StatsSection from '@/src/components/StatsSection';
@@ -66,6 +66,24 @@ export default function Home() {
       "Superservicios",
     ],
   };
+
+  const testimonials = [
+    {
+      quote:
+        "Definitivamente Legisia es lo máximo, me ha servido demasiado. Tengo unos casos que no son de mi especialidad y la he usado demasiado para orientarme. Todos los abogados de mi oficina la usan. Funciona super bien, da más de lo que uno pide.",
+      role: "Socio, Firma de Abogados",
+    },
+    {
+      quote:
+        "Legisia es demasiado útil para el negocio de Energía. Aunque yo no sea abogado, cada que llega un proyecto o una nueva oportunidad es muy bueno para revisar bajo qué figura legal se puede implementar.",
+      role: "CFO, empresa de Energía",
+    },
+    {
+      quote:
+        "Desde que conozco esta IA, he venido usándola. Me ha ido muy bien. Hasta ahora es la mejor herramienta para la búsqueda de jurisprudencia. En la oficina somos 30 abogados y nos ha gustado.",
+      role: "Asociado, Firma de abogados",
+    },
+  ];
 
   return (
     <div className="relative">
@@ -342,6 +360,37 @@ export default function Home() {
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full text-primary text-[10px] font-bold uppercase tracking-widest">
               Nuevas fuentes próximamente <Plus className="w-3 h-3" />
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-24 px-8 bg-black border-b border-white/5">
+        <div className="max-w-screen-xl mx-auto">
+          <div className="mb-16 text-center space-y-4">
+            <h2 className="text-sm font-bold text-primary tracking-[0.3em] uppercase">Lo Que Dicen Nuestros Usuarios</h2>
+            <h3 className="text-4xl font-headline font-extrabold">Confianza Real de Profesionales</h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {testimonials.map((t, i) => (
+              <motion.div
+                key={t.role}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="bg-white/5 p-8 rounded-xl border border-white/10 flex flex-col hover:border-primary/30 transition-all"
+              >
+                <Quote className="w-8 h-8 text-primary/40 mb-6" />
+                <p className="text-on-surface-variant font-light leading-relaxed flex-1">
+                  {t.quote}
+                </p>
+                <div className="mt-8 pt-6 border-t border-white/10">
+                  <p className="text-xs font-bold text-on-surface uppercase tracking-widest">{t.role}</p>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
