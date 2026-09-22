@@ -46,7 +46,7 @@ export default function UseCases() {
             <div className="w-12 h-12 rounded bg-white/5 flex items-center justify-center mb-8 group-hover:bg-primary/10 transition-colors">
               <GavelIcon className="text-primary w-8 h-8" />
             </div>
-            <h3 className="text-3xl font-bold text-on-surface mb-4 font-headline">Preparación de Litigio</h3>
+            <h3 className="text-2xl font-bold text-on-surface mb-4 font-headline">Preparación de Litigio</h3>
             <p className="text-on-surface-variant text-lg leading-relaxed max-w-md font-sans font-light">
               Búsqueda de precedentes exactos en minutos. Identifique líneas jurisprudenciales sólidas que respalden su teoría del caso con precisión quirúrgica.
             </p>
@@ -68,7 +68,7 @@ export default function UseCases() {
             <Description className="text-primary w-8 h-8" />
           </div>
           <h3 className="text-2xl font-bold text-on-surface mb-4 font-headline">Redacción de Tutelas</h3>
-          <p className="text-on-surface-variant leading-relaxed font-sans font-light">
+          <p className="text-on-surface-variant text-lg leading-relaxed font-sans font-light">
             Generación de borradores estructurados con base en jurisprudencia vigente. Automatice la protección de derechos fundamentales con argumentos actualizados.
           </p>
           <a href="https://app.legisia.co" target="_blank" rel="noopener noreferrer" onClick={() => trackMetaCustomEvent('ClickToApp')} className="mt-auto pt-8 flex items-center gap-2 text-primary font-medium group font-sans">
@@ -83,7 +83,7 @@ export default function UseCases() {
             <ShieldIcon className="text-primary w-8 h-8" />
           </div>
           <h3 className="text-2xl font-bold text-on-surface mb-4 font-headline">Debida Diligencia (Due Diligence)</h3>
-          <p className="text-on-surface-variant leading-relaxed font-sans font-light">
+          <p className="text-on-surface-variant text-lg leading-relaxed font-sans font-light">
             Análisis masivo de contratos para identificar riesgos y cláusulas abusivas. Mitigue contingencias legales mediante escaneo profundo impulsado por IA.
           </p>
           <a href="https://app.legisia.co" target="_blank" rel="noopener noreferrer" onClick={() => trackMetaCustomEvent('ClickToApp')} className="mt-auto pt-8 flex items-center gap-2 text-primary font-medium group font-sans">
@@ -98,7 +98,7 @@ export default function UseCases() {
             <div className="w-12 h-12 rounded bg-white/5 flex items-center justify-center mb-8 group-hover:bg-primary/10 transition-colors">
               <ChatBubble className="text-primary w-8 h-8" />
             </div>
-            <h3 className="text-3xl font-bold text-on-surface mb-4 font-headline">Derecho de Petición</h3>
+            <h3 className="text-2xl font-bold text-on-surface mb-4 font-headline">Derecho de Petición</h3>
             <p className="text-on-surface-variant text-lg leading-relaxed font-sans font-light">
               Respuesta rápida y fundamentada a solicitudes ciudadanas. Gestione volúmenes altos de peticiones manteniendo la calidad jurídica en cada respuesta.
             </p>
