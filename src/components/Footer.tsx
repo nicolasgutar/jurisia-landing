@@ -1,9 +1,31 @@
+import type { SVGProps } from 'react';
 import { Link } from 'react-router-dom';
-import { Linkedin, Instagram } from 'lucide-react';
+import { Linkedin, Instagram, Facebook } from 'lucide-react';
+
+// lucide-react has no TikTok icon — same outline style as the others
+// (glyph from Tabler Icons, MIT).
+function TikTok(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <path d="M21 7.917v4.034a9.948 9.948 0 0 1 -5 -1.951v4.5a6.5 6.5 0 1 1 -8 -6.326v4.326a2.5 2.5 0 1 0 4 2v-11.5h4.083a6.005 6.005 0 0 0 4.917 4.917z" />
+    </svg>
+  );
+}
 
 const socialLinks = [
   { name: 'LinkedIn', href: 'https://www.linkedin.com/company/legisia/', Icon: Linkedin },
   { name: 'Instagram', href: 'https://www.instagram.com/legisiaco/', Icon: Instagram },
+  { name: 'TikTok', href: 'https://www.tiktok.com/@legisiaco', Icon: TikTok },
+  { name: 'Facebook', href: 'https://www.facebook.com/legisiaco', Icon: Facebook },
 ];
 
 export default function Footer() {
