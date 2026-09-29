@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
 
-// Keep in sync with public/sitemap.xml. Alias routes (/privacidad, /tyc, ...)
+// Keep in sync with public/sitemap-pages.xml. Alias routes (/privacidad, /tyc, ...)
 // aren't listed: nginx 301-redirects them to these canonical paths.
 const ROUTES = [
   '/',
