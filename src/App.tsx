@@ -12,6 +12,7 @@ import Home from './pages/Home';
 import Pricing from './pages/Pricing';
 import UseCases from './pages/UseCases';
 import DataPolicy from './pages/DataPolicy';
+import Terms from './pages/Terms';
 import { motion, AnimatePresence } from 'motion/react';
 
 function App() {
@@ -29,6 +30,9 @@ function App() {
               <Route path="/politica-de-tratamiento-de-datos" element={<PageWrapper><DataPolicy /></PageWrapper>} />
               <Route path="/politica-de-privacidad" element={<PageWrapper><DataPolicy /></PageWrapper>} />
               <Route path="/privacidad" element={<PageWrapper><DataPolicy /></PageWrapper>} />
+              <Route path="/terminos-y-condiciones" element={<PageWrapper><Terms /></PageWrapper>} />
+              <Route path="/terminos" element={<PageWrapper><Terms /></PageWrapper>} />
+              <Route path="/tyc" element={<PageWrapper><Terms /></PageWrapper>} />
             </Routes>
           </AnimatePresence>
         </main>
