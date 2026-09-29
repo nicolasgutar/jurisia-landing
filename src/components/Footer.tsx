@@ -46,6 +46,7 @@ export default function Footer() {
           <Link to="/casos-de-uso" className="hover:text-primary transition-colors">Casos de Uso</Link>
           {/* Served by the App through nginx, not an SPA route: plain <a> */}
           <a href="/blog" className="hover:text-primary transition-colors">Blog</a>
+          <a href="/jurisprudencia" className="hover:text-primary transition-colors">Base de Jurisprudencia</a>
           <Link to="/politica-de-tratamiento-de-datos" className="hover:text-primary transition-colors">Política de Tratamiento de Datos</Link>
           <Link to="/terminos-y-condiciones" className="hover:text-primary transition-colors">Términos y Condiciones</Link>
         </div>
