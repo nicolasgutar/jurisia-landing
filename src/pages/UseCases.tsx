@@ -7,7 +7,7 @@ export default function UseCases() {
   return (
     <main className="pt-32 pb-20 px-6 md:px-12 lg:px-24 bg-[#000000] min-h-screen">
       <SEO
-        title="Casos de Uso | Legisia"
+        title="Casos de Uso"
         description="Descubra cómo Legisia transforma la práctica jurídica en Colombia: preparación de litigios, redacción de tutelas, due diligence contractual y derechos de petición con IA especializada."
         canonical="https://legisia.co/casos-de-uso"
       />
@@ -53,10 +53,11 @@ export default function UseCases() {
           </div>
           <div className="mt-12 h-48 w-full bg-white/5 rounded overflow-hidden relative">
             <img 
-              alt="Digital legal dashboard showing complex networks of precedents" 
+              alt="Red de precedentes jurisprudenciales conectados" 
               className="w-full h-full object-cover mix-blend-luminosity opacity-40 group-hover:opacity-60 transition-opacity" 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBje20xEVz6EwHlHuvzg5wTDZ-KFAVLvM2xFrf1H0dqETATnc2E1G_ZzCURQVio51Qk-jtnosX3w9r16Kx25dUxrF6FsbtEh_tYYDXgEdPEnPHdhdS_tqaV6ksZnR_uwLjaN4Z2ajTdam9o_97-KYtoTa83JMGq0QO2AC_-ArFrHFgISjOwhsNnOkPMHlhRrayRT_e2K2mT9zWc6s5MrCduN844a0FU7sT1wyTxeJXP98mYkR-FJhYrsyOQbIQ5CZYmKQjqLBq_K2qh"
-              referrerPolicy="no-referrer"
+              src="/images/caso-litigio.webp"
+              loading="lazy"
+              decoding="async"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
           </div>
@@ -109,10 +110,11 @@ export default function UseCases() {
           </div>
           <div className="w-full md:w-1/3 aspect-square bg-white/5 rounded-full overflow-hidden relative group-hover:scale-105 transition-transform">
             <img 
-              alt="Abstract visualization of digital ink" 
+              alt="Firma digital sobre un documento legal" 
               className="w-full h-full object-cover opacity-50" 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJFd4IBjIlpPzxpYi2Va6lYSzzU9dI_L2gCNpxPs1s0HfAkzjrBc-fmdAsrvc0lsEqlF5EKU-DAOvwrn95WiiwYU8q27nwJC-JnukqrrDj8D8-isXFR2Mpvxn8HMXcxZq53bct4IwtCEFjtIYJO2PmyiVBZOvIdFmY8KiaDN3UW0VoxM7uXyp4uytes7hAt9-E1FEihcjd1J6po22ch-DbiDiuziBNKBcUT0ct0gRNJ-SeCGmp4RylgxfdOYJmYZ0y9a4VpHG61_Gt"
-              referrerPolicy="no-referrer"
+              src="/images/caso-peticion.webp"
+              loading="lazy"
+              decoding="async"
             />
             <div className="absolute inset-0 bg-black/20"></div>
           </div>

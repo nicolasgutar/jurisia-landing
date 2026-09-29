@@ -1,0 +1,7 @@
+# Never bake local env files (e.g. a localhost VITE_APP_API_URL) into an image
+.env*
+!.env.example
+node_modules
+dist
+dist-ssr
+.git

@@ -8,19 +8,44 @@ import { trackMetaCustomEvent } from '@/src/lib/meta-pixel';
 
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'SoftwareApplication',
-  name: 'Legisia',
-  applicationCategory: 'LegalApplication',
-  operatingSystem: 'Web',
-  description: 'Plataforma de inteligencia artificial especializada en jurisprudencia y legislación colombiana. Acceso semántico a la Corte Constitucional, Corte Suprema y Consejo de Estado con Zero Data Retention.',
-  url: 'https://legisia.co',
-  offers: { '@type': 'Offer', price: '0', priceCurrency: 'COP' },
-  inLanguage: 'es-CO',
-  publisher: {
-    '@type': 'Organization',
-    name: 'Legisia',
-    url: 'https://legisia.co',
-  },
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://legisia.co/#organization',
+      name: 'LegisIA',
+      legalName: 'PVGA S.A.S.',
+      url: 'https://legisia.co',
+      logo: 'https://legisia.co/legisia-icon.jpg',
+      // Keep in sync with socialLinks in src/components/Footer.tsx
+      sameAs: [
+        'https://www.linkedin.com/company/legisia/',
+        'https://www.instagram.com/legisiaco/',
+        'https://www.tiktok.com/@legisiaco',
+        'https://www.facebook.com/legisiaco',
+      ],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://legisia.co/#website',
+      name: 'LegisIA',
+      url: 'https://legisia.co',
+      inLanguage: 'es-CO',
+      publisher: { '@id': 'https://legisia.co/#organization' },
+    },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'LegisIA',
+      applicationCategory: 'BusinessApplication',
+      applicationSubCategory: 'Legal',
+      operatingSystem: 'Web',
+      description:
+        'Asistente jurídico con inteligencia artificial especializado en derecho colombiano. Búsqueda semántica en jurisprudencia de la Corte Constitucional, Corte Suprema de Justicia, Consejo de Estado, SIC y Comunidad Andina, y en normatividad (leyes, decretos, códigos, DIAN, CREG y superintendencias). Zero Data Retention.',
+      url: 'https://app.legisia.co',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'COP' },
+      inLanguage: 'es-CO',
+      publisher: { '@id': 'https://legisia.co/#organization' },
+    },
+  ],
 };
 
 const containerVariants = {
@@ -88,7 +113,7 @@ export default function Home() {
   return (
     <div className="relative">
       <SEO
-        title="Legisia | Inteligencia Artificial para el Derecho Colombiano"
+        title="LegisIA | Inteligencia Artificial para el Derecho Colombiano"
         description="Precisión jurídica sin precedentes. IA especializada en jurisprudencia y legislación colombiana — Corte Constitucional, Corte Suprema, Consejo de Estado. Zero Data Retention garantizado."
         canonical="https://legisia.co/"
         jsonLd={jsonLd}
@@ -188,9 +213,11 @@ export default function Home() {
               </motion.div>
 
               <motion.img
-                alt="Legal AI Icon"
+                alt="Logo de LegisIA: balanza de la justicia con circuitos"
                 className="relative w-56 h-auto object-contain drop-shadow-[0_0_50px_rgba(181,200,226,0.25)]"
-                src="/logo.png"
+                src="/images/logo.webp"
+                width={224}
+                height={224}
                 animate={{ y: [0, -14, 0] }}
                 transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
               />
@@ -212,9 +239,13 @@ export default function Home() {
           >
             <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-2xl bg-white/5">
               <img
-                alt="Jurisprudencia verificable"
+                alt="LegisIA respondiendo una consulta jurídica con la sentencia original de la Corte Suprema abierta al lado"
                 className="w-full h-auto"
-                src="/product-screenshot.png"
+                src="/images/product-screenshot.webp"
+                width={1440}
+                height={658}
+                loading="lazy"
+                decoding="async"
               />
             </div>
           </motion.div>
@@ -247,8 +278,8 @@ export default function Home() {
       <section className="py-24 px-8 bg-black">
         <div className="max-w-screen-xl mx-auto">
           <div className="mb-20 text-center space-y-4">
-            <h2 className="text-sm font-bold text-primary tracking-[0.3em] uppercase">Capacidades del Sistema</h2>
-            <h3 className="text-4xl font-headline font-extrabold">Potencia Legal de Vanguardia</h3>
+            <p className="text-sm font-bold text-primary tracking-[0.3em] uppercase">Capacidades del Sistema</p>
+            <h2 className="text-4xl font-headline font-extrabold">Potencia Legal de Vanguardia</h2>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -284,7 +315,7 @@ export default function Home() {
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 text-primary">
                     <cap.icon className="w-6 h-6" />
                   </div>
-                  <h4 className="text-xl font-bold font-headline mb-4">{cap.title}</h4>
+                  <h3 className="text-xl font-bold font-headline mb-4">{cap.title}</h3>
                   <p className="text-on-surface-variant font-light leading-relaxed">
                     {cap.desc}
                   </p>
@@ -302,8 +333,8 @@ export default function Home() {
       <section className="py-24 px-8 bg-black border-y border-white/5">
         <div className="max-w-3xl mx-auto space-y-12">
           <div className="space-y-4 text-center">
-            <h2 className="text-sm font-bold text-primary tracking-[0.3em] uppercase">Infraestructura de Privacidad</h2>
-            <h3 className="text-4xl font-headline font-extrabold leading-tight">Privacidad Absoluta: Zero Data Retention</h3>
+            <p className="text-sm font-bold text-primary tracking-[0.3em] uppercase">Infraestructura de Privacidad</p>
+            <h2 className="text-4xl font-headline font-extrabold leading-tight">Privacidad Absoluta: Zero Data Retention</h2>
           </div>
           <div className="space-y-8">
             <p className="text-xl text-on-surface leading-relaxed text-center font-light">
@@ -317,7 +348,7 @@ export default function Home() {
       <section className="py-24 bg-black border-b border-white/5">
         <div className="max-w-4xl mx-auto px-8">
           <div className="mb-12 text-center">
-            <h3 className="text-2xl font-bold font-headline mb-4">Base de Conocimiento Actualizada</h3>
+            <h2 className="text-2xl font-bold font-headline mb-4">Base de Conocimiento Actualizada</h2>
             <p className="text-on-surface-variant font-light">Sincronización mes a mes con las fuentes oficiales</p>
           </div>
           
@@ -368,8 +399,8 @@ export default function Home() {
       <section className="py-24 px-8 bg-black border-b border-white/5">
         <div className="max-w-screen-xl mx-auto">
           <div className="mb-16 text-center space-y-4">
-            <h2 className="text-sm font-bold text-primary tracking-[0.3em] uppercase">Lo Que Dicen Nuestros Usuarios</h2>
-            <h3 className="text-4xl font-headline font-extrabold">Confianza Real de Profesionales</h3>
+            <p className="text-sm font-bold text-primary tracking-[0.3em] uppercase">Lo Que Dicen Nuestros Usuarios</p>
+            <h2 className="text-4xl font-headline font-extrabold">Confianza Real de Profesionales</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -398,7 +429,7 @@ export default function Home() {
       {/* Feedback Section */}
       <section className="py-24 px-8 bg-black">
         <div className="max-w-3xl mx-auto text-center space-y-8">
-          <h3 className="text-3xl font-headline font-extrabold">Ayúdanos a transformar el derecho</h3>
+          <h2 className="text-3xl font-headline font-extrabold">Ayúdanos a transformar el derecho</h2>
           <p className="text-on-surface-variant font-light">Legisia crece con la retroalimentación de los abogados colombianos. ¿Hay alguna función específica que necesites para tu práctica diaria?</p>
           <a href="https://forms.gle/CnXoCz6VGoy9aM5f7" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 bg-white/5 border border-white/10 text-on-surface px-8 py-4 text-lg font-bold rounded-lg hover:bg-primary hover:text-on-primary transition-all duration-300 group">
             Sugerir Funcionalidad
