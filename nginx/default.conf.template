@@ -21,6 +21,27 @@ server {
     gzip_types text/plain text/css text/xml application/xml application/javascript application/json image/svg+xml;
     gzip_min_length 1024;
 
+    # --- Public content served by the App (chat-jurisprudencia) ------------
+    # /blog and /jurisprudencia are Next.js pages rendered by the App's Cloud
+    # Run service; proxying them keeps their URLs on legisia.co so search
+    # ranking accrues to this domain. /_next/ carries those pages' JS, CSS and
+    # fonts. `^~` stops the static-file regex location below from hijacking
+    # proxied .png/.woff2 requests.
+    #
+    # This file is an nginx:alpine *template*: ${APP_UPSTREAM} and
+    # ${APP_UPSTREAM_HOST} are filled from env vars at container start (see
+    # Dockerfile; override them to point at a local App dev server). The
+    # resolver + variable proxy_pass makes nginx re-resolve the App's hostname
+    # instead of pinning the IP it saw at startup.
+    resolver ${NGINX_LOCAL_RESOLVERS} valid=300s ipv6=off;
+    set $app_upstream ${APP_UPSTREAM};
+
+    location = /blog                { proxy_pass $app_upstream; include /etc/nginx/conf.d/app-proxy.inc; }
+    location ^~ /blog/              { proxy_pass $app_upstream; include /etc/nginx/conf.d/app-proxy.inc; }
+    location = /jurisprudencia      { proxy_pass $app_upstream; include /etc/nginx/conf.d/app-proxy.inc; }
+    location ^~ /jurisprudencia/    { proxy_pass $app_upstream; include /etc/nginx/conf.d/app-proxy.inc; }
+    location ^~ /_next/             { proxy_pass $app_upstream; include /etc/nginx/conf.d/app-proxy.inc; }
+
     # Legacy/alias paths → their canonical URL
     location = /politica-de-privacidad { return 301 /politica-de-tratamiento-de-datos; }
     location = /privacidad             { return 301 /politica-de-tratamiento-de-datos; }

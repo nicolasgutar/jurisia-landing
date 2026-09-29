@@ -387,7 +387,11 @@ export default function Home() {
             ))}
           </div>
           
-          <div className="mt-12 text-center">
+          <div className="mt-12 flex flex-col items-center gap-6 text-center">
+            {/* Served by the App through nginx, not an SPA route: plain <a> */}
+            <a href="/jurisprudencia" className="text-primary text-sm font-headline font-bold hover:text-white transition-colors">
+              Explora las sentencias más consultadas, resumidas y con texto completo →
+            </a>
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full text-primary text-[10px] font-bold uppercase tracking-widest">
               Nuevas fuentes próximamente <Plus className="w-3 h-3" />
             </div>

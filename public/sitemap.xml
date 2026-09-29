@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Keep in sync with ROUTES in scripts/prerender.mjs -->
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://legisia.co/</loc><lastmod>2026-09-29</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://legisia.co/precios</loc><lastmod>2026-09-29</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://legisia.co/casos-de-uso</loc><lastmod>2026-09-29</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://legisia.co/politica-de-tratamiento-de-datos</loc><lastmod>2026-09-29</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://legisia.co/terminos-y-condiciones</loc><lastmod>2026-09-29</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
-</urlset>
+<!-- Sitemap index (submitted to Google Search Console and Bing).
+     - sitemap-pages.xml: static Landing pages (this repo)
+     - blog/sitemap.xml, jurisprudencia/sitemap.xml: generated from the
+       database by the App, proxied here -->
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap><loc>https://legisia.co/sitemap-pages.xml</loc></sitemap>
+  <sitemap><loc>https://legisia.co/blog/sitemap.xml</loc></sitemap>
+  <sitemap><loc>https://legisia.co/jurisprudencia/sitemap.xml</loc></sitemap>
+</sitemapindex>

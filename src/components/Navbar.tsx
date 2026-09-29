@@ -13,6 +13,9 @@ export default function Navbar() {
     { name: 'Jurisprudencia', href: '/' },
     { name: 'Precios', href: '/precios' },
     { name: 'Casos de Uso', href: '/casos-de-uso' },
+    // Served by the App through nginx (not a route in this SPA), so it needs
+    // a full page load: rendered as <a>, not react-router's <Link>.
+    { name: 'Blog', href: '/blog', external: true },
   ];
 
   return (
@@ -29,20 +32,19 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              to={link.href}
-              className={cn(
-                "text-sm font-medium transition-colors duration-300",
-                location.pathname === link.href
-                  ? "text-white font-semibold border-b border-white/50 pb-1"
-                  : "text-on-surface-variant hover:text-white"
-              )}
-            >
-              {link.name}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const className = cn(
+              "text-sm font-medium transition-colors duration-300",
+              location.pathname === link.href
+                ? "text-white font-semibold border-b border-white/50 pb-1"
+                : "text-on-surface-variant hover:text-white"
+            );
+            return link.external ? (
+              <a key={link.name} href={link.href} className={className}>{link.name}</a>
+            ) : (
+              <Link key={link.name} to={link.href} className={className}>{link.name}</Link>
+            );
+          })}
         </div>
 
         <div className="flex items-center gap-4">
@@ -70,21 +72,19 @@ export default function Navbar() {
             className="md:hidden overflow-hidden border-t border-white/5 bg-black/95"
           >
             <div className="flex flex-col px-8 py-4 gap-1">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  className={cn(
-                    "text-sm font-medium py-3 border-b border-white/5 last:border-0 transition-colors duration-300",
-                    location.pathname === link.href
-                      ? "text-white font-semibold"
-                      : "text-on-surface-variant hover:text-white"
-                  )}
-                >
-                  {link.name}
-                </Link>
-              ))}
+              {navLinks.map((link) => {
+                const className = cn(
+                  "text-sm font-medium py-3 border-b border-white/5 last:border-0 transition-colors duration-300",
+                  location.pathname === link.href
+                    ? "text-white font-semibold"
+                    : "text-on-surface-variant hover:text-white"
+                );
+                return link.external ? (
+                  <a key={link.name} href={link.href} className={className}>{link.name}</a>
+                ) : (
+                  <Link key={link.name} to={link.href} onClick={() => setMobileOpen(false)} className={className}>{link.name}</Link>
+                );
+              })}
             </div>
           </motion.div>
         )}
