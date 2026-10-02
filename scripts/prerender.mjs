@@ -17,6 +17,7 @@ const ROUTES = [
   '/casos-de-uso',
   '/politica-de-tratamiento-de-datos',
   '/terminos-y-condiciones',
+  '/mcp',
 ];
 
 const { render } = await import(path.join(root, 'dist-ssr/entry-server.js'));

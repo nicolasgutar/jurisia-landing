@@ -13,6 +13,7 @@ import Pricing from './pages/Pricing';
 import UseCases from './pages/UseCases';
 import DataPolicy from './pages/DataPolicy';
 import Terms from './pages/Terms';
+import Mcp from './pages/Mcp';
 import NotFound from './pages/NotFound';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -34,6 +35,7 @@ export function AppShell() {
             <Route path="/terminos-y-condiciones" element={<PageWrapper><Terms /></PageWrapper>} />
             <Route path="/terminos" element={<PageWrapper><Terms /></PageWrapper>} />
             <Route path="/tyc" element={<PageWrapper><Terms /></PageWrapper>} />
+            <Route path="/mcp" element={<PageWrapper><Mcp /></PageWrapper>} />
             <Route path="*" element={<PageWrapper><NotFound /></PageWrapper>} />
           </Routes>
         </AnimatePresence>
