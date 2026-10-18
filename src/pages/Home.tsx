@@ -18,7 +18,7 @@ const jsonLd = {
       alternateName: ['Enndor.ai', 'LegisIA'],
       legalName: 'PVGA S.A.S.',
       url: 'https://enndor.ai',
-      logo: 'https://enndor.ai/legisia-icon.jpg',
+      logo: 'https://enndor.ai/brand/enndor-icon-512.png',
       // Keep in sync with socialLinks in src/components/Footer.tsx
       sameAs: [
         'https://www.linkedin.com/company/legisia/',

@@ -2,27 +2,21 @@ import type { ReactNode, MouseEvent } from 'react';
 import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
 import DeltaBackground from '@/src/components/DeltaBackground';
-import { MARK_PATHS, MARK_STROKE_WIDTH, MARK_TILE_RADIUS, MARK_VIEWBOX } from '@/src/lib/logo';
 
 export const APP_URL = 'https://app.enndor.ai';
 
-// The "en" mark. Strokes take the active palette's accent and light tones;
-// the tile is a step lighter than the page so it reads on dark backgrounds.
+// The "en" app icon (the official logo artwork, public/brand/). 192px source
+// so it stays sharp up to ~96 CSS px on 2x screens.
 export function LogoMark({ className }: { className?: string }) {
   return (
-    <svg viewBox={MARK_VIEWBOX} className={cn('shrink-0', className)} aria-hidden="true">
-      <rect
-        width="100"
-        height="100"
-        rx={MARK_TILE_RADIUS}
-        style={{ fill: 'color-mix(in srgb, var(--color-white) 9%, var(--color-black))' }}
-      />
-      <g fill="none" strokeLinecap="round" strokeWidth={MARK_STROKE_WIDTH}>
-        {MARK_PATHS.map((p) => (
-          <path key={p.d} d={p.d} className={p.tone === 'accent' ? 'stroke-accent' : 'stroke-white'} />
-        ))}
-      </g>
-    </svg>
+    <img
+      src="/brand/enndor-icon-192.png"
+      alt=""
+      aria-hidden="true"
+      width={192}
+      height={192}
+      className={cn('shrink-0 rounded-[22%] ring-1 ring-white/10', className)}
+    />
   );
 }
 
