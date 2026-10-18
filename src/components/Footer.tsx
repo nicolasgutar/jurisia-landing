@@ -1,6 +1,7 @@
 import type { SVGProps } from 'react';
 import { Link } from 'react-router-dom';
 import { Linkedin, Instagram, Facebook } from 'lucide-react';
+import { Wordmark } from '@/src/components/Brand';
 
 // lucide-react has no TikTok icon — same outline style as the others
 // (glyph from Tabler Icons, MIT).
@@ -21,6 +22,7 @@ function TikTok(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+// The social handles are still the LegisIA ones until the accounts are renamed.
 const socialLinks = [
   { name: 'LinkedIn', href: 'https://www.linkedin.com/company/legisia/', Icon: Linkedin },
   { name: 'Instagram', href: 'https://www.instagram.com/legisiaco/', Icon: Instagram },
@@ -28,45 +30,65 @@ const socialLinks = [
   { name: 'Facebook', href: 'https://www.facebook.com/legisiaco', Icon: Facebook },
 ];
 
+const linkClass = 'text-sm text-on-surface-variant transition-colors hover:text-white';
+
 export default function Footer() {
   return (
-    <footer className="bg-black w-full py-12 px-8 border-t border-white/5">
-      <div className="max-w-7xl mx-auto flex flex-col items-center justify-center space-y-6">
-        <div className="flex items-center gap-3">
-          <img
-            alt="Legisia Footer Logo"
-            className="h-10 w-10 rounded-full object-cover"
-            src="/legisia-icon.jpg"
-          />
-          <span className="font-headline font-extrabold text-xl tracking-tight text-white">LegisIA</span>
+    <footer className="relative w-full overflow-hidden border-t border-white/[0.06] bg-black">
+      <div className="mx-auto grid max-w-7xl gap-12 px-6 pb-10 pt-16 md:grid-cols-12 md:px-8">
+        <div className="space-y-4 md:col-span-5">
+          <Wordmark className="text-2xl" />
+          <p className="max-w-xs text-sm font-light leading-relaxed text-on-surface-variant">
+            Inteligencia artificial para el derecho colombiano. Antes conocida como LegisIA.
+          </p>
+          <div className="flex gap-5 pt-2">
+            {socialLinks.map(({ name, href, Icon }) => (
+              <a
+                key={name}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={name}
+                className="text-on-surface-variant transition-colors hover:text-white"
+              >
+                <Icon className="h-4 w-4" />
+              </a>
+            ))}
+          </div>
         </div>
-        <div className="flex flex-wrap justify-center gap-6 md:gap-8 text-on-surface-variant font-headline text-xs uppercase tracking-widest text-center">
-          <Link to="/" className="hover:text-primary transition-colors">Jurisprudencia</Link>
-          <Link to="/precios" className="hover:text-primary transition-colors">Precios</Link>
-          <Link to="/casos-de-uso" className="hover:text-primary transition-colors">Casos de Uso</Link>
-          {/* Served by the App through nginx, not an SPA route: plain <a> */}
-          <a href="/blog" className="hover:text-primary transition-colors">Blog</a>
-          <a href="/jurisprudencia" className="hover:text-primary transition-colors">Base de Jurisprudencia</a>
-          <Link to="/politica-de-tratamiento-de-datos" className="hover:text-primary transition-colors">Política de Tratamiento de Datos</Link>
-          <Link to="/terminos-y-condiciones" className="hover:text-primary transition-colors">Términos y Condiciones</Link>
+
+        <div className="space-y-3 md:col-span-3">
+          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-white/30">Producto</p>
+          <div className="flex flex-col gap-2">
+            <Link to="/" className={linkClass}>Jurisprudencia</Link>
+            <Link to="/precios" className={linkClass}>Precios</Link>
+            <Link to="/casos-de-uso" className={linkClass}>Casos de Uso</Link>
+            <Link to="/mcp" className={linkClass}>Conector MCP</Link>
+          </div>
         </div>
-        <div className="flex gap-6">
-          {socialLinks.map(({ name, href, Icon }) => (
-            <a
-              key={name}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={name}
-              className="text-on-surface-variant hover:text-primary transition-colors"
-            >
-              <Icon className="w-5 h-5" />
-            </a>
-          ))}
+
+        <div className="space-y-3 md:col-span-4">
+          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-white/30">Recursos</p>
+          <div className="flex flex-col gap-2">
+            {/* Served by the App through nginx, not SPA routes: plain <a> */}
+            <a href="/blog" className={linkClass}>Blog</a>
+            <a href="/jurisprudencia" className={linkClass}>Base de Jurisprudencia</a>
+            <Link to="/politica-de-tratamiento-de-datos" className={linkClass}>Política de Tratamiento de Datos</Link>
+            <Link to="/terminos-y-condiciones" className={linkClass}>Términos y Condiciones</Link>
+          </div>
         </div>
-        <div className="text-on-surface-variant/60 font-headline text-[10px] uppercase tracking-widest text-center">
-          © {new Date().getFullYear()} Legisia • PVGA S.A.S. Todos los derechos reservados.
-        </div>
+      </div>
+
+      <div className="mx-auto flex max-w-7xl flex-col gap-2 px-6 pb-8 font-mono text-[10px] uppercase tracking-[0.2em] text-white/30 md:flex-row md:justify-between md:px-8">
+        <span>© {new Date().getFullYear()} Enndor • PVGA S.A.S. Todos los derechos reservados.</span>
+        <span>Hecho en Colombia</span>
+      </div>
+
+      {/* Oversized wordmark bleeding off the bottom edge */}
+      <div aria-hidden="true" className="pointer-events-none select-none overflow-hidden">
+        <p className="outline-text -mb-[0.28em] text-center font-headline text-[26vw] font-medium leading-none tracking-[-0.06em]">
+          enndor
+        </p>
       </div>
     </footer>
   );

@@ -22,6 +22,7 @@ import { motion, AnimatePresence } from 'motion/react';
 export function AppShell() {
   return (
     <div className="min-h-screen bg-surface flex flex-col">
+      <div className="grain" aria-hidden="true" />
       <Navbar />
       <main className="flex-grow">
         <AnimatePresence mode="wait">

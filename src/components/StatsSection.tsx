@@ -38,16 +38,16 @@ function AnimatedStat({
   }, [isInView, target]);
 
   return (
-    <div className="text-center space-y-2">
+    <div className="space-y-3 border-t border-white/[0.08] pt-6 text-left">
       <motion.p
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="text-5xl lg:text-6xl font-extrabold font-headline text-primary tabular-nums"
+        className="metallic-text font-headline text-5xl font-light tabular-nums tracking-[-0.04em] lg:text-7xl"
       >
         +{display.toLocaleString('es-CO')}
       </motion.p>
-      <p className="text-on-surface-variant font-light uppercase tracking-widest text-xs sm:text-sm">
+      <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-on-surface-variant">
         {label}
       </p>
     </div>
@@ -96,9 +96,9 @@ export default function StatsSection() {
   return (
     <section
       ref={sectionRef}
-      className="py-24 px-8 bg-black border-y border-white/5"
+      className="bg-black px-6 pb-28 md:px-8"
     >
-      <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-14 sm:gap-6">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 sm:grid-cols-3 sm:gap-8">
         <AnimatedStat
           target={liveStats?.userCount ?? null}
           isInView={isInView}

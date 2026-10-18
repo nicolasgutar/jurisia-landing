@@ -39,7 +39,7 @@ export default function Mcp() {
     <main className="pt-32 pb-20 px-6 md:px-12 lg:px-24 bg-[#000000] min-h-screen">
       <SEO
         title="Conector MCP"
-        description="Conecte Claude, ChatGPT o cualquier cliente MCP a la base de jurisprudencia y normatividad colombiana de Legisia."
+        description="Conecte Claude, ChatGPT o cualquier cliente MCP a la base de jurisprudencia y normatividad colombiana de Enndor."
         canonical="https://legisia.co/mcp"
       />
 
@@ -47,8 +47,8 @@ export default function Mcp() {
         <span className="text-primary font-sans uppercase tracking-widest text-xs mb-4 block">
           Para desarrolladores
         </span>
-        <h1 className="text-5xl md:text-7xl font-extrabold text-on-surface tracking-tight mb-8 font-headline">
-          Conector MCP de Legisia.
+        <h1 className="text-5xl md:text-7xl font-semibold text-on-surface tracking-tight mb-8 font-headline">
+          Conector MCP de Enndor.
         </h1>
         <p className="text-xl text-on-surface-variant max-w-2xl leading-relaxed font-sans font-light">
           Un servidor{' '}
@@ -85,7 +85,7 @@ export default function Mcp() {
         <p className="text-on-surface-variant text-lg leading-relaxed font-sans font-light mb-6">
           El conector usa OAuth 2.1 con PKCE y registro dinámico de clientes (RFC 7591) — un cliente MCP
           compatible lo detecta automáticamente, sin necesidad de pedir credenciales manualmente. Al
-          autenticarse, se le redirige a iniciar sesión en Legisia; <strong className="text-on-surface">no se requiere
+          autenticarse, se le redirige a iniciar sesión en Enndor; <strong className="text-on-surface">no se requiere
           cuenta</strong> — "Continuar como invitado" funciona igual de bien.
         </p>
         <p className="text-on-surface-variant text-base leading-relaxed font-sans font-light">
@@ -101,14 +101,14 @@ export default function Mcp() {
         </h2>
         <pre className="bg-white/5 card-border rounded-lg px-6 py-5 overflow-x-auto mb-4">
           <code className="text-primary font-mono text-sm md:text-base">
-            claude mcp add --transport http legisia https://app.legisia.co/mcp{'\n'}
-            claude mcp login legisia
+            claude mcp add --transport http enndor https://app.legisia.co/mcp{'\n'}
+            claude mcp login enndor
           </code>
         </pre>
         <p className="text-on-surface-variant text-base leading-relaxed font-sans font-light">
           El segundo comando abre el navegador para completar el inicio de sesión. Una vez conectado,{' '}
           <code className="text-primary font-mono text-sm">claude mcp list</code> debe mostrar{' '}
-          <code className="text-primary font-mono text-sm">legisia</code> como conectado.
+          <code className="text-primary font-mono text-sm">enndor</code> como conectado.
         </p>
       </section>
 

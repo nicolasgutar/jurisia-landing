@@ -1,13 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/src/lib/utils';
 import { trackMetaCustomEvent } from '@/src/lib/meta-pixel';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X } from 'lucide-react';
+import { ArrowUpRight, Menu, X } from 'lucide-react';
+import { APP_URL, Wordmark } from '@/src/components/Brand';
 
 export default function Navbar() {
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const navLinks = [
     { name: 'Jurisprudencia', href: '/' },
@@ -19,45 +28,60 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/5">
-      <div className="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
-        <Link to="/" className="flex items-center gap-2">
-          <img
-            alt="Legisia Logo"
-            className="h-8 w-8 rounded-full object-cover"
-            src="/legisia-icon.jpg"
-          />
-          <span className="font-headline font-extrabold text-lg tracking-tight text-white">LegisIA</span>
+    <nav
+      className={cn(
+        'fixed top-0 z-50 w-full border-b transition-all duration-500',
+        scrolled || mobileOpen
+          ? 'border-white/[0.06] bg-black/60 backdrop-blur-xl'
+          : 'border-transparent bg-transparent',
+      )}
+    >
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-8">
+        <Link to="/" className="flex items-center" aria-label="Enndor, inicio">
+          <Wordmark className="text-xl" />
         </Link>
 
         {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden items-center gap-8 md:flex">
           {navLinks.map((link) => {
             const className = cn(
-              "text-sm font-medium transition-colors duration-300",
-              location.pathname === link.href
-                ? "text-white font-semibold border-b border-white/50 pb-1"
-                : "text-on-surface-variant hover:text-white"
+              'relative text-sm transition-colors duration-300',
+              location.pathname === link.href ? 'text-white' : 'text-on-surface-variant hover:text-white',
+            );
+            const content = (
+              <>
+                {link.name}
+                {location.pathname === link.href && (
+                  <motion.span layoutId="nav-active" className="absolute -bottom-1.5 left-0 right-0 h-px bg-white/60" />
+                )}
+              </>
             );
             return link.external ? (
-              <a key={link.name} href={link.href} className={className}>{link.name}</a>
+              <a key={link.name} href={link.href} className={className}>{content}</a>
             ) : (
-              <Link key={link.name} to={link.href} className={className}>{link.name}</Link>
+              <Link key={link.name} to={link.href} className={className}>{content}</Link>
             );
           })}
         </div>
 
-        <div className="flex items-center gap-4">
-          <a href="https://app.legisia.co" target="_blank" rel="noopener noreferrer" onClick={() => trackMetaCustomEvent('ClickToApp')} className="bg-white text-black px-5 py-2 rounded-lg font-bold text-xs hover:bg-on-surface transition-all duration-200">
+        <div className="flex items-center gap-3">
+          <a
+            href={APP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => trackMetaCustomEvent('ClickToApp')}
+            className="group inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-xs font-medium text-black transition-all duration-300 hover:bg-white/85"
+          >
             Comenzar Ahora
+            <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </a>
           {/* Hamburger — mobile only */}
           <button
-            className="md:hidden text-white p-1"
-            onClick={() => setMobileOpen(prev => !prev)}
+            className="p-1 text-white md:hidden"
+            onClick={() => setMobileOpen((prev) => !prev)}
             aria-label="Toggle menu"
           >
-            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
       </div>
@@ -69,15 +93,13 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden overflow-hidden border-t border-white/5 bg-black/95"
+            className="overflow-hidden border-t border-white/5 md:hidden"
           >
-            <div className="flex flex-col px-8 py-4 gap-1">
+            <div className="flex flex-col gap-1 px-6 py-4">
               {navLinks.map((link) => {
                 const className = cn(
-                  "text-sm font-medium py-3 border-b border-white/5 last:border-0 transition-colors duration-300",
-                  location.pathname === link.href
-                    ? "text-white font-semibold"
-                    : "text-on-surface-variant hover:text-white"
+                  'border-b border-white/5 py-3 text-sm transition-colors duration-300 last:border-0',
+                  location.pathname === link.href ? 'text-white' : 'text-on-surface-variant hover:text-white',
                 );
                 return link.external ? (
                   <a key={link.name} href={link.href} className={className}>{link.name}</a>

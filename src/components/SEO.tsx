@@ -8,7 +8,7 @@ interface SEOProps {
   noindex?: boolean;
 }
 
-const SITE_NAME = 'LegisIA';
+const SITE_NAME = 'Enndor';
 const OG_IMAGE = 'https://legisia.co/images/og-legisia.jpg';
 
 // These tags end up in the static HTML of every route via the build-time
@@ -33,7 +33,7 @@ export default function SEO({ title, description, canonical, jsonLd, noindex }: 
       <meta property="og:image" content={OG_IMAGE} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
-      <meta property="og:image:alt" content="LegisIA: asistente jurídico con IA para el derecho colombiano" />
+      <meta property="og:image:alt" content="Enndor: asistente jurídico con IA para el derecho colombiano" />
       <meta property="og:locale" content="es_CO" />
 
       {/* Twitter Card */}

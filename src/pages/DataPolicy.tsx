@@ -7,8 +7,8 @@ export default function DataPolicy() {
   return (
     <div className="pt-28 pb-20 px-4 md:px-8 max-w-7xl mx-auto min-h-screen flex flex-col">
       <SEO
-        title="Política de Tratamiento de Datos Personales | LegisIA"
-        description="Política de Privacidad y Tratamiento de Datos Personales de LegisIA (PVGA S.A.S.). Documento normativo oficial."
+        title="Política de Tratamiento de Datos Personales | Enndor"
+        description="Política de Privacidad y Tratamiento de Datos Personales de Enndor (PVGA S.A.S.). Documento normativo oficial."
         canonical="https://legisia.co/politica-de-tratamiento-de-datos"
       />
 
@@ -19,7 +19,7 @@ export default function DataPolicy() {
             <Shield className="w-4 h-4" />
             <span>Documento Legal Oficial</span>
           </div>
-          <h1 className="font-headline text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight mb-2">
+          <h1 className="font-headline text-3xl md:text-5xl font-semibold text-white tracking-tight leading-tight mb-2">
             Política de Privacidad y Tratamiento de Datos
           </h1>
           <p className="text-xs text-on-surface-variant font-sans">
@@ -30,7 +30,7 @@ export default function DataPolicy() {
         <div className="flex items-center justify-center gap-3">
           <a
             href={pdfUrl}
-            download="260916 Legisia - PPTDP.pdf"
+            download="260916 Enndor - PPTDP.pdf"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs font-bold bg-white text-black hover:bg-slate-200 transition-all shadow-md"
           >
             <Download className="w-4 h-4" />
@@ -52,7 +52,7 @@ export default function DataPolicy() {
       <div className="flex-1 w-full bg-black/40 border border-white/10 rounded-2xl overflow-hidden shadow-2xl min-h-[750px] lg:min-h-[900px] flex flex-col">
         <iframe
           src={`${pdfUrl}#toolbar=1&navpanes=0`}
-          title="Política de Privacidad y Tratamiento de Datos Personales — Legisia"
+          title="Política de Privacidad y Tratamiento de Datos Personales — Enndor"
           className="w-full flex-1 min-h-[750px] lg:min-h-[900px] border-0"
         />
       </div>

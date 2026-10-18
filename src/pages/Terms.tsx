@@ -7,8 +7,8 @@ export default function Terms() {
   return (
     <div className="pt-28 pb-20 px-4 md:px-8 max-w-7xl mx-auto min-h-screen flex flex-col">
       <SEO
-        title="Términos y Condiciones de Uso | LegisIA"
-        description="Términos y Condiciones de Uso de la Plataforma Legisia (PVGA S.A.S.). Documento normativo oficial."
+        title="Términos y Condiciones de Uso | Enndor"
+        description="Términos y Condiciones de Uso de la Plataforma Enndor (PVGA S.A.S.). Documento normativo oficial."
         canonical="https://legisia.co/terminos-y-condiciones"
       />
 
@@ -19,7 +19,7 @@ export default function Terms() {
             <ScrollText className="w-4 h-4" />
             <span>Documento Legal Oficial</span>
           </div>
-          <h1 className="font-headline text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight mb-2">
+          <h1 className="font-headline text-3xl md:text-5xl font-semibold text-white tracking-tight leading-tight mb-2">
             Términos y Condiciones de Uso
           </h1>
           <p className="text-xs text-on-surface-variant font-sans">
@@ -30,7 +30,7 @@ export default function Terms() {
         <div className="flex items-center justify-center gap-3">
           <a
             href={pdfUrl}
-            download="260916 Legisia - TyC.pdf"
+            download="260916 Enndor - TyC.pdf"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs font-bold bg-white text-black hover:bg-slate-200 transition-all shadow-md"
           >
             <Download className="w-4 h-4" />
@@ -52,7 +52,7 @@ export default function Terms() {
       <div className="flex-1 w-full bg-black/40 border border-white/10 rounded-2xl overflow-hidden shadow-2xl min-h-[750px] lg:min-h-[900px] flex flex-col">
         <iframe
           src={`${pdfUrl}#toolbar=1&navpanes=0`}
-          title="Términos y Condiciones de Uso de la Plataforma Legisia"
+          title="Términos y Condiciones de Uso de la Plataforma Enndor"
           className="w-full flex-1 min-h-[750px] lg:min-h-[900px] border-0"
         />
       </div>

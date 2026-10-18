@@ -8,15 +8,15 @@ export default function UseCases() {
     <main className="pt-32 pb-20 px-6 md:px-12 lg:px-24 bg-[#000000] min-h-screen">
       <SEO
         title="Casos de Uso"
-        description="Descubra cómo Legisia transforma la práctica jurídica en Colombia: preparación de litigios, redacción de tutelas, due diligence contractual y derechos de petición con IA especializada."
+        description="Descubra cómo Enndor transforma la práctica jurídica en Colombia: preparación de litigios, redacción de tutelas, due diligence contractual y derechos de petición con IA especializada."
         canonical="https://legisia.co/casos-de-uso"
       />
 
       {/* Hero Header */}
       <header className="max-w-4xl mb-24">
         <span className="text-primary font-sans uppercase tracking-widest text-xs mb-4 block">Aplicación Práctica</span>
-        <h1 className="text-5xl md:text-7xl font-extrabold text-on-surface tracking-tight mb-8 font-headline">
-          Legisia en el ejercicio profesional.
+        <h1 className="text-5xl md:text-7xl font-semibold text-on-surface tracking-tight mb-8 font-headline">
+          Enndor en el ejercicio profesional.
         </h1>
         <p className="text-xl text-on-surface-variant max-w-2xl leading-relaxed font-sans font-light">
           Transformamos la complejidad jurídica en eficiencia operativa a través de IA especializada en el marco legal colombiano.

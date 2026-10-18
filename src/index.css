@@ -1,38 +1,102 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Manrope:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@200..800&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-headline: "Manrope", sans-serif;
-  
-  --color-primary: #b5c8e2;
-  --color-primary-container: #1a1c1e;
-  --color-on-primary: #2f4157;
-  --color-surface: #000000;
-  --color-on-surface: #e0e6ec;
-  --color-on-surface-variant: #a6acb1;
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-headline: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;
+  --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
+
+  /* Greyscale palette: the Enndor identity is monochrome, accents are
+     silver rather than the old LegisIA steel blue. */
+  --color-primary: #d4d4d4;
+  --color-primary-container: #1a1a1a;
+  --color-on-primary: #0a0a0a;
+  --color-surface: #050505;
+  --color-on-surface: #ededed;
+  --color-on-surface-variant: #a1a1a1;
   --color-outline-variant: #222222;
-  --color-surface-container-low: #101417;
+  --color-surface-container-low: #0f0f0f;
+
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-grain: grain 8s steps(10) infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes grain {
+    0%, 100% { transform: translate(0, 0); }
+    10% { transform: translate(-5%, -10%); }
+    30% { transform: translate(3%, -15%); }
+    50% { transform: translate(12%, 9%); }
+    70% { transform: translate(9%, 4%); }
+    90% { transform: translate(-1%, 7%); }
+  }
 }
 
 @layer utilities {
   .metallic-gradient {
-    background: linear-gradient(135deg, #ffffff 0%, #a8bad4 100%);
+    background: linear-gradient(135deg, #ffffff 0%, #8f8f8f 100%);
   }
   .metallic-cta {
-    background: linear-gradient(135deg, #b5c8e2 0%, #42546a 100%);
+    background: linear-gradient(135deg, #e5e5e5 0%, #6b6b6b 100%);
+  }
+  .metallic-text {
+    background: linear-gradient(180deg, #ffffff 20%, #7a7a7a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .outline-text {
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.18);
   }
   .glass-panel {
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(5, 5, 5, 0.75);
     backdrop-filter: blur(20px);
   }
   .card-border {
-    border: 1px solid rgba(181, 200, 226, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .hairline {
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  }
+  .mask-fade-x {
+    mask-image: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
   }
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-surface text-on-surface font-sans antialiased;
+  }
+  ::selection {
+    background: #ededed;
+    color: #050505;
+  }
+}
+
+/* Film grain over the whole page: an oversized tile so the jitter
+   animation never reveals an edge. */
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  z-index: 60;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: var(--animate-grain);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grain,
+  .animate-marquee {
+    animation: none;
   }
 }

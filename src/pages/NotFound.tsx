@@ -10,7 +10,7 @@ export default function NotFound() {
         noindex
       />
       <p className="text-sm font-bold text-primary tracking-[0.3em] uppercase mb-6">Error 404</p>
-      <h1 className="text-4xl lg:text-6xl font-extrabold font-headline mb-6">Página no encontrada</h1>
+      <h1 className="text-4xl lg:text-6xl font-semibold font-headline mb-6">Página no encontrada</h1>
       <p className="text-on-surface-variant font-light max-w-md mb-10">
         La página que buscas no existe o fue movida.
       </p>
