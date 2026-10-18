@@ -9,7 +9,7 @@ interface SEOProps {
 }
 
 const SITE_NAME = 'Enndor';
-const OG_IMAGE = 'https://legisia.co/images/og-legisia.jpg';
+const OG_IMAGE = 'https://enndor.ai/images/og-legisia.jpg';
 
 // These tags end up in the static HTML of every route via the build-time
 // prerender (scripts/prerender.mjs), so crawlers and link-preview bots that

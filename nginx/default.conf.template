@@ -1,9 +1,11 @@
 # Alternate hostnames mapped to this Cloud Run service → one canonical domain,
 # so search engines don't see the same site duplicated across domains.
+# enndor.ai is canonical; the LegisIA/JurisIA domains are kept only to
+# redirect old links (the path and query are preserved).
 server {
     listen 8080;
-    server_name www.legisia.co jurisia.app www.jurisia.app;
-    return 301 https://legisia.co$request_uri;
+    server_name www.enndor.ai legisia.co www.legisia.co jurisia.app www.jurisia.app;
+    return 301 https://enndor.ai$request_uri;
 }
 
 server {
@@ -23,7 +25,7 @@ server {
 
     # --- Public content served by the App (chat-jurisprudencia) ------------
     # /blog and /jurisprudencia are Next.js pages rendered by the App's Cloud
-    # Run service; proxying them keeps their URLs on legisia.co so search
+    # Run service; proxying them keeps their URLs on enndor.ai so search
     # ranking accrues to this domain. /_next/ carries those pages' JS, CSS and
     # fonts. `^~` stops the static-file regex location below from hijacking
     # proxied .png/.woff2 requests.

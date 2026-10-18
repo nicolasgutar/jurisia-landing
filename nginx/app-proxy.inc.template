@@ -1,6 +1,6 @@
 # Shared by every location that proxies to the App (see default.conf.template).
 # Cloud Run routes requests by Host header, so it must be the App's own
-# *.run.app hostname; the original legisia.co host goes in X-Forwarded-Host.
+# *.run.app hostname; the original enndor.ai host goes in X-Forwarded-Host.
 proxy_set_header Host ${APP_UPSTREAM_HOST};
 proxy_set_header X-Forwarded-Host $host;
 proxy_set_header X-Forwarded-Proto https;

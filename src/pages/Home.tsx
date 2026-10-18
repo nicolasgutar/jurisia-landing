@@ -13,12 +13,12 @@ const jsonLd = {
   '@graph': [
     {
       '@type': 'Organization',
-      '@id': 'https://legisia.co/#organization',
+      '@id': 'https://enndor.ai/#organization',
       name: 'Enndor',
       alternateName: ['Enndor.ai', 'LegisIA'],
       legalName: 'PVGA S.A.S.',
-      url: 'https://legisia.co',
-      logo: 'https://legisia.co/legisia-icon.jpg',
+      url: 'https://enndor.ai',
+      logo: 'https://enndor.ai/legisia-icon.jpg',
       // Keep in sync with socialLinks in src/components/Footer.tsx
       sameAs: [
         'https://www.linkedin.com/company/legisia/',
@@ -29,12 +29,12 @@ const jsonLd = {
     },
     {
       '@type': 'WebSite',
-      '@id': 'https://legisia.co/#website',
+      '@id': 'https://enndor.ai/#website',
       name: 'Enndor',
       alternateName: 'LegisIA',
-      url: 'https://legisia.co',
+      url: 'https://enndor.ai',
       inLanguage: 'es-CO',
-      publisher: { '@id': 'https://legisia.co/#organization' },
+      publisher: { '@id': 'https://enndor.ai/#organization' },
     },
     {
       '@type': 'SoftwareApplication',
@@ -48,7 +48,7 @@ const jsonLd = {
       url: APP_URL,
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'COP' },
       inLanguage: 'es-CO',
-      publisher: { '@id': 'https://legisia.co/#organization' },
+      publisher: { '@id': 'https://enndor.ai/#organization' },
     },
   ],
 };
@@ -356,7 +356,7 @@ export default function Home() {
       <SEO
         title="Enndor (antes LegisIA) | Inteligencia Artificial para el Derecho Colombiano"
         description="LegisIA ahora es Enndor. IA especializada en jurisprudencia y legislación colombiana — Corte Constitucional, Corte Suprema, Consejo de Estado. Zero Data Retention garantizado."
-        canonical="https://legisia.co/"
+        canonical="https://enndor.ai/"
         jsonLd={jsonLd}
       />
 

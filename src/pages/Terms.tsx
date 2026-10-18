@@ -9,7 +9,7 @@ export default function Terms() {
       <SEO
         title="Términos y Condiciones de Uso | Enndor"
         description="Términos y Condiciones de Uso de la Plataforma Enndor (PVGA S.A.S.). Documento normativo oficial."
-        canonical="https://legisia.co/terminos-y-condiciones"
+        canonical="https://enndor.ai/terminos-y-condiciones"
       />
 
       {/* Header */}

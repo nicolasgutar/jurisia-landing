@@ -4,7 +4,7 @@
      - blog/sitemap.xml, jurisprudencia/sitemap.xml: generated from the
        database by the App, proxied here -->
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <sitemap><loc>https://legisia.co/sitemap-pages.xml</loc></sitemap>
-  <sitemap><loc>https://legisia.co/blog/sitemap.xml</loc></sitemap>
-  <sitemap><loc>https://legisia.co/jurisprudencia/sitemap.xml</loc></sitemap>
+  <sitemap><loc>https://enndor.ai/sitemap-pages.xml</loc></sitemap>
+  <sitemap><loc>https://enndor.ai/blog/sitemap.xml</loc></sitemap>
+  <sitemap><loc>https://enndor.ai/jurisprudencia/sitemap.xml</loc></sitemap>
 </sitemapindex>

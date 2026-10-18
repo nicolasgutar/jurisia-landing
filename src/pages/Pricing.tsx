@@ -94,7 +94,7 @@ export default function Pricing() {
       <SEO
         title="Precios"
         description="Enndor es gratuito para todos los abogados colombianos en su fase de co-creación. Acceso ágil a la justicia mediante inteligencia artificial especializada en derecho colombiano."
-        canonical="https://legisia.co/precios"
+        canonical="https://enndor.ai/precios"
       />
 
       <PageHeader

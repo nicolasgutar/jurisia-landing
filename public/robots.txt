@@ -3,4 +3,4 @@ Allow: /
 # Ruling PDFs redirect to short-lived signed URLs; the ruling page carries the text.
 Disallow: /jurisprudencia/*/*/pdf
 
-Sitemap: https://legisia.co/sitemap.xml
+Sitemap: https://enndor.ai/sitemap.xml

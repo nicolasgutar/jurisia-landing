@@ -205,7 +205,7 @@ export default function UseCases() {
       <SEO
         title="Casos de Uso"
         description="Descubra cómo Enndor transforma la práctica jurídica en Colombia: preparación de litigios, redacción de tutelas, due diligence contractual y derechos de petición con IA especializada."
-        canonical="https://legisia.co/casos-de-uso"
+        canonical="https://enndor.ai/casos-de-uso"
       />
 
       <PageHeader

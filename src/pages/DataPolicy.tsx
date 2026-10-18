@@ -9,7 +9,7 @@ export default function DataPolicy() {
       <SEO
         title="Política de Tratamiento de Datos Personales | Enndor"
         description="Política de Privacidad y Tratamiento de Datos Personales de Enndor (PVGA S.A.S.). Documento normativo oficial."
-        canonical="https://legisia.co/politica-de-tratamiento-de-datos"
+        canonical="https://enndor.ai/politica-de-tratamiento-de-datos"
       />
 
       {/* Header */}

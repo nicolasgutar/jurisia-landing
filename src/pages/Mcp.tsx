@@ -40,7 +40,7 @@ export default function Mcp() {
       <SEO
         title="Conector MCP"
         description="Conecte Claude, ChatGPT o cualquier cliente MCP a la base de jurisprudencia y normatividad colombiana de Enndor."
-        canonical="https://legisia.co/mcp"
+        canonical="https://enndor.ai/mcp"
       />
 
       <header className="max-w-4xl mb-20">
