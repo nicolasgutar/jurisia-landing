@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, useInView, animate } from 'motion/react';
 import { DOCUMENTS_INDEXED_COUNT } from '@/src/config/siteStats';
 
-const API_URL = import.meta.env.VITE_APP_API_URL ?? 'https://app.legisia.co';
+const API_URL = import.meta.env.VITE_APP_API_URL ?? 'https://app.enndor.ai';
 
 // Shown if the App's stats API can't be reached (network hiccup, cold
 // start), so the section never renders 0 or breaks on the public

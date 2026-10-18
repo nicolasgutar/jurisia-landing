@@ -4,7 +4,7 @@ import { cn } from '@/src/lib/utils';
 import DeltaBackground from '@/src/components/DeltaBackground';
 import { MARK_PATHS, MARK_STROKE_WIDTH, MARK_TILE_RADIUS, MARK_VIEWBOX } from '@/src/lib/logo';
 
-export const APP_URL = 'https://app.legisia.co';
+export const APP_URL = 'https://app.enndor.ai';
 
 // The "en" mark. Strokes take the active palette's accent and light tones;
 // the tile is a step lighter than the page so it reads on dark backgrounds.
