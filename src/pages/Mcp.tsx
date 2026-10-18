@@ -72,7 +72,7 @@ export default function Mcp() {
           La URL del servidor es:
         </p>
         <code className="block bg-white/5 card-border rounded-lg px-6 py-4 text-primary font-mono text-sm md:text-base break-all">
-          https://app.legisia.co/mcp
+          https://app.enndor.ai/mcp
         </code>
       </section>
 
@@ -101,7 +101,7 @@ export default function Mcp() {
         </h2>
         <pre className="bg-white/5 card-border rounded-lg px-6 py-5 overflow-x-auto mb-4">
           <code className="text-primary font-mono text-sm md:text-base">
-            claude mcp add --transport http enndor https://app.legisia.co/mcp{'\n'}
+            claude mcp add --transport http enndor https://app.enndor.ai/mcp{'\n'}
             claude mcp login enndor
           </code>
         </pre>
