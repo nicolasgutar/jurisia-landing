@@ -52,7 +52,7 @@ export default function Navbar() {
               <>
                 {link.name}
                 {location.pathname === link.href && (
-                  <motion.span layoutId="nav-active" className="absolute -bottom-1.5 left-0 right-0 h-px bg-white/60" />
+                  <motion.span layoutId="nav-active" className="absolute -bottom-1.5 left-0 right-0 h-px bg-accent" />
                 )}
               </>
             );

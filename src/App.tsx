@@ -15,6 +15,7 @@ import DataPolicy from './pages/DataPolicy';
 import Terms from './pages/Terms';
 import Mcp from './pages/Mcp';
 import NotFound from './pages/NotFound';
+import PalettePanel from './components/PalettePanel';
 import { motion, AnimatePresence } from 'motion/react';
 
 // Router-agnostic app tree: the browser wraps it in <BrowserRouter> (below),
@@ -42,6 +43,7 @@ export function AppShell() {
         </AnimatePresence>
       </main>
       <Footer />
+      <PalettePanel />
     </div>
   );
 }

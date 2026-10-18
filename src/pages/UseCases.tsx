@@ -51,7 +51,7 @@ function LitigioMock() {
             <div className="h-1 w-20 overflow-hidden rounded-full bg-white/10">
               <motion.div
                 variants={{ hidden: { width: 0 }, visible: { width: `${r.rel}%`, transition: { delay: 0.5 + i * 0.15, duration: 0.9, ease: EASE } } }}
-                className="h-full rounded-full bg-white/70"
+                className="h-full rounded-full bg-accent"
               />
             </div>
             <span className="w-8 text-right font-mono text-[10px] text-white/50">{r.rel}%</span>
@@ -131,7 +131,7 @@ function DiligenceMock() {
             <span
               className={cn(
                 'rounded-full px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.15em]',
-                c.risk === 'Alto' ? 'animate-pulse bg-white text-black' : c.risk === 'Medio' ? 'border border-white/30 text-white/70' : 'text-white/35',
+                c.risk === 'Alto' ? 'animate-pulse bg-accent text-black' : c.risk === 'Medio' ? 'border border-white/30 text-white/70' : 'text-white/35',
               )}
             >
               {c.risk}
@@ -235,7 +235,7 @@ export default function UseCases() {
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true, amount: 0.6 }}
               transition={{ duration: 1.4, ease: EASE }}
-              className="absolute left-6 right-6 top-6 hidden h-px origin-left bg-gradient-to-r from-white/40 via-white/20 to-white/5 md:block"
+              className="absolute left-6 right-6 top-6 hidden h-px origin-left bg-gradient-to-r from-accent via-white/20 to-white/5 md:block"
             />
             {steps.map((s, i) => (
               <motion.div
@@ -305,7 +305,7 @@ export default function UseCases() {
       {/* Sugerencias */}
       <section className="relative overflow-hidden px-6 py-36 md:px-8">
         <DeltaBackground className="opacity-50" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_70%_at_50%_50%,rgba(0,0,0,0.3)_0%,#000_85%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_70%_at_50%_50%,color-mix(in_srgb,var(--color-black)_30%,transparent)_0%,var(--color-black)_85%)]" />
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

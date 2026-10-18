@@ -9,7 +9,7 @@ export const APP_URL = 'https://app.legisia.co';
 export function Wordmark({ className }: { className?: string }) {
   return (
     <span className={cn('font-headline font-medium tracking-[-0.04em] text-white', className)}>
-      enndor<span className="text-white/40">.ai</span>
+      enndor<span className="text-accent">.ai</span>
     </span>
   );
 }
@@ -21,7 +21,7 @@ export function FormerName({ children = 'Legisia', className }: { children?: Rea
   return (
     <span className={cn('relative inline-block text-white/40', className)}>
       {children}
-      <span aria-hidden="true" className="absolute left-[-4%] right-[-4%] top-[55%] h-px bg-white/60" />
+      <span aria-hidden="true" className="absolute left-[-4%] right-[-4%] top-[55%] h-px bg-accent" />
       <span className="sr-only"> (ahora Enndor)</span>
     </span>
   );
@@ -47,7 +47,7 @@ export function SpotlightCard({ children, className }: { children: ReactNode; cl
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         style={{
           background:
-            'radial-gradient(420px circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.07), transparent 45%)',
+            'radial-gradient(420px circle at var(--x, 50%) var(--y, 50%), color-mix(in srgb, var(--color-accent) 14%, transparent), transparent 45%)',
         }}
       />
       <div className="relative h-full">{children}</div>
@@ -128,7 +128,7 @@ export function PageHeader({
 export function Eyebrow({ index, children, className }: { index?: string; children: ReactNode; className?: string }) {
   return (
     <p className={cn('flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.25em] text-on-surface-variant', className)}>
-      {index && <span className="text-white/30">[{index}]</span>}
+      {index && <span className="text-accent/80">[{index}]</span>}
       {children}
     </p>
   );

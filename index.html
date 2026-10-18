@@ -11,6 +11,17 @@
          injected here at build time by scripts/prerender.mjs. Don't hardcode
          them in this template: they'd be stamped onto every route. -->
     <!--app-head-->
+    <!-- Re-apply the palette picked in the palette panel (src/config/palettes.ts)
+         before first paint. -->
+    <script>
+      try {
+        var saved = JSON.parse(localStorage.getItem('enndor-palette') || 'null');
+        if (saved && saved.props) {
+          document.documentElement.dataset.palette = saved.id;
+          for (var k in saved.props) document.documentElement.style.setProperty(k, saved.props[k]);
+        }
+      } catch (e) {}
+    </script>
     <!-- Meta Pixel Code -->
     <script>
       !function(f,b,e,v,n,t,s)

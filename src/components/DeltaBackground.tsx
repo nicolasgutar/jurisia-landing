@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { cn } from '@/src/lib/utils';
+import { PALETTE_EVENT } from '@/src/config/palettes';
 
 // Generative greyscale "river delta" (domain-warped fbm with ridged channels),
 // the Enndor hero backdrop. Pure WebGL1, no dependency. Renders at reduced
@@ -16,6 +17,9 @@ precision highp float;
 uniform vec2 u_res;
 uniform float u_time;
 uniform vec2 u_mouse;
+uniform vec3 u_shadow;
+uniform vec3 u_highlight;
+uniform vec3 u_accent;
 
 float hash(vec2 p) {
   p = fract(p * vec2(123.34, 456.21));
@@ -66,18 +70,35 @@ void main() {
   float ridge = pow(1.0 - abs(2.0 * f - 1.0), 5.0);
   float sand = smoothstep(0.2, 0.85, f);
   float silt = smoothstep(0.3, 0.9, length(r));
-  float col = mix(0.03, 0.62, sand * sand) + ridge * 0.42 * (0.5 + 0.5 * q.x) + silt * 0.08;
+  float bank = mix(0.03, 0.62, sand * sand) + silt * 0.08;
+  float channel = ridge * 0.42 * (0.5 + 0.5 * q.x);
 
   // Light falls from the left and fades into a dark right half.
-  col *= mix(1.45, 0.4, smoothstep(-0.8, 0.9, uv.x + uv.y * 0.25));
-  col *= 1.0 - 0.45 * dot(uv * vec2(0.7, 1.0), uv * vec2(0.7, 1.0));
-  col = pow(col, 0.95);
+  float light = mix(1.45, 0.4, smoothstep(-0.8, 0.9, uv.x + uv.y * 0.25));
+  light *= 1.0 - 0.45 * dot(uv * vec2(0.7, 1.0), uv * vec2(0.7, 1.0));
 
-  gl_FragColor = vec4(vec3(col) * vec3(1.0, 0.985, 0.96), 1.0);
+  // Palette: sandbanks blend shadow -> highlight, ridge lines glow in the accent.
+  vec3 rgb = mix(u_shadow, u_highlight, bank * light) + u_accent * channel * light;
+  gl_FragColor = vec4(pow(max(rgb, 0.0), vec3(0.95)), 1.0);
 }
 `;
 
 const RESOLUTION_SCALE = 0.5;
+
+type RGB = [number, number, number];
+
+function readTone(name: string): RGB {
+  const hex = getComputedStyle(document.documentElement).getPropertyValue(name).trim().replace('#', '');
+  const n = parseInt(hex.length === 3 ? hex.replace(/./g, '$&$&') : hex, 16);
+  if (Number.isNaN(n)) return [1, 1, 1];
+  return [((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255];
+}
+
+const readTones = () => ({
+  shadow: readTone('--delta-shadow'),
+  highlight: readTone('--delta-highlight'),
+  accent: readTone('--delta-accent'),
+});
 
 function compile(gl: WebGLRenderingContext, type: number, source: string) {
   const shader = gl.createShader(type);
@@ -122,6 +143,19 @@ export default function DeltaBackground({ className }: { className?: string }) {
     const uRes = gl.getUniformLocation(program, 'u_res');
     const uTime = gl.getUniformLocation(program, 'u_time');
     const uMouse = gl.getUniformLocation(program, 'u_mouse');
+    const uShadow = gl.getUniformLocation(program, 'u_shadow');
+    const uHighlight = gl.getUniformLocation(program, 'u_highlight');
+    const uAccent = gl.getUniformLocation(program, 'u_accent');
+
+    // Current tones ease toward the target ones, so switching palettes
+    // cross-fades the backdrop instead of snapping.
+    let target = readTones();
+    const tones = { shadow: [...target.shadow], highlight: [...target.highlight], accent: [...target.accent] };
+    const easeTones = (k: number) => {
+      for (const key of ['shadow', 'highlight', 'accent'] as const) {
+        for (let i = 0; i < 3; i++) tones[key][i] += (target[key][i] - tones[key][i]) * k;
+      }
+    };
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
@@ -149,6 +183,10 @@ export default function DeltaBackground({ className }: { className?: string }) {
       gl.uniform2f(uRes, canvas.width, canvas.height);
       gl.uniform1f(uTime, timeOffset + (now - start) / 1000);
       gl.uniform2f(uMouse, mouse.x, mouse.y);
+      easeTones(reducedMotion ? 1 : 0.06);
+      gl.uniform3fv(uShadow, tones.shadow);
+      gl.uniform3fv(uHighlight, tones.highlight);
+      gl.uniform3fv(uAccent, tones.accent);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     };
 
@@ -185,12 +223,18 @@ export default function DeltaBackground({ className }: { className?: string }) {
     if (fallbackRef.current) fallbackRef.current.style.opacity = '0';
     const onResize = () => reducedMotion && draw(performance.now());
     window.addEventListener('resize', onResize);
+    const onPalette = () => {
+      target = readTones();
+      if (reducedMotion) draw(performance.now());
+    };
+    window.addEventListener(PALETTE_EVENT, onPalette);
 
     return () => {
       cancelAnimationFrame(raf);
       observer.disconnect();
       window.removeEventListener('pointermove', onMove);
       window.removeEventListener('resize', onResize);
+      window.removeEventListener(PALETTE_EVENT, onPalette);
       document.removeEventListener('visibilitychange', resume);
       // No loseContext() here: StrictMode re-runs this effect on the same
       // canvas, and getContext() would hand back the lost context.
@@ -204,7 +248,7 @@ export default function DeltaBackground({ className }: { className?: string }) {
         className="absolute inset-0 transition-opacity duration-1000"
         style={{
           background:
-            'radial-gradient(ellipse 60% 70% at 25% 40%, #3a3a38 0%, transparent 70%), radial-gradient(ellipse 50% 60% at 80% 70%, #1c1b19 0%, transparent 70%), #070707',
+            'radial-gradient(ellipse 60% 70% at 25% 40%, color-mix(in srgb, var(--delta-highlight) 22%, var(--delta-shadow)) 0%, transparent 70%), var(--delta-shadow)',
         }}
       />
       <canvas

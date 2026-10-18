@@ -36,7 +36,7 @@ const TOOLS: ToolDoc[] = [
 
 export default function Mcp() {
   return (
-    <main className="pt-32 pb-20 px-6 md:px-12 lg:px-24 bg-[#000000] min-h-screen">
+    <main className="pt-32 pb-20 px-6 md:px-12 lg:px-24 bg-black min-h-screen">
       <SEO
         title="Conector MCP"
         description="Conecte Claude, ChatGPT o cualquier cliente MCP a la base de jurisprudencia y normatividad colombiana de Enndor."
@@ -132,7 +132,7 @@ export default function Mcp() {
           {TOOLS.map(({ name, Icon, description }) => (
             <div
               key={name}
-              className="bg-[#000000] card-border p-8 rounded-xl transition-all duration-300 hover:border-primary/30"
+              className="bg-black card-border p-8 rounded-xl transition-all duration-300 hover:border-primary/30"
             >
               <div className="w-12 h-12 rounded bg-white/5 flex items-center justify-center mb-6">
                 <Icon className="text-primary w-7 h-7" />

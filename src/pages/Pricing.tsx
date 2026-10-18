@@ -125,7 +125,7 @@ export default function Pricing() {
             </motion.div>
             <motion.figure
               variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } } }}
-              className="border-l border-white/20 pl-6"
+              className="border-l border-accent/60 pl-6"
             >
               <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.25em] text-white/40">Visión de futuro</p>
               <blockquote className="font-serif text-2xl italic leading-snug text-white/80 sm:text-3xl">
@@ -150,7 +150,7 @@ export default function Pricing() {
                     <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.2em] text-white/50">Fase de lanzamiento & beta abierta</p>
                   </div>
                   <span className="inline-flex items-center gap-2 rounded-full border border-white/15 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-white/80">
-                    <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white" />
+                    <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
                     Vigente
                   </span>
                 </div>
@@ -170,7 +170,7 @@ export default function Pricing() {
                       transition={{ duration: 0.6, delay: 0.3 + i * 0.08, ease: EASE }}
                       className="flex gap-3"
                     >
-                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white text-black">
+                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent text-black">
                         <Check className="h-3 w-3" strokeWidth={3} />
                       </span>
                       <div>

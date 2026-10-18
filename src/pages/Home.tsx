@@ -163,7 +163,7 @@ function RenameHero() {
     <section className="relative flex min-h-[100svh] flex-col overflow-hidden bg-black">
       <DeltaBackground />
       {/* Darken the edges so the type always has contrast over the texture */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_45%_40%_at_50%_52%,rgba(0,0,0,0.45)_0%,transparent_100%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_45%_40%_at_50%_52%,color-mix(in_srgb,var(--color-black)_45%,transparent)_0%,transparent_100%)]" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-black" />
 
       <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 pb-24 pt-32 text-center">
@@ -173,7 +173,7 @@ function RenameHero() {
           transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
           className="mb-10 inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/30 px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.25em] text-white/70 backdrop-blur-md"
         >
-          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white" />
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
           Nuevo nombre · Misma misión
         </motion.div>
 
@@ -191,7 +191,7 @@ function RenameHero() {
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: 0.7, delay: 1.2, ease: EASE }}
-              className="absolute left-[-8%] right-[-8%] top-[54%] h-[2px] origin-left bg-white"
+              className="absolute left-[-8%] right-[-8%] top-[54%] h-[2px] origin-left bg-accent"
             />
           </motion.span>
 
@@ -215,7 +215,7 @@ function RenameHero() {
                 initial={{ opacity: 0, y: '0.35em', filter: 'blur(16px)' }}
                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                 transition={{ duration: 1, delay: 2 + i * 0.07, ease: EASE }}
-                className={cn('inline-block', i >= 6 && 'text-white/35')}
+                className={cn('inline-block', i >= 6 && 'text-accent')}
               >
                 {char}
               </motion.span>
@@ -312,7 +312,7 @@ function RenameExplainer() {
                 <h3 className="font-headline text-xl font-medium tracking-tight sm:text-2xl">{item.title}</h3>
                 <p className="max-w-md font-light leading-relaxed text-on-surface-variant">{item.desc}</p>
               </div>
-              <span className="hidden self-start rounded-full border border-white/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-white/50 transition-colors group-hover:border-white/30 group-hover:text-white sm:block">
+              <span className="hidden self-start rounded-full border border-white/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-white/50 transition-colors group-hover:border-accent group-hover:text-accent sm:block">
                 Sin cambios
               </span>
             </motion.div>
@@ -588,7 +588,7 @@ export default function Home() {
       {/* CTA final */}
       <section className="relative overflow-hidden bg-black px-6 py-36 md:px-8">
         <DeltaBackground className="opacity-60" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_70%_at_50%_50%,rgba(0,0,0,0.3)_0%,#000_85%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_70%_at_50%_50%,color-mix(in_srgb,var(--color-black)_30%,transparent)_0%,var(--color-black)_85%)]" />
         <motion.div
           initial="hidden"
           whileInView="visible"
