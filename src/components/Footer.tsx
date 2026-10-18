@@ -37,7 +37,7 @@ export default function Footer() {
     <footer className="relative w-full overflow-hidden border-t border-white/[0.06] bg-black">
       <div className="mx-auto grid max-w-7xl gap-12 px-6 pb-10 pt-16 md:grid-cols-12 md:px-8">
         <div className="space-y-4 md:col-span-5">
-          <Wordmark className="text-2xl" />
+          <Wordmark withMark className="text-2xl" />
           <p className="max-w-xs text-sm font-light leading-relaxed text-on-surface-variant">
             Inteligencia artificial para el derecho colombiano. Antes conocida como LegisIA.
           </p>

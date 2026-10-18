@@ -2,14 +2,39 @@ import type { ReactNode, MouseEvent } from 'react';
 import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
 import DeltaBackground from '@/src/components/DeltaBackground';
+import { MARK_PATHS, MARK_STROKE_WIDTH, MARK_TILE_RADIUS, MARK_VIEWBOX } from '@/src/lib/logo';
 
 export const APP_URL = 'https://app.legisia.co';
 
-// The Enndor wordmark: lowercase, with the ".ai" receding.
-export function Wordmark({ className }: { className?: string }) {
+// The "en" mark. Strokes take the active palette's accent and light tones;
+// the tile is a step lighter than the page so it reads on dark backgrounds.
+export function LogoMark({ className }: { className?: string }) {
   return (
-    <span className={cn('font-headline font-medium tracking-[-0.04em] text-white', className)}>
-      enndor<span className="text-accent">.ai</span>
+    <svg viewBox={MARK_VIEWBOX} className={cn('shrink-0', className)} aria-hidden="true">
+      <rect
+        width="100"
+        height="100"
+        rx={MARK_TILE_RADIUS}
+        style={{ fill: 'color-mix(in srgb, var(--color-white) 9%, var(--color-black))' }}
+      />
+      <g fill="none" strokeLinecap="round" strokeWidth={MARK_STROKE_WIDTH}>
+        {MARK_PATHS.map((p) => (
+          <path key={p.d} d={p.d} className={p.tone === 'accent' ? 'stroke-accent' : 'stroke-white'} />
+        ))}
+      </g>
+    </svg>
+  );
+}
+
+// The Enndor wordmark: lowercase, with the ".ai" in the accent colour.
+// `withMark` puts the "en" tile in front, sized to the text.
+export function Wordmark({ className, withMark = false }: { className?: string; withMark?: boolean }) {
+  return (
+    <span className={cn('inline-flex items-center gap-[0.4em] font-headline font-medium tracking-[-0.04em] text-white', className)}>
+      {withMark && <LogoMark className="h-[1.45em] w-[1.45em]" />}
+      <span>
+        enndor<span className="text-accent">.ai</span>
+      </span>
     </span>
   );
 }

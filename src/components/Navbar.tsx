@@ -38,7 +38,7 @@ export default function Navbar() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-8">
         <Link to="/" className="flex items-center" aria-label="Enndor, inicio">
-          <Wordmark className="text-xl" />
+          <Wordmark withMark className="text-xl" />
         </Link>
 
         {/* Desktop nav */}

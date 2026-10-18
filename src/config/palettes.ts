@@ -1,3 +1,5 @@
+import { markSvg } from '@/src/lib/logo';
+
 // Experimental colour palettes for the landing, switchable from the hidden
 // palette panel (src/components/PalettePanel.tsx). Each palette overrides
 // Tailwind's --color-black / --color-white, so every existing bg-black,
@@ -83,6 +85,26 @@ function paletteProps({ vars, delta }: Palette): Record<string, string> {
   };
 }
 
+function mixHex(a: string, b: string, t: number) {
+  const pa = parseInt(a.slice(1), 16);
+  const pb = parseInt(b.slice(1), 16);
+  const ch = (shift: number) => Math.round(((pa >> shift) & 255) * (1 - t) + ((pb >> shift) & 255) * t);
+  return `#${((ch(16) << 16) | (ch(8) << 8) | ch(0)).toString(16).padStart(6, '0')}`;
+}
+
+// Points the tab icon at the "en" mark painted in this palette's colours.
+export function applyPaletteFavicon({ vars }: Palette) {
+  const svg = markSvg({ tile: mixHex(vars.bg, vars.fg, 0.09), accent: vars.accent, light: vars.fg });
+  let link = document.querySelector<HTMLLinkElement>('link[rel="icon"][type="image/svg+xml"]');
+  if (!link) {
+    link = document.createElement('link');
+    link.rel = 'icon';
+    link.type = 'image/svg+xml';
+    document.head.appendChild(link);
+  }
+  link.href = `data:image/svg+xml,${encodeURIComponent(svg)}`;
+}
+
 // Writes the palette's CSS variables on <html> and remembers them for this
 // browser. The inline script in index.html re-applies the saved variables
 // before first paint, so a chosen palette doesn't flash the default one.
@@ -98,6 +120,7 @@ export function applyPalette(palette: Palette) {
   } catch {
     // Storage blocked (private mode): the palette just won't persist.
   }
+  applyPaletteFavicon(palette);
   window.dispatchEvent(new CustomEvent(PALETTE_EVENT));
 }
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Check, Palette as PaletteIcon, X } from 'lucide-react';
 import { cn } from '@/src/lib/utils';
-import { PALETTES, applyPalette, getPalette, savedPaletteId, DEFAULT_PALETTE } from '@/src/config/palettes';
+import { PALETTES, applyPalette, applyPaletteFavicon, getPalette, savedPaletteId, DEFAULT_PALETTE } from '@/src/config/palettes';
 
 // Hidden palette switcher for trying out brand colours. Collapsed to a faint
 // corner button; "P" toggles it, Escape closes it. The choice is remembered
@@ -12,7 +12,11 @@ export default function PalettePanel() {
   const [active, setActive] = useState(DEFAULT_PALETTE);
 
   useEffect(() => {
-    setActive(savedPaletteId());
+    const saved = savedPaletteId();
+    setActive(saved);
+    // The inline script in index.html restores the colours; the tab icon
+    // needs the palette definition, so it's restored here.
+    if (saved !== DEFAULT_PALETTE) applyPaletteFavicon(getPalette(saved));
     const onKey = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement | null;
       if (target?.closest('input, textarea, [contenteditable="true"]')) return;
