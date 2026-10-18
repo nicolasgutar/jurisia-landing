@@ -7,17 +7,21 @@
   --font-mono: "Geist Mono", ui-monospace, monospace;
   --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
 
-  /* Greyscale palette: the Enndor identity is monochrome, accents are
-     silver rather than the old LegisIA steel blue. */
-  --color-primary: #d4d4d4;
-  --color-primary-container: #1a1a1a;
-  --color-on-primary: #0a0a0a;
-  --color-surface: #050505;
-  --color-on-surface: #ededed;
-  --color-on-surface-variant: #a1a1a1;
-  --color-outline-variant: #222222;
-  --color-surface-container-low: #0f0f0f;
-  --color-accent: #8f8f8f;
+  /* Celeste palette (the brand default): warm black, cream and the logo's
+     blue. Overriding --color-black/--color-white makes every bg-black,
+     text-white/60, border-white/10... follow it. Keep in sync with the
+     "celeste" entry in src/config/palettes.ts. */
+  --color-black: #110f0b;
+  --color-white: #f7f2e8;
+  --color-primary: #d9d2c4;
+  --color-primary-container: #1d1a15;
+  --color-on-primary: #110f0b;
+  --color-surface: #110f0b;
+  --color-on-surface: #ece6da;
+  --color-on-surface-variant: #a9a294;
+  --color-outline-variant: #2a261f;
+  --color-surface-container-low: #18150f;
+  --color-accent: #4aa8d8;
 
   --animate-marquee: marquee 40s linear infinite;
   --animate-grain: grain 8s steps(10) infinite;
@@ -38,9 +42,9 @@
 
 /* Delta shader tones; overridden per palette (src/config/palettes.ts). */
 :root {
-  --delta-shadow: #000000;
-  --delta-highlight: #fffbf5;
-  --delta-accent: #fffbf5;
+  --delta-shadow: #0b0907;
+  --delta-highlight: #e3d9c6;
+  --delta-accent: #4aa8d8;
 }
 
 @layer utilities {

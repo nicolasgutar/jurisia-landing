@@ -63,12 +63,30 @@ export const PALETTES: Palette[] = [
   },
 ];
 
-export const DEFAULT_PALETTE = PALETTES[0].id;
+// Celeste won; its values are also the base CSS in src/index.css.
+export const DEFAULT_PALETTE = 'celeste';
 export const PALETTE_STORAGE_KEY = 'enndor-palette';
 export const PALETTE_EVENT = 'enndor:palette';
 
+// The switcher is hidden from visitors: opening any page with ?paletas
+// turns it on for this browser, ?paletas=off turns it off again.
+const PANEL_FLAG_KEY = 'enndor-palette-panel';
+
+export function palettePanelEnabled(): boolean {
+  try {
+    const param = new URLSearchParams(window.location.search).get('paletas');
+    if (param !== null) {
+      if (param === 'off') localStorage.removeItem(PANEL_FLAG_KEY);
+      else localStorage.setItem(PANEL_FLAG_KEY, '1');
+    }
+    return localStorage.getItem(PANEL_FLAG_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
+
 export function getPalette(id: string | null | undefined): Palette {
-  return PALETTES.find((p) => p.id === id) ?? PALETTES[0];
+  return PALETTES.find((p) => p.id === id) ?? PALETTES.find((p) => p.id === DEFAULT_PALETTE)!;
 }
 
 function paletteProps({ vars, delta }: Palette): Record<string, string> {

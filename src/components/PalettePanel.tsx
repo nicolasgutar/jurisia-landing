@@ -2,16 +2,20 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Check, Palette as PaletteIcon, X } from 'lucide-react';
 import { cn } from '@/src/lib/utils';
-import { PALETTES, applyPalette, applyPaletteFavicon, getPalette, savedPaletteId, DEFAULT_PALETTE } from '@/src/config/palettes';
+import { PALETTES, applyPalette, applyPaletteFavicon, getPalette, palettePanelEnabled, savedPaletteId, DEFAULT_PALETTE } from '@/src/config/palettes';
 
-// Hidden palette switcher for trying out brand colours. Collapsed to a faint
-// corner button; "P" toggles it, Escape closes it. The choice is remembered
-// per browser (see applyPalette).
+// Hidden palette switcher for trying out brand colours. Only rendered once
+// enabled with ?paletas (see palettePanelEnabled); then it's a faint corner
+// button, "P" toggles it and Escape closes it. The choice is remembered per
+// browser (see applyPalette).
 export default function PalettePanel() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(DEFAULT_PALETTE);
+  const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
+    if (!palettePanelEnabled()) return;
+    setEnabled(true);
     const saved = savedPaletteId();
     setActive(saved);
     // The inline script in index.html restores the colours; the tab icon
@@ -31,6 +35,8 @@ export default function PalettePanel() {
     setActive(id);
     applyPalette(getPalette(id));
   };
+
+  if (!enabled) return null;
 
   return (
     <div className="fixed bottom-5 right-5 z-[70] flex flex-col items-end gap-3">
