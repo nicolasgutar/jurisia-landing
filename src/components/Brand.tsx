@@ -1,5 +1,7 @@
 import type { ReactNode, MouseEvent } from 'react';
+import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
+import DeltaBackground from '@/src/components/DeltaBackground';
 
 export const APP_URL = 'https://app.legisia.co';
 
@@ -74,6 +76,52 @@ export function Marquee({ items, className }: { items: string[]; className?: str
         ))}
       </div>
     </div>
+  );
+}
+
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+// Inner-page hero: a dimmed strip of the delta backdrop fading into black,
+// with the title revealing line by line.
+export function PageHeader({
+  eyebrow,
+  title,
+  subtitle,
+  children,
+}: {
+  eyebrow: string;
+  title: ReactNode;
+  subtitle?: ReactNode;
+  children?: ReactNode;
+}) {
+  return (
+    <header className="relative overflow-hidden bg-black px-6 pb-20 pt-40 md:px-8 md:pb-28 md:pt-48">
+      <DeltaBackground className="opacity-50 [mask-image:linear-gradient(to_bottom,black_20%,transparent)]" />
+      <div className="relative z-10 mx-auto max-w-7xl">
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: EASE }}>
+          <Eyebrow>{eyebrow}</Eyebrow>
+        </motion.div>
+        <motion.h1
+          initial={{ opacity: 0, y: 30, filter: 'blur(12px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ duration: 1.1, delay: 0.15, ease: EASE }}
+          className="mt-8 max-w-5xl font-headline text-5xl font-medium leading-[1] tracking-[-0.045em] text-white sm:text-6xl lg:text-8xl"
+        >
+          {title}
+        </motion.h1>
+        {subtitle && (
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.45, ease: EASE }}
+            className="mt-8 max-w-xl text-lg font-light leading-relaxed text-white/65"
+          >
+            {subtitle}
+          </motion.p>
+        )}
+        {children}
+      </div>
+    </header>
   );
 }
 
