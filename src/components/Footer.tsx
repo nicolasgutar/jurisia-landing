@@ -22,10 +22,11 @@ function TikTok(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-// The social handles are still the LegisIA ones until the accounts are renamed.
+// Instagram is on the Enndor handle; the other networks are still the LegisIA
+// ones until those accounts are renamed.
 const socialLinks = [
   { name: 'LinkedIn', href: 'https://www.linkedin.com/company/legisia/', Icon: Linkedin },
-  { name: 'Instagram', href: 'https://www.instagram.com/legisiaco/', Icon: Instagram },
+  { name: 'Instagram', href: 'https://www.instagram.com/enndor.ai/', Icon: Instagram },
   { name: 'TikTok', href: 'https://www.tiktok.com/@legisiaco', Icon: TikTok },
   { name: 'Facebook', href: 'https://www.facebook.com/legisiaco', Icon: Facebook },
 ];

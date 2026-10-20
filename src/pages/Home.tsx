@@ -22,7 +22,7 @@ const jsonLd = {
       // Keep in sync with socialLinks in src/components/Footer.tsx
       sameAs: [
         'https://www.linkedin.com/company/legisia/',
-        'https://www.instagram.com/legisiaco/',
+        'https://www.instagram.com/enndor.ai/',
         'https://www.tiktok.com/@legisiaco',
         'https://www.facebook.com/legisiaco',
       ],
