@@ -76,7 +76,17 @@ function CopyBlock({ text, multiline = false }: { text: string; multiline?: bool
   );
 }
 
-type Step = { title: ReactNode; body?: ReactNode; image?: { src: string; alt: string; caption: ReactNode } };
+type StepImage = {
+  src: string;
+  alt: string;
+  caption: ReactNode;
+  width: number;
+  height: number;
+  // Max display width; tall dialogs are shown narrower than wide menus.
+  className?: string;
+};
+
+type Step = { title: ReactNode; body?: ReactNode; image?: StepImage };
 
 type ClientGuide = {
   id: string;
@@ -118,35 +128,88 @@ const GUIDES: ClientGuide[] = [
               <Strong>+</Strong> → Conectores → Agregar conector → <Strong>Agregar conector personalizado</Strong>
             </>
           ),
+          width: 785,
+          height: 342,
+          className: 'max-w-2xl',
         },
       },
       {
         title: (
           <>
-            Escriba el nombre <Strong>Enndor</Strong> y pegue la dirección de Enndor
+            Escriba el nombre <Strong>Enndor</Strong>, pegue la dirección y haga clic en <Strong>Continuar</Strong>
           </>
         ),
-        body: (
-          <>
-            <CopyBlock text={MCP_URL} />
-            <p className="mt-3">Deje vacíos los campos opcionales de <Strong>Configuración avanzada</Strong>: no hace falta ninguna clave.</p>
-          </>
-        ),
+        body: <CopyBlock text={MCP_URL} />,
+        image: {
+          src: '/images/guia-claude-nombre-direccion.webp',
+          alt: 'Diálogo Agregar conector personalizado con el nombre Enndor y la dirección https://app.enndor.ai/mcp',
+          caption: <>Nombre: Enndor · Dirección: app.enndor.ai/mcp</>,
+          width: 547,
+          height: 489,
+          className: 'max-w-md',
+        },
       },
       {
         title: (
           <>
-            Haga clic en <Strong>Agregar</Strong> y luego en <Strong>Conectar</Strong>
+            Deje marcado <Strong>Registrar automáticamente</Strong> y haga clic en <Strong>Agregar</Strong>
           </>
         ),
-        body: <>Se abre la página de inicio de sesión de Enndor. Entre con su cuenta o como invitado y autorice el acceso.</>,
+        body: <>Claude detecta solo la forma de conectarse. No cambie nada más en esta pantalla.</>,
+        image: {
+          src: '/images/guia-claude-oauth.webp',
+          alt: 'Pantalla de Cliente OAuth con la opción Registrar automáticamente seleccionada y el botón Agregar',
+          caption: <>Opción “Registrar automáticamente” (Detectado) → Agregar</>,
+          width: 556,
+          height: 680,
+          className: 'max-w-sm',
+        },
       },
       {
-        title: <>Actívelo en sus conversaciones</>,
+        title: <>Inicie sesión en Enndor</>,
         body: (
           <>
-            Desde el mismo botón <Strong>+</Strong> → <Strong>Conectores</Strong>, confirme que el interruptor de{' '}
-            <Strong>Enndor</Strong> está encendido.
+            Claude lo lleva a la página de Enndor. Entre con su cuenta, con Google o como invitado. Al terminar vuelve a
+            Claude y <Strong>Enndor queda conectado</Strong>.
+          </>
+        ),
+        image: {
+          src: '/images/guia-claude-login.webp',
+          alt: 'Página de inicio de sesión de Enndor',
+          caption: <>Inicio de sesión de Enndor</>,
+          width: 414,
+          height: 708,
+          className: 'max-w-xs',
+        },
+      },
+      {
+        title: (
+          <>
+            Recomendado: permita que Claude use Enndor sin preguntar cada vez
+          </>
+        ),
+        body: (
+          <>
+            Vaya a <Strong>+ → Conectores → Administrar conectores → Enndor</Strong>. En <Strong>Permisos de herramientas</Strong>,
+            elija <Strong>Permitir siempre</Strong> para las herramientas de solo lectura. Son búsquedas y lecturas: Enndor
+            nunca modifica nada en su cuenta.
+          </>
+        ),
+        image: {
+          src: '/images/guia-claude-permisos.webp',
+          alt: 'Permisos de herramientas de Enndor en Claude con la opción Permitir siempre',
+          caption: <>Administrar conectores → Enndor → Permitir siempre</>,
+          width: 791,
+          height: 504,
+          className: 'max-w-2xl',
+        },
+      },
+      {
+        title: <>Úselo en sus conversaciones</>,
+        body: (
+          <>
+            Desde <Strong>+ → Conectores</Strong>, confirme que el interruptor de <Strong>Enndor</Strong> está encendido y
+            pregúntele a Claude como lo haría con un colega.
           </>
         ),
       },
@@ -348,11 +411,11 @@ function ClientGuides() {
                       <img
                         src={step.image.src}
                         alt={step.image.alt}
-                        width={785}
-                        height={342}
+                        width={step.image.width}
+                        height={step.image.height}
                         loading="lazy"
                         decoding="async"
-                        className="w-full max-w-2xl rounded-xl border border-white/10"
+                        className={cn('h-auto w-full rounded-xl border border-white/10', step.image.className ?? 'max-w-2xl')}
                       />
                       <figcaption className="mt-3 font-mono text-[11px] uppercase tracking-[0.15em] text-white/45">
                         {step.image.caption}
@@ -382,16 +445,33 @@ const howToJsonLd = {
   description:
     'Conecte la base de jurisprudencia y normatividad colombiana de Enndor a Claude para consultar sentencias y normas desde su asistente de IA.',
   inLanguage: 'es-CO',
-  totalTime: 'PT2M',
+  totalTime: 'PT3M',
   step: [
     {
       '@type': 'HowToStep',
       name: 'En un chat de claude.ai, haga clic en + → Conectores → Agregar conector → Agregar conector personalizado',
       image: 'https://enndor.ai/images/guia-claude-conector.webp',
     },
-    { '@type': 'HowToStep', name: `Escriba el nombre Enndor y pegue la dirección ${MCP_URL}` },
-    { '@type': 'HowToStep', name: 'Haga clic en Agregar y luego en Conectar, e inicie sesión en Enndor' },
-    { '@type': 'HowToStep', name: 'Desde + → Conectores, confirme que Enndor está activado' },
+    {
+      '@type': 'HowToStep',
+      name: `Escriba el nombre Enndor, pegue la dirección ${MCP_URL} y haga clic en Continuar`,
+      image: 'https://enndor.ai/images/guia-claude-nombre-direccion.webp',
+    },
+    {
+      '@type': 'HowToStep',
+      name: 'Deje marcado Registrar automáticamente y haga clic en Agregar',
+      image: 'https://enndor.ai/images/guia-claude-oauth.webp',
+    },
+    {
+      '@type': 'HowToStep',
+      name: 'Inicie sesión en Enndor; al volver a Claude, Enndor queda conectado',
+      image: 'https://enndor.ai/images/guia-claude-login.webp',
+    },
+    {
+      '@type': 'HowToStep',
+      name: 'En Administrar conectores → Enndor, elija Permitir siempre para las herramientas de solo lectura',
+      image: 'https://enndor.ai/images/guia-claude-permisos.webp',
+    },
   ],
 };
 
