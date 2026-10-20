@@ -152,14 +152,14 @@ const GUIDES: ClientGuide[] = [
       {
         title: (
           <>
-            Deje marcado <Strong>Registrar automáticamente</Strong> y haga clic en <Strong>Agregar</Strong>
+            Deje marcadas las <Strong>opciones por defecto</Strong> y haga clic en <Strong>Agregar</Strong>
           </>
         ),
-        body: <>Claude detecta solo la forma de conectarse. No cambie nada más en esta pantalla.</>,
+        body: <>Claude detecta solo la forma de conectarse; no hace falta cambiar nada en esta pantalla.</>,
         image: {
           src: '/images/guia-claude-oauth.webp',
-          alt: 'Pantalla de Cliente OAuth con la opción Registrar automáticamente seleccionada y el botón Agregar',
-          caption: <>Opción “Registrar automáticamente” (Detectado) → Agregar</>,
+          alt: 'Pantalla de opciones del conector con los valores por defecto y el botón Agregar',
+          caption: <>Opciones por defecto → Agregar</>,
           width: 556,
           height: 680,
           className: 'max-w-sm',
@@ -214,12 +214,6 @@ const GUIDES: ClientGuide[] = [
         ),
       },
     ],
-    note: (
-      <>
-        En los planes Team y Enterprise, primero un administrador debe agregar el conector en la configuración de la
-        organización; después cada miembro se conecta con su propia cuenta.
-      </>
-    ),
   },
   {
     id: 'chatgpt',
@@ -459,7 +453,7 @@ const howToJsonLd = {
     },
     {
       '@type': 'HowToStep',
-      name: 'Deje marcado Registrar automáticamente y haga clic en Agregar',
+      name: 'Deje marcadas las opciones por defecto y haga clic en Agregar',
       image: 'https://enndor.ai/images/guia-claude-oauth.webp',
     },
     {
