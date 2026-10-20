@@ -1,5 +1,12 @@
-import { PlugZap, Search, FileSearch, KeyRound, Link2, ShieldCheck } from 'lucide-react';
+import { useState, type ReactNode } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Check, Copy, FileSearch, KeyRound, Link2, PlugZap, Search, ShieldCheck } from 'lucide-react';
 import SEO from '@/src/components/SEO';
+import { Eyebrow, PageHeader, SpotlightCard } from '@/src/components/Brand';
+import { cn } from '@/src/lib/utils';
+
+const EASE = [0.22, 1, 0.36, 1] as const;
+const MCP_URL = 'https://app.enndor.ai/mcp';
 
 type ToolDoc = {
   name: string;
@@ -34,145 +41,435 @@ const TOOLS: ToolDoc[] = [
   },
 ];
 
+function CopyBlock({ text, multiline = false }: { text: string; multiline?: boolean }) {
+  const [copied, setCopied] = useState(false);
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    } catch {
+      // Clipboard blocked (e.g. insecure context): the text stays selectable.
+    }
+  };
+  return (
+    <div className="group relative mt-3 rounded-xl border border-white/10 bg-white/[0.03]">
+      <pre className={cn('overflow-x-auto px-5 py-4 pr-14 font-mono text-sm text-accent', !multiline && 'whitespace-nowrap')}>
+        <code>{text}</code>
+      </pre>
+      <button
+        type="button"
+        onClick={copy}
+        aria-label={copied ? 'Copiado' : 'Copiar'}
+        className="absolute right-2.5 top-2.5 flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 text-white/60 transition-colors hover:border-white/25 hover:text-white"
+      >
+        {copied ? <Check className="h-4 w-4 text-accent" /> : <Copy className="h-4 w-4" />}
+      </button>
+    </div>
+  );
+}
+
+type Step = { title: ReactNode; body?: ReactNode };
+
+type ClientGuide = {
+  id: string;
+  label: string;
+  intro: ReactNode;
+  steps: Step[];
+  note?: ReactNode;
+};
+
+const Strong = ({ children }: { children: ReactNode }) => <strong className="font-medium text-white">{children}</strong>;
+
+const GUIDES: ClientGuide[] = [
+  {
+    id: 'claude',
+    label: 'Claude',
+    intro: (
+      <>
+        Para <Strong>claude.ai</Strong>, la app de escritorio y la app móvil. Lo configura una vez en la web y queda
+        disponible en todos sus dispositivos.
+      </>
+    ),
+    steps: [
+      {
+        title: (
+          <>
+            Abra <Strong>Configuración → Conectores</Strong> en claude.ai
+          </>
+        ),
+        body: <>En algunas versiones aparece como <Strong>Personalizar → Conectores</Strong>.</>,
+      },
+      {
+        title: (
+          <>
+            Haga clic en <Strong>Agregar conector personalizado</Strong>
+          </>
+        ),
+      },
+      {
+        title: (
+          <>
+            Escriba el nombre <Strong>Enndor</Strong> y pegue la URL del servidor
+          </>
+        ),
+        body: (
+          <>
+            <CopyBlock text={MCP_URL} />
+            <p className="mt-3">No llene los campos de OAuth (Client ID / Secret): Enndor registra el cliente automáticamente.</p>
+          </>
+        ),
+      },
+      {
+        title: (
+          <>
+            Haga clic en <Strong>Conectar</Strong> e inicie sesión en Enndor
+          </>
+        ),
+        body: <>Se abre la página de inicio de sesión de Enndor. Entre con su cuenta o como invitado y autorice el acceso.</>,
+      },
+      {
+        title: <>Actívelo en sus conversaciones</>,
+        body: (
+          <>
+            En un chat nuevo, abra el menú de herramientas (el ícono <Strong>+</Strong> o de controles junto al campo de
+            mensaje) y confirme que <Strong>Enndor</Strong> está activado.
+          </>
+        ),
+      },
+    ],
+    note: (
+      <>
+        En los planes Team y Enterprise, primero un administrador debe agregar el conector en la configuración de la
+        organización; después cada miembro se conecta con su propia cuenta.
+      </>
+    ),
+  },
+  {
+    id: 'chatgpt',
+    label: 'ChatGPT',
+    intro: (
+      <>
+        ChatGPT admite servidores MCP personalizados en sus planes de pago. Los nombres de los menús cambian con
+        frecuencia; si no encuentra una opción, busque <Strong>“servidor MCP personalizado”</Strong> en la configuración.
+      </>
+    ),
+    steps: [
+      {
+        title: (
+          <>
+            Abra <Strong>Configuración → Apps y conectores</Strong>
+          </>
+        ),
+        body: (
+          <>
+            Si se lo pide, active el <Strong>Modo desarrollador</Strong> en <Strong>Configuración avanzada</Strong> y acepte la
+            advertencia de seguridad.
+          </>
+        ),
+      },
+      {
+        title: (
+          <>
+            Elija <Strong>Crear</Strong> o <Strong>Agregar servidor MCP personalizado</Strong>
+          </>
+        ),
+      },
+      {
+        title: (
+          <>
+            Escriba el nombre <Strong>Enndor</Strong> y pegue la URL del servidor
+          </>
+        ),
+        body: (
+          <>
+            <CopyBlock text={MCP_URL} />
+            <p className="mt-3">
+              En autenticación seleccione <Strong>OAuth</Strong>. No necesita ingresar credenciales: el registro del cliente es
+              automático.
+            </p>
+          </>
+        ),
+      },
+      {
+        title: (
+          <>
+            Haga clic en <Strong>Crear</Strong> e inicie sesión en Enndor
+          </>
+        ),
+        body: <>ChatGPT abre la página de inicio de sesión de Enndor. Entre con su cuenta o como invitado y autorice el acceso.</>,
+      },
+      {
+        title: <>Selecciónelo en cada conversación</>,
+        body: (
+          <>
+            Desde el botón <Strong>+</Strong> del campo de mensaje, elija <Strong>Enndor</Strong> en la lista de herramientas o
+            de modo desarrollador.
+          </>
+        ),
+      },
+    ],
+    note: (
+      <>
+        En los espacios de trabajo Business y Enterprise, un administrador debe habilitar el uso de servidores MCP
+        personalizados para los miembros.
+      </>
+    ),
+  },
+  {
+    id: 'claude-code',
+    label: 'Claude Code',
+    intro: <>Para la terminal. Agregue el servidor y autentíquese con dos comandos.</>,
+    steps: [
+      {
+        title: <>Agregue el servidor y abra el inicio de sesión</>,
+        body: (
+          <CopyBlock
+            multiline
+            text={`claude mcp add --transport http enndor ${MCP_URL}\nclaude mcp login enndor`}
+          />
+        ),
+      },
+      {
+        title: <>Complete el inicio de sesión en el navegador</>,
+        body: <>El segundo comando abre Enndor en su navegador. Entre con su cuenta o como invitado y autorice el acceso.</>,
+      },
+      {
+        title: <>Confirme la conexión</>,
+        body: (
+          <>
+            <CopyBlock text="claude mcp list" />
+            <p className="mt-3">
+              Debe aparecer <code className="font-mono text-accent">enndor</code> como conectado.
+            </p>
+          </>
+        ),
+      },
+    ],
+  },
+  {
+    id: 'otros',
+    label: 'Otros clientes',
+    intro: (
+      <>
+        Cualquier cliente compatible con <Strong>MCP remoto por HTTP</Strong> (Streamable HTTP) y OAuth 2.1 puede
+        conectarse.
+      </>
+    ),
+    steps: [
+      {
+        title: <>Use esta URL como servidor MCP remoto</>,
+        body: <CopyBlock text={MCP_URL} />,
+      },
+      {
+        title: <>Deje que el cliente negocie la autenticación</>,
+        body: (
+          <>
+            El servidor anuncia sus metadatos OAuth en <code className="font-mono text-accent">/.well-known/oauth-protected-resource</code> y
+            admite registro dinámico de clientes (RFC 7591), así que no hay credenciales que copiar.
+          </>
+        ),
+      },
+      {
+        title: <>Inicie sesión en Enndor cuando se lo pida</>,
+        body: <>Al autorizar, el cliente recibe acceso a las herramientas descritas más abajo.</>,
+      },
+    ],
+  },
+];
+
+function ClientGuides() {
+  const [active, setActive] = useState(GUIDES[0].id);
+  const guide = GUIDES.find((g) => g.id === active) ?? GUIDES[0];
+
+  return (
+    <div>
+      {/* Segmented "slider" radio: the white pill slides to the selected app. */}
+      <div
+        role="radiogroup"
+        aria-label="Aplicación"
+        className="relative inline-flex max-w-full flex-wrap gap-1 rounded-2xl border border-white/10 bg-white/[0.03] p-1 sm:flex-nowrap sm:rounded-full"
+      >
+        {GUIDES.map((g) => (
+          <button
+            key={g.id}
+            type="button"
+            role="radio"
+            aria-checked={active === g.id}
+            onClick={() => setActive(g.id)}
+            className={cn(
+              'relative rounded-full px-5 py-2 text-sm transition-colors duration-300',
+              active === g.id ? 'text-black' : 'text-on-surface-variant hover:text-white',
+            )}
+          >
+            {active === g.id && (
+              <motion.span
+                layoutId="mcp-client"
+                className="absolute inset-0 rounded-full bg-white"
+                transition={{ type: 'spring', bounce: 0.2, duration: 0.5 }}
+              />
+            )}
+            <span className="relative font-medium">{g.label}</span>
+          </button>
+        ))}
+      </div>
+
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={guide.id}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.35, ease: EASE }}
+          className="mt-10"
+        >
+          <p className="max-w-2xl text-lg font-light leading-relaxed text-on-surface-variant">{guide.intro}</p>
+          <ol className="mt-10 border-t border-white/[0.08]">
+            {guide.steps.map((step, i) => (
+              <li key={i} className="grid grid-cols-[2.5rem_1fr] gap-4 border-b border-white/[0.08] py-7 sm:grid-cols-[3.5rem_1fr]">
+                <span className="font-mono text-xs text-accent">0{i + 1}</span>
+                <div className="min-w-0">
+                  <h3 className="font-headline text-lg font-medium tracking-tight text-white sm:text-xl">{step.title}</h3>
+                  {step.body && <div className="mt-2 font-light leading-relaxed text-on-surface-variant">{step.body}</div>}
+                </div>
+              </li>
+            ))}
+          </ol>
+          {guide.note && (
+            <p className="mt-6 max-w-2xl border-l border-accent/60 pl-4 text-sm font-light leading-relaxed text-on-surface-variant">
+              {guide.note}
+            </p>
+          )}
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  );
+}
+
 export default function Mcp() {
   return (
-    <main className="pt-32 pb-20 px-6 md:px-12 lg:px-24 bg-black min-h-screen">
+    <div className="min-h-screen bg-black">
       <SEO
         title="Conector MCP"
-        description="Conecte Claude, ChatGPT o cualquier cliente MCP a la base de jurisprudencia y normatividad colombiana de Enndor."
+        description="Conecte Claude, ChatGPT o cualquier cliente MCP a la base de jurisprudencia y normatividad colombiana de Enndor. Guía paso a paso."
         canonical="https://enndor.ai/mcp"
       />
 
-      <header className="max-w-4xl mb-20">
-        <span className="text-primary font-sans uppercase tracking-widest text-xs mb-4 block">
-          Para desarrolladores
-        </span>
-        <h1 className="text-5xl md:text-7xl font-semibold text-on-surface tracking-tight mb-8 font-headline">
-          Conector MCP de Enndor.
-        </h1>
-        <p className="text-xl text-on-surface-variant max-w-2xl leading-relaxed font-sans font-light">
-          Un servidor{' '}
-          <a
-            href="https://modelcontextprotocol.io"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary hover:underline"
-          >
-            Model Context Protocol
-          </a>{' '}
-          remoto que expone la misma búsqueda de jurisprudencia y normatividad colombiana de la app a
-          cualquier cliente MCP — Claude, ChatGPT, o su propia integración.
-        </p>
-      </header>
-
-      {/* Connection */}
-      <section className="mb-24 max-w-4xl">
-        <h2 className="text-3xl font-bold text-on-surface mb-6 font-headline">Conexión</h2>
-        <p className="text-on-surface-variant text-lg leading-relaxed font-sans font-light mb-6">
-          La URL del servidor es:
-        </p>
-        <code className="block bg-white/5 card-border rounded-lg px-6 py-4 text-primary font-mono text-sm md:text-base break-all">
-          https://app.enndor.ai/mcp
-        </code>
-      </section>
-
-      {/* Auth */}
-      <section className="mb-24 max-w-4xl">
-        <div className="flex items-center gap-3 mb-6">
-          <KeyRound className="text-primary w-7 h-7" />
-          <h2 className="text-3xl font-bold text-on-surface font-headline">Autenticación</h2>
+      <PageHeader
+        eyebrow="Conector MCP"
+        title={
+          <>
+            Enndor dentro de <span className="font-serif italic tracking-normal text-white/55">Claude y ChatGPT.</span>
+          </>
+        }
+        subtitle={
+          <>
+            Un servidor{' '}
+            <a href="https://modelcontextprotocol.io" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
+              Model Context Protocol
+            </a>{' '}
+            remoto que lleva la búsqueda de jurisprudencia y normatividad colombiana de Enndor a su asistente de IA
+            favorito.
+          </>
+        }
+      >
+        <div className="mt-10 max-w-xl">
+          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-white/40">URL del servidor</p>
+          <CopyBlock text={MCP_URL} />
         </div>
-        <p className="text-on-surface-variant text-lg leading-relaxed font-sans font-light mb-6">
-          El conector usa OAuth 2.1 con PKCE y registro dinámico de clientes (RFC 7591) — un cliente MCP
-          compatible lo detecta automáticamente, sin necesidad de pedir credenciales manualmente. Al
-          autenticarse, se le redirige a iniciar sesión en Enndor; <strong className="text-on-surface">no se requiere
-          cuenta</strong> — "Continuar como invitado" funciona igual de bien.
-        </p>
-        <p className="text-on-surface-variant text-base leading-relaxed font-sans font-light">
-          Cada sesión conectada de esta forma reemplaza la anterior: solo un cliente MCP puede estar
-          conectado a la vez por cuenta, independiente de su sesión en la app web.
-        </p>
-      </section>
+      </PageHeader>
 
-      {/* Claude Code CLI */}
-      <section className="mb-24 max-w-4xl">
-        <h2 className="text-3xl font-bold text-on-surface mb-6 font-headline">
-          Conectar desde Claude Code
-        </h2>
-        <pre className="bg-white/5 card-border rounded-lg px-6 py-5 overflow-x-auto mb-4">
-          <code className="text-primary font-mono text-sm md:text-base">
-            claude mcp add --transport http enndor https://app.enndor.ai/mcp{'\n'}
-            claude mcp login enndor
-          </code>
-        </pre>
-        <p className="text-on-surface-variant text-base leading-relaxed font-sans font-light">
-          El segundo comando abre el navegador para completar el inicio de sesión. Una vez conectado,{' '}
-          <code className="text-primary font-mono text-sm">claude mcp list</code> debe mostrar{' '}
-          <code className="text-primary font-mono text-sm">enndor</code> como conectado.
-        </p>
-      </section>
-
-      {/* Claude.ai / ChatGPT */}
-      <section className="mb-24 max-w-4xl">
-        <h2 className="text-3xl font-bold text-on-surface mb-6 font-headline">
-          Conectar desde Claude.ai o ChatGPT
-        </h2>
-        <p className="text-on-surface-variant text-lg leading-relaxed font-sans font-light">
-          En la configuración de conectores de su cliente, agregue un conector personalizado con la URL
-          de arriba. El cliente iniciará el flujo de autenticación automáticamente.
-        </p>
-      </section>
-
-      {/* Tools */}
-      <section className="mb-24">
-        <h2 className="text-3xl font-bold text-on-surface mb-10 font-headline max-w-4xl">
-          Herramientas disponibles
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl">
-          {TOOLS.map(({ name, Icon, description }) => (
-            <div
-              key={name}
-              className="bg-black card-border p-8 rounded-xl transition-all duration-300 hover:border-primary/30"
-            >
-              <div className="w-12 h-12 rounded bg-white/5 flex items-center justify-center mb-6">
-                <Icon className="text-primary w-7 h-7" />
-              </div>
-              <h3 className="text-xl font-bold text-on-surface mb-3 font-headline font-mono">
-                {name}
-              </h3>
-              <p className="text-on-surface-variant leading-relaxed font-sans font-light">
-                {description}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Verifiability */}
-      <section className="max-w-4xl">
-        <div className="bg-surface-container-low card-border rounded-xl p-8 md:p-12 border-l-4 border-l-primary flex flex-col md:flex-row items-center gap-8 md:gap-16">
-          <div className="flex-shrink-0 w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
-            <ShieldCheck className="text-primary w-12 h-12" />
+      {/* Guía por aplicación */}
+      <section className="px-6 pb-28 md:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="max-w-4xl">
+            <Eyebrow index="01" className="mb-8">
+              Cómo conectarlo
+            </Eyebrow>
+            <ClientGuides />
           </div>
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-on-surface mb-4 tracking-tight font-headline">
-              Resultados verificables
-            </h2>
-            <p className="text-on-surface-variant text-xl leading-relaxed max-w-3xl font-sans font-light">
-              Cada resultado incluye un enlace firmado al PDF original en nuestro repositorio documental,
-              válido por una hora, para que pueda confirmar cada cita directamente en la fuente.
+        </div>
+      </section>
+
+      {/* Autenticación */}
+      <section className="border-y border-white/[0.06] px-6 py-24 md:px-8">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-12">
+          <div className="space-y-6 lg:col-span-4">
+            <Eyebrow index="02">Autenticación</Eyebrow>
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5">
+              <KeyRound className="h-5 w-5 text-accent" />
+            </div>
+          </div>
+          <div className="space-y-5 lg:col-span-8">
+            <p className="text-lg font-light leading-relaxed text-on-surface-variant">
+              El conector usa OAuth 2.1 con PKCE y registro dinámico de clientes (RFC 7591): un cliente MCP compatible lo
+              detecta automáticamente, sin pedir credenciales manualmente. Al autenticarse, se le redirige a iniciar sesión
+              en Enndor; <Strong>no se requiere cuenta</Strong>, “Continuar como invitado” funciona igual de bien.
+            </p>
+            <p className="font-light leading-relaxed text-on-surface-variant">
+              Cada sesión conectada reemplaza la anterior: solo un cliente MCP puede estar conectado a la vez por cuenta,
+              independiente de su sesión en la app web.
             </p>
           </div>
         </div>
       </section>
 
-      <p className="text-on-surface-variant/60 text-sm font-sans mt-20 max-w-4xl">
-        ¿Preguntas o problemas con el conector? Escríbanos a{' '}
-        <a href="mailto:soporte@legisia.co" className="text-primary hover:underline">
-          soporte@legisia.co
-        </a>
-        .
-      </p>
-    </main>
+      {/* Herramientas */}
+      <section className="px-6 py-28 md:px-8">
+        <div className="mx-auto max-w-7xl">
+          <Eyebrow index="03" className="mb-6">
+            Herramientas disponibles
+          </Eyebrow>
+          <h2 className="mb-12 font-headline text-4xl font-medium tracking-[-0.03em] lg:text-5xl">
+            Lo que su asistente <span className="font-serif italic tracking-normal text-white/55">puede hacer.</span>
+          </h2>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            {TOOLS.map(({ name, Icon, description }, i) => (
+              <motion.div
+                key={name}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.7, delay: (i % 2) * 0.1, ease: EASE }}
+              >
+                <SpotlightCard className="h-full">
+                  <div className="p-8">
+                    <div className="mb-8 flex items-center justify-between">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5">
+                        <Icon className="h-5 w-5 text-accent" />
+                      </div>
+                      <span className="font-mono text-xs text-white/25">0{i + 1}</span>
+                    </div>
+                    <h3 className="mb-3 font-mono text-lg text-white">{name}</h3>
+                    <p className="font-light leading-relaxed text-on-surface-variant">{description}</p>
+                  </div>
+                </SpotlightCard>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="mt-6 flex flex-col gap-6 rounded-2xl border border-white/[0.08] bg-white/[0.02] p-8 md:flex-row md:items-center md:p-10">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-accent/15">
+              <ShieldCheck className="h-7 w-7 text-accent" />
+            </div>
+            <div>
+              <h3 className="font-headline text-2xl font-medium tracking-tight">Resultados verificables</h3>
+              <p className="mt-2 font-light leading-relaxed text-on-surface-variant">
+                Cada resultado incluye un enlace firmado al PDF original en nuestro repositorio documental, válido por una
+                hora, para que pueda confirmar cada cita directamente en la fuente.
+              </p>
+            </div>
+          </div>
+
+          <p className="mt-16 text-sm font-light text-on-surface-variant/70">
+            ¿Preguntas o problemas con el conector? Escríbanos a{' '}
+            <a href="mailto:soporte@legisia.co" className="text-accent hover:underline">
+              soporte@legisia.co
+            </a>
+            .
+          </p>
+        </div>
+      </section>
+    </div>
   );
 }

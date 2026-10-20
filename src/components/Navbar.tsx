@@ -22,6 +22,7 @@ export default function Navbar() {
     { name: 'Jurisprudencia', href: '/' },
     { name: 'Precios', href: '/precios' },
     { name: 'Casos de Uso', href: '/casos-de-uso' },
+    { name: 'Conector MCP', href: '/mcp' },
     // Served by the App through nginx (not a route in this SPA), so it needs
     // a full page load: rendered as <a>, not react-router's <Link>.
     { name: 'Blog', href: '/blog', external: true },
