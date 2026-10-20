@@ -76,7 +76,7 @@ function CopyBlock({ text, multiline = false }: { text: string; multiline?: bool
   );
 }
 
-type Step = { title: ReactNode; body?: ReactNode };
+type Step = { title: ReactNode; body?: ReactNode; image?: { src: string; alt: string; caption: ReactNode } };
 
 type ClientGuide = {
   id: string;
@@ -102,17 +102,23 @@ const GUIDES: ClientGuide[] = [
       {
         title: (
           <>
-            Abra <Strong>Configuración → Conectores</Strong> en claude.ai
+            En un chat de claude.ai, haga clic en el botón <Strong>+</Strong>
           </>
         ),
-        body: <>En algunas versiones aparece como <Strong>Personalizar → Conectores</Strong>.</>,
-      },
-      {
-        title: (
+        body: (
           <>
-            Haga clic en <Strong>Agregar conector personalizado</Strong>
+            Luego vaya a <Strong>Conectores → Agregar conector → Agregar conector personalizado</Strong>.
           </>
         ),
+        image: {
+          src: '/images/guia-claude-conector.webp',
+          alt: 'Menú de Claude: botón +, Conectores, Agregar conector y Agregar conector personalizado',
+          caption: (
+            <>
+              <Strong>+</Strong> → Conectores → Agregar conector → <Strong>Agregar conector personalizado</Strong>
+            </>
+          ),
+        },
       },
       {
         title: (
@@ -130,7 +136,7 @@ const GUIDES: ClientGuide[] = [
       {
         title: (
           <>
-            Haga clic en <Strong>Conectar</Strong> e inicie sesión en Enndor
+            Haga clic en <Strong>Agregar</Strong> y luego en <Strong>Conectar</Strong>
           </>
         ),
         body: <>Se abre la página de inicio de sesión de Enndor. Entre con su cuenta o como invitado y autorice el acceso.</>,
@@ -139,8 +145,8 @@ const GUIDES: ClientGuide[] = [
         title: <>Actívelo en sus conversaciones</>,
         body: (
           <>
-            En un chat nuevo, abra el menú de herramientas (el ícono <Strong>+</Strong> o de controles junto al campo de
-            mensaje) y confirme que <Strong>Enndor</Strong> está activado.
+            Desde el mismo botón <Strong>+</Strong> → <Strong>Conectores</Strong>, confirme que el interruptor de{' '}
+            <Strong>Enndor</Strong> está encendido.
           </>
         ),
       },
@@ -337,6 +343,22 @@ function ClientGuides() {
                 <div className="min-w-0">
                   <h3 className="font-headline text-lg font-medium tracking-tight text-white sm:text-xl">{step.title}</h3>
                   {step.body && <div className="mt-2 font-light leading-relaxed text-on-surface-variant">{step.body}</div>}
+                  {step.image && (
+                    <figure className="mt-5">
+                      <img
+                        src={step.image.src}
+                        alt={step.image.alt}
+                        width={785}
+                        height={342}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full max-w-2xl rounded-xl border border-white/10"
+                      />
+                      <figcaption className="mt-3 font-mono text-[11px] uppercase tracking-[0.15em] text-white/45">
+                        {step.image.caption}
+                      </figcaption>
+                    </figure>
+                  )}
                 </div>
               </li>
             ))}
@@ -362,11 +384,14 @@ const howToJsonLd = {
   inLanguage: 'es-CO',
   totalTime: 'PT2M',
   step: [
-    { '@type': 'HowToStep', name: 'Abra Configuración → Conectores en claude.ai' },
-    { '@type': 'HowToStep', name: 'Haga clic en Agregar conector personalizado' },
+    {
+      '@type': 'HowToStep',
+      name: 'En un chat de claude.ai, haga clic en + → Conectores → Agregar conector → Agregar conector personalizado',
+      image: 'https://enndor.ai/images/guia-claude-conector.webp',
+    },
     { '@type': 'HowToStep', name: `Escriba el nombre Enndor y pegue la dirección ${MCP_URL}` },
-    { '@type': 'HowToStep', name: 'Haga clic en Conectar e inicie sesión en Enndor' },
-    { '@type': 'HowToStep', name: 'Active Enndor en el menú de herramientas de la conversación' },
+    { '@type': 'HowToStep', name: 'Haga clic en Agregar y luego en Conectar, e inicie sesión en Enndor' },
+    { '@type': 'HowToStep', name: 'Desde + → Conectores, confirme que Enndor está activado' },
   ],
 };
 
