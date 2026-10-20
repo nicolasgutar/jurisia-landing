@@ -63,7 +63,7 @@ export default function Footer() {
             <Link to="/" className={linkClass}>Jurisprudencia</Link>
             <Link to="/precios" className={linkClass}>Precios</Link>
             <Link to="/casos-de-uso" className={linkClass}>Casos de Uso</Link>
-            <Link to="/mcp" className={linkClass}>Conector MCP</Link>
+            <Link to="/mcp" className={linkClass}>Enndor x Claude</Link>
           </div>
         </div>
 
