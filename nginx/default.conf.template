@@ -50,6 +50,12 @@ server {
     location = /terminos               { return 301 /terminos-y-condiciones; }
     location = /tyc                    { return 301 /terminos-y-condiciones; }
 
+    # QR codes: scans carry no referrer (they land in PostHog as $direct), so
+    # tag them with UTMs instead. /qr/<campaign> lets each printed QR be told
+    # apart; 302 so the target can change without stale browser caches.
+    location = /qr                     { return 302 /?utm_source=qr&utm_medium=offline&utm_campaign=qr; }
+    location ~ ^/qr/([a-z0-9_-]+)/?$   { return 302 /?utm_source=qr&utm_medium=offline&utm_campaign=$1; }
+
     # Vite's hashed build output never changes under the same name
     location /assets/ {
         expires 1y;
