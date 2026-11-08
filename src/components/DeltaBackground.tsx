@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { cn } from '@/src/lib/utils';
-import { PALETTE_EVENT } from '@/src/config/palettes';
+import { DEFAULT_PALETTE, getPalette, PALETTE_EVENT } from '@/src/config/palettes';
 
 // Generative greyscale "river delta" (domain-warped fbm with ridged channels),
 // the Enndor hero backdrop. Pure WebGL1, no dependency. Renders at reduced
@@ -87,18 +87,36 @@ const RESOLUTION_SCALE = 0.5;
 
 type RGB = [number, number, number];
 
-function readTone(name: string): RGB {
-  const hex = getComputedStyle(document.documentElement).getPropertyValue(name).trim().replace('#', '');
+function parseHex(value: string): RGB | null {
+  const hex = value.trim().replace('#', '');
   const n = parseInt(hex.length === 3 ? hex.replace(/./g, '$&$&') : hex, 16);
-  if (Number.isNaN(n)) return [1, 1, 1];
+  if (!/^[0-9a-f]{3}([0-9a-f]{3})?$/i.test(hex) || Number.isNaN(n)) return null;
   return [((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255];
 }
 
-const readTones = () => ({
-  shadow: readTone('--delta-shadow'),
-  highlight: readTone('--delta-highlight'),
-  accent: readTone('--delta-accent'),
-});
+const DEFAULT_DELTA = getPalette(DEFAULT_PALETTE).delta;
+
+// The tones live in CSS variables (index.css, or a palette's inline
+// overrides). On a cold first load Safari can run this effect before the
+// stylesheet applies, when the variables are still empty: fall back to the
+// default palette instead of white, and report `ready: false` so the loop
+// keeps re-reading until the real values show up.
+function readTones() {
+  const style = getComputedStyle(document.documentElement);
+  let ready = true;
+  const tone = (name: string, fallback: string): RGB => {
+    const parsed = parseHex(style.getPropertyValue(name));
+    if (parsed) return parsed;
+    ready = false;
+    return parseHex(fallback) ?? [0, 0, 0];
+  };
+  const tones = {
+    shadow: tone('--delta-shadow', DEFAULT_DELTA.shadow),
+    highlight: tone('--delta-highlight', DEFAULT_DELTA.highlight),
+    accent: tone('--delta-accent', DEFAULT_DELTA.accent),
+  };
+  return { tones, ready };
+}
 
 function compile(gl: WebGLRenderingContext, type: number, source: string) {
   const shader = gl.createShader(type);
@@ -149,7 +167,7 @@ export default function DeltaBackground({ className }: { className?: string }) {
 
     // Current tones ease toward the target ones, so switching palettes
     // cross-fades the backdrop instead of snapping.
-    let target = readTones();
+    let { tones: target, ready: tonesReady } = readTones();
     const tones = { shadow: [...target.shadow], highlight: [...target.highlight], accent: [...target.accent] };
     const easeTones = (k: number) => {
       for (const key of ['shadow', 'highlight', 'accent'] as const) {
@@ -178,6 +196,7 @@ export default function DeltaBackground({ className }: { className?: string }) {
 
     const draw = (now: number) => {
       resize();
+      if (!tonesReady) ({ tones: target, ready: tonesReady } = readTones());
       mouse.x += (mouse.tx - mouse.x) * 0.04;
       mouse.y += (mouse.ty - mouse.y) * 0.04;
       gl.uniform2f(uRes, canvas.width, canvas.height);
@@ -224,10 +243,12 @@ export default function DeltaBackground({ className }: { className?: string }) {
     const onResize = () => reducedMotion && draw(performance.now());
     window.addEventListener('resize', onResize);
     const onPalette = () => {
-      target = readTones();
+      ({ tones: target, ready: tonesReady } = readTones());
       if (reducedMotion) draw(performance.now());
     };
     window.addEventListener(PALETTE_EVENT, onPalette);
+    // Reduced motion draws a single frame; redraw once the stylesheet is in.
+    window.addEventListener('load', onPalette);
 
     return () => {
       cancelAnimationFrame(raf);
@@ -235,6 +256,7 @@ export default function DeltaBackground({ className }: { className?: string }) {
       window.removeEventListener('pointermove', onMove);
       window.removeEventListener('resize', onResize);
       window.removeEventListener(PALETTE_EVENT, onPalette);
+      window.removeEventListener('load', onPalette);
       document.removeEventListener('visibilitychange', resume);
       // No loseContext() here: StrictMode re-runs this effect on the same
       // canvas, and getContext() would hand back the lost context.
