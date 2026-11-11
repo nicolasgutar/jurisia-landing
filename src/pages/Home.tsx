@@ -5,7 +5,7 @@ import { cn } from '@/src/lib/utils';
 import SEO from '@/src/components/SEO';
 import StatsSection from '@/src/components/StatsSection';
 import DeltaBackground from '@/src/components/DeltaBackground';
-import { APP_URL, Eyebrow, FormerName, Marquee, SpotlightCard, Wordmark } from '@/src/components/Brand';
+import { APP_URL, Eyebrow, Marquee, SpotlightCard } from '@/src/components/Brand';
 import { trackMetaCustomEvent } from '@/src/lib/meta-pixel';
 
 const jsonLd = {
@@ -46,7 +46,7 @@ const jsonLd = {
       description:
         'Asistente jurídico con inteligencia artificial especializado en derecho colombiano. Búsqueda semántica en jurisprudencia de la Corte Constitucional, Corte Suprema de Justicia, Consejo de Estado, SIC y Comunidad Andina, y en normatividad (leyes, decretos, códigos, DIAN, CREG y superintendencias). Zero Data Retention.',
       url: APP_URL,
-      offers: { '@type': 'Offer', price: '0', priceCurrency: 'COP' },
+      offers: { '@type': 'AggregateOffer', lowPrice: '0', highPrice: '63900', priceCurrency: 'COP', offerCount: 3 },
       inLanguage: 'es-CO',
       publisher: { '@id': 'https://enndor.ai/#organization' },
     },
@@ -86,33 +86,11 @@ const knowledgeBase = {
   ],
 };
 
-// What the rename does and doesn't touch, for existing users.
-const unchanged = [
-  {
-    title: 'Tu cuenta',
-    desc: 'Entras con el mismo correo y la misma contraseña. No tienes que registrarte de nuevo.',
-  },
-  {
-    title: 'Tus conversaciones',
-    desc: 'Todo tu historial, documentos y borradores siguen exactamente donde los dejaste.',
-  },
-  {
-    title: 'La base de conocimiento',
-    desc: 'La misma jurisprudencia y normatividad colombiana, sincronizada mes a mes con las fuentes oficiales.',
-  },
-  {
-    title: 'Tu privacidad',
-    desc: 'Zero Data Retention: tus datos nunca se usan para entrenar modelos de IA.',
-  },
-];
-
-// Testimonials predate the rename, so their original wording ("Legisia") is
-// kept and rendered struck through next to the new name.
 const testimonials = [
   {
     quote: (
       <>
-        Definitivamente <FormerName /> Enndor es lo máximo, me ha servido demasiado. Tengo unos casos que no son de mi especialidad y la he usado demasiado para orientarme. Todos los abogados de mi oficina la usan. Funciona super bien, da más de lo que uno pide.
+        Definitivamente Enndor es lo máximo, me ha servido demasiado. Tengo unos casos que no son de mi especialidad y la he usado demasiado para orientarme. Todos los abogados de mi oficina la usan. Funciona super bien, da más de lo que uno pide.
       </>
     ),
     role: 'Socio, Firma de Abogados',
@@ -120,7 +98,7 @@ const testimonials = [
   {
     quote: (
       <>
-        <FormerName /> Enndor es demasiado útil para el negocio de Energía. Aunque yo no sea abogado, cada que llega un proyecto o una nueva oportunidad es muy bueno para revisar bajo qué figura legal se puede implementar.
+        Enndor es demasiado útil para el negocio de Energía. Aunque yo no sea abogado, cada que llega un proyecto o una nueva oportunidad es muy bueno para revisar bajo qué figura legal se puede implementar.
       </>
     ),
     role: 'CFO, empresa de Energía',
@@ -158,7 +136,7 @@ const capabilities = [
 
 const NEW_NAME = 'enndor.ai'.split('');
 
-function RenameHero() {
+function Hero() {
   return (
     <section className="relative flex min-h-[100svh] flex-col overflow-hidden bg-black">
       <DeltaBackground />
@@ -174,36 +152,10 @@ function RenameHero() {
           className="mb-10 inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/30 px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.25em] text-white/70 backdrop-blur-md"
         >
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
-          Nuevo nombre · Misma misión
+          IA para el derecho colombiano
         </motion.div>
 
         <h1 className="flex flex-col items-center">
-          {/* Old name: fades in, gets struck through, then recedes */}
-          <motion.span
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: [0, 1, 1, 0.45], y: 0 }}
-            transition={{ duration: 2, delay: 0.4, times: [0, 0.25, 0.6, 1], ease: 'easeOut' }}
-            className="relative font-serif text-4xl italic text-white/80 sm:text-6xl"
-          >
-            Legisia
-            <motion.span
-              aria-hidden="true"
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 0.7, delay: 1.2, ease: EASE }}
-              className="absolute left-[-8%] right-[-8%] top-[54%] h-[2px] origin-left bg-accent"
-            />
-          </motion.span>
-
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 1.8 }}
-            className="my-4 font-mono text-[11px] uppercase tracking-[0.35em] text-white/50 sm:my-6"
-          >
-            ahora es
-          </motion.span>
-
           <span className="sr-only">Enndor.ai</span>
           <span
             aria-hidden="true"
@@ -214,7 +166,7 @@ function RenameHero() {
                 key={i}
                 initial={{ opacity: 0, y: '0.35em', filter: 'blur(16px)' }}
                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                transition={{ duration: 1, delay: 2 + i * 0.07, ease: EASE }}
+                transition={{ duration: 1, delay: 0.3 + i * 0.07, ease: EASE }}
                 className={cn('inline-block', i >= 6 && 'text-accent')}
               >
                 {char}
@@ -226,11 +178,11 @@ function RenameHero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 2.9, ease: EASE }}
+          transition={{ duration: 0.9, delay: 1.1, ease: EASE }}
           className="mt-10 flex max-w-xl flex-col items-center gap-8"
         >
           <p className="text-base font-light leading-relaxed text-white/70 sm:text-lg">
-            La inteligencia artificial que evoluciona el derecho colombiano tiene un nuevo nombre. Misma precisión, mismas fuentes, misma cuenta.
+            Jurisprudencia y normatividad colombiana con inteligencia artificial. Cada respuesta cita la sentencia o norma original, para que la verifiques en segundos.
           </p>
           <div className="flex flex-col gap-3 sm:flex-row">
             <a
@@ -244,10 +196,10 @@ function RenameHero() {
               <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </a>
             <a
-              href="#cambio"
+              href="/precios"
               className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-black/20 px-7 py-3.5 text-sm text-white backdrop-blur-md transition-all duration-300 hover:border-white/40 hover:bg-white/10"
             >
-              ¿Qué cambia?
+              Ver planes
             </a>
           </div>
         </motion.div>
@@ -257,11 +209,11 @@ function RenameHero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 3.4 }}
+        transition={{ duration: 1, delay: 1.6 }}
         className="relative z-10 mx-auto hidden w-full max-w-7xl items-end justify-between px-8 pb-8 font-mono text-[10px] uppercase tracking-[0.25em] text-white/40 md:flex"
       >
         <span>4.7110° N, 74.0721° W</span>
-        <a href="#cambio" className="flex items-center gap-2 transition-colors hover:text-white">
+        <a href="#veracidad" className="flex items-center gap-2 transition-colors hover:text-white">
           Desplázate
           <motion.span animate={{ y: [0, 4, 0] }} transition={{ repeat: Infinity, duration: 1.8 }}>
             <ArrowDown className="h-3 w-3" />
@@ -269,56 +221,6 @@ function RenameHero() {
         </a>
         <span>Derecho colombiano · IA</span>
       </motion.div>
-    </section>
-  );
-}
-
-function RenameExplainer() {
-  return (
-    <section id="cambio" className="relative scroll-mt-16 bg-black px-6 py-28 md:px-8 md:py-36">
-      <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-12">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.4 }}
-          variants={{ visible: { transition: { staggerChildren: 0.12 } } }}
-          className="space-y-8 lg:col-span-5"
-        >
-          <motion.div variants={fadeUp}>
-            <Eyebrow index="01">El cambio</Eyebrow>
-          </motion.div>
-          <motion.h2 variants={fadeUp} className="font-headline text-4xl font-medium leading-[1.05] tracking-[-0.03em] sm:text-5xl lg:text-6xl">
-            Cambia el nombre.
-            <br />
-            <span className="font-serif text-white/50 italic tracking-normal">Nada más.</span>
-          </motion.h2>
-          <motion.p variants={fadeUp} className="max-w-md text-lg font-light leading-relaxed text-on-surface-variant">
-            <FormerName>LegisIA</FormerName> ahora es <Wordmark className="font-normal" />. Es el mismo producto y el mismo equipo, con un nombre más corto y pensado para todo lo que viene.
-          </motion.p>
-        </motion.div>
-
-        <div className="lg:col-span-7">
-          {unchanged.map((item, i) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.6 }}
-              transition={{ duration: 0.8, delay: i * 0.08, ease: EASE }}
-              className="group grid grid-cols-[3rem_1fr] gap-4 border-t border-white/[0.08] py-8 last:border-b sm:grid-cols-[4rem_1fr_auto]"
-            >
-              <span className="font-mono text-xs text-white/30">0{i + 1}</span>
-              <div className="space-y-2">
-                <h3 className="font-headline text-xl font-medium tracking-tight sm:text-2xl">{item.title}</h3>
-                <p className="max-w-md font-light leading-relaxed text-on-surface-variant">{item.desc}</p>
-              </div>
-              <span className="hidden self-start rounded-full border border-white/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-white/50 transition-colors group-hover:border-accent group-hover:text-accent sm:block">
-                Sin cambios
-              </span>
-            </motion.div>
-          ))}
-        </div>
-      </div>
     </section>
   );
 }
@@ -354,20 +256,18 @@ export default function Home() {
   return (
     <div className="relative">
       <SEO
-        title="Enndor (antes LegisIA) | Inteligencia Artificial para el Derecho Colombiano"
-        description="LegisIA ahora es Enndor. IA especializada en jurisprudencia y legislación colombiana — Corte Constitucional, Corte Suprema, Consejo de Estado. Zero Data Retention garantizado."
+        title="Enndor | Inteligencia Artificial para el Derecho Colombiano"
+        description="Enndor: IA especializada en jurisprudencia y legislación colombiana — Corte Constitucional, Corte Suprema, Consejo de Estado. Zero Data Retention garantizado."
         canonical="https://enndor.ai/"
         jsonLd={jsonLd}
       />
 
-      <RenameHero />
-
-      <RenameExplainer />
+      <Hero />
 
       <StatsSection />
 
       {/* No más Alucinaciones */}
-      <section className="relative overflow-hidden bg-black px-6 py-28 md:px-8 md:py-36">
+      <section id="veracidad" className="relative scroll-mt-16 overflow-hidden bg-black px-6 py-28 md:px-8 md:py-36">
         <div className="mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-12">
           <motion.div
             initial={{ opacity: 0, y: 40, scale: 0.97 }}
@@ -400,7 +300,7 @@ export default function Home() {
             className="order-1 space-y-6 lg:order-2 lg:col-span-5"
           >
             <motion.div variants={fadeUp}>
-              <Eyebrow index="02">Veracidad garantizada</Eyebrow>
+              <Eyebrow index="01">Veracidad garantizada</Eyebrow>
             </motion.div>
             <motion.h2 variants={fadeUp} className="font-headline text-4xl font-medium leading-[1.05] tracking-[-0.03em] lg:text-5xl">
               No más <span className="font-serif italic tracking-normal text-white/60">alucinaciones.</span>
@@ -423,7 +323,7 @@ export default function Home() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div className="space-y-6">
-              <Eyebrow index="03">Capacidades del sistema</Eyebrow>
+              <Eyebrow index="02">Capacidades del sistema</Eyebrow>
               <h2 className="font-headline text-4xl font-medium tracking-[-0.03em] lg:text-5xl">
                 Potencia legal de vanguardia
               </h2>
@@ -469,7 +369,7 @@ export default function Home() {
       <section className="border-y border-white/[0.06] bg-black px-6 py-32 md:px-8 md:py-44">
         <div className="mx-auto max-w-5xl space-y-12">
           <div className="flex flex-wrap items-center gap-4">
-            <Eyebrow index="04">Infraestructura de privacidad</Eyebrow>
+            <Eyebrow index="03">Infraestructura de privacidad</Eyebrow>
             <span className="inline-flex items-center gap-2 rounded-full border border-white/15 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-white/70">
               <Shield className="h-3 w-3" />
               Zero Data Retention activo
@@ -483,7 +383,7 @@ export default function Home() {
       <section className="overflow-hidden bg-black py-28">
         <div className="mx-auto max-w-4xl px-6 md:px-8">
           <div className="mb-12 space-y-6 text-center">
-            <Eyebrow index="05" className="justify-center">Base de conocimiento</Eyebrow>
+            <Eyebrow index="04" className="justify-center">Base de conocimiento</Eyebrow>
             <h2 className="font-headline text-3xl font-medium tracking-[-0.03em] lg:text-4xl">Actualizada mes a mes con las fuentes oficiales</h2>
           </div>
 
@@ -543,7 +443,7 @@ export default function Home() {
       <section className="bg-black px-6 py-28 md:px-8">
         <div className="mx-auto max-w-7xl">
           <div className="mb-16 space-y-6">
-            <Eyebrow index="06">Lo que dicen nuestros usuarios</Eyebrow>
+            <Eyebrow index="05">Lo que dicen nuestros usuarios</Eyebrow>
             <h2 className="font-headline text-4xl font-medium tracking-[-0.03em] lg:text-5xl">
               Confianza real de <span className="font-serif italic tracking-normal text-white/60">profesionales.</span>
             </h2>

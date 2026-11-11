@@ -2,7 +2,10 @@ import { Download, ExternalLink, Shield } from 'lucide-react';
 import SEO from '@/src/components/SEO';
 
 export default function DataPolicy() {
-  const pdfUrl = '/politica-de-tratamiento-de-datos.pdf';
+  // ?v= busts nginx's 7-day PDF cache when a new version is published.
+  const pdfUrl = '/politica-de-tratamiento-de-datos.pdf?v=3';
+  // Earlier versions stay published (art. 58 TyC / art. 65 PPTDP).
+  const previousPdfUrl = '/politica-de-tratamiento-de-datos-v2.pdf';
 
   return (
     <div className="pt-28 pb-20 px-4 md:px-8 max-w-7xl mx-auto min-h-screen flex flex-col">
@@ -23,14 +26,19 @@ export default function DataPolicy() {
             Política de Privacidad y Tratamiento de Datos
           </h1>
           <p className="text-xs text-on-surface-variant font-sans">
-            PVGA S.A.S. (NIT 902.029.993-7) • Versión 2.0 (16 de septiembre de 2026)
+            PVGA S.A.S. (NIT 902.029.993-7) • Versión 3.0 (9 de noviembre de 2026)
+          </p>
+          <p className="text-xs text-on-surface-variant font-sans mt-1">
+            <a href={previousPdfUrl} target="_blank" rel="noopener noreferrer" className="underline hover:text-white">
+              Versión anterior (2.0, 16 de septiembre de 2026)
+            </a>
           </p>
         </div>
 
         <div className="flex items-center justify-center gap-3">
           <a
             href={pdfUrl}
-            download="260916 Enndor - PPTDP.pdf"
+            download="261109 Enndor - PPTDP v3.pdf"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs font-bold bg-white text-black hover:bg-slate-200 transition-all shadow-md"
           >
             <Download className="w-4 h-4" />

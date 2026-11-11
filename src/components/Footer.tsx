@@ -40,7 +40,7 @@ export default function Footer() {
         <div className="space-y-4 md:col-span-5">
           <Wordmark withMark className="text-2xl" />
           <p className="max-w-xs text-sm font-light leading-relaxed text-on-surface-variant">
-            Inteligencia artificial para el derecho colombiano. Antes conocida como LegisIA.
+            Inteligencia artificial para el derecho colombiano.
           </p>
           <div className="flex gap-5 pt-2">
             {socialLinks.map(({ name, href, Icon }) => (

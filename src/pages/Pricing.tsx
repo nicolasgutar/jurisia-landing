@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowUpRight, Check, Plus } from 'lucide-react';
+import { ArrowUpRight, Check, MessageSquare, Plug, Plus, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import SEO from '@/src/components/SEO';
 import { APP_URL, Eyebrow, PageHeader, SpotlightCard } from '@/src/components/Brand';
 import { trackMetaCustomEvent } from '@/src/lib/meta-pixel';
@@ -8,39 +9,131 @@ import { cn } from '@/src/lib/utils';
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-const included = [
-  { title: 'Zero Data Retention', desc: 'Tus consultas son privadas y no se almacenan en nuestros servidores.' },
-  { title: 'Altas Cortes indexadas', desc: 'Acceso completo a Constitucional, Suprema y Consejo de Estado.' },
-  { title: 'Redacción de documentos', desc: 'Borradores automáticos basados en jurisprudencia vigente.' },
-  { title: 'Velocidad neuronal', desc: 'Resultados analíticos en segundos, optimizando tu tiempo.' },
+// Plans, prices and limits mirror the App's /planes page — keep in sync with
+// App/lib/billing/plans.ts (prices) and App/lib/ai/entitlements.ts (limits).
+const PLANS_URL = `${APP_URL}/planes`;
+
+type Plan = {
+  id: 'free' | 'mcp' | 'full';
+  name: string;
+  tagline: string;
+  price: string;
+  description: string;
+  features: string[];
+  footnote?: ReactNode;
+  cta: string;
+  href: string;
+  icon: ReactNode;
+  highlight?: boolean;
+};
+
+const plans: Plan[] = [
+  {
+    id: 'free',
+    name: 'Gratis',
+    tagline: 'Para empezar',
+    price: '$0',
+    description: 'Para conocer Enndor y resolver consultas puntuales.',
+    features: [
+      '10 mensajes a la semana en Enndor',
+      'Todas las funciones: búsqueda de jurisprudencia y normatividad, redacción de documentos y análisis de archivos',
+      'Consulta las sentencias y normas en el visor (sin descargarlas)',
+      'Prueba Enndor dentro de Claude o ChatGPT: 20 consultas a la semana',
+    ],
+    cta: 'Crear cuenta gratis',
+    href: APP_URL,
+    icon: <MessageSquare className="h-5 w-5" />,
+  },
+  {
+    id: 'mcp',
+    name: 'Enndor MCP',
+    tagline: 'Enndor dentro de Claude o ChatGPT',
+    price: '$29.900',
+    description:
+      'Para quienes ya trabajan con Claude o ChatGPT y quieren que respondan con la jurisprudencia y las normas colombianas de Enndor, citando la fuente.',
+    features: [
+      'Consultas ilimitadas desde Claude, ChatGPT y otros asistentes compatibles',
+      '30 mensajes a la semana en la app de Enndor',
+      'Descarga de sentencias y normas',
+      'Todas las funciones de la app',
+    ],
+    footnote: (
+      <>
+        Usas tu propia cuenta de Claude o ChatGPT; según el asistente, los conectores pueden requerir un plan pago de ese
+        servicio.{' '}
+        <Link to="/mcp" className="text-accent hover:underline">
+          ¿Cómo funciona?
+        </Link>
+      </>
+    ),
+    cta: 'Elegir MCP',
+    href: PLANS_URL,
+    icon: <Plug className="h-5 w-5" />,
+  },
+  {
+    id: 'full',
+    name: 'Enndor Full',
+    tagline: 'Todo Enndor, sin límites',
+    price: '$63.900',
+    description: 'Para quienes usan Enndor todos los días. Sin contar mensajes ni pensar en límites.',
+    features: [
+      'Mensajes ilimitados en la app de Enndor',
+      'Consultas ilimitadas desde Claude, ChatGPT y otros asistentes',
+      'Todas las funciones: búsqueda avanzada, redacción de documentos y análisis de archivos',
+      'Descarga de sentencias y normas',
+      'No necesitas saber qué es MCP: todo funciona directamente en Enndor',
+    ],
+    cta: 'Elegir Full',
+    href: PLANS_URL,
+    icon: <Sparkles className="h-5 w-5" />,
+    highlight: true,
+  },
+];
+
+const comparisonTiers = ['Invitado', 'Gratis', 'MCP', 'Full'] as const;
+
+const comparison: { label: string; values: [string, string, string, string] }[] = [
+  { label: 'Precio', values: ['Gratis', 'Gratis', '$29.900/mes', '$63.900/mes'] },
+  { label: 'Mensajes en Enndor a la semana', values: ['3', '10', '30', 'Ilimitados'] },
+  { label: 'Consultas desde Claude o ChatGPT a la semana', values: ['No incluido', '20', 'Ilimitadas', 'Ilimitadas'] },
+  { label: 'Búsqueda, redacción y análisis de archivos', values: ['✓', '✓', '✓', '✓'] },
+  { label: 'Descargar sentencias y normas', values: ['—', '—', '✓', '✓'] },
 ];
 
 const pillars = [
-  { title: 'Seguridad jurídica', desc: 'Validación cruzada de fuentes oficiales del sistema judicial colombiano para máxima precisión.' },
-  { title: 'Comunidad activa', desc: 'Únete a una red de profesionales legales que colaboran con sus sugerencias para el desarrollo.' },
-  { title: 'Disponibilidad 24/7', desc: 'Infraestructura robusta de clase empresarial para garantizar acceso cuando más se necesita.' },
+  { title: 'Zero Data Retention', desc: 'Tus consultas son privadas: no se usan para entrenar modelos de IA ni se almacenan de forma permanente.' },
+  { title: 'Fuentes verificables', desc: 'Cada respuesta cita la sentencia o norma original, sincronizada con las fuentes oficiales colombianas.' },
+  { title: 'Disponibilidad 24/7', desc: 'Infraestructura de clase empresarial para garantizar acceso cuando más se necesita.' },
 ];
 
 const faqs = [
   {
-    q: '¿Enndor es realmente gratis?',
-    a: 'Sí. Durante la fase de lanzamiento y co-creación, Enndor es gratuito y de acceso ilimitado para todos los abogados colombianos.',
+    q: '¿Cómo se cobra?',
+    a: 'Con Mercado Pago, mensualmente y en pesos colombianos. La suscripción se renueva sola cada mes hasta que la canceles.',
   },
   {
-    q: '¿Necesito tarjeta de crédito para registrarme?',
+    q: '¿Puedo cancelar cuando quiera?',
+    a: 'Sí, desde la página de planes en la app y sin permanencia. Conservas tu plan hasta el final del periodo que ya pagaste y luego pasas al plan Gratis.',
+  },
+  {
+    q: '¿Necesito tarjeta de crédito para el plan Gratis?',
     a: 'No. El registro es inmediato y no te pedimos ningún medio de pago.',
   },
   {
-    q: '¿Habrá planes de pago en el futuro?',
-    a: 'En el futuro introduciremos planes premium con funcionalidades avanzadas, pero nuestro compromiso con el acceso a la base legal colombiana siempre se mantendrá firme.',
+    q: '¿Puedo pasar del plan MCP al Full?',
+    a: 'Sí. Al suscribirte a Full cancelamos automáticamente tu plan MCP para que no se te cobren ambos. El mes en curso del plan MCP no se reembolsa de forma proporcional.',
+  },
+  {
+    q: '¿Necesito pagar Claude o ChatGPT?',
+    a: 'Solo si quieres usar Enndor desde esos asistentes. Necesitas tu propia cuenta, y según el asistente los conectores pueden requerir uno de sus planes pagos. Si solo usas la app de Enndor, no necesitas nada más.',
+  },
+  {
+    q: '¿Qué pasa si llego al límite de la semana?',
+    a: 'Tu cupo se renueva el lunes a la medianoche (hora de Colombia). Si no quieres esperar, mejora tu plan y sigue de inmediato.',
   },
   {
     q: '¿Mis consultas se usan para entrenar modelos?',
     a: 'Nunca. Operamos con Zero Data Retention: tus datos no se usan para entrenar modelos de IA y no se almacenan de forma permanente.',
-  },
-  {
-    q: '¿Qué pasó con LegisIA?',
-    a: 'LegisIA ahora se llama Enndor. Es el mismo producto y el mismo equipo: tu cuenta y tus conversaciones siguen exactamente igual.',
   },
 ];
 
@@ -88,17 +181,90 @@ function Faq() {
   );
 }
 
+function PlanCard({ plan, index }: { plan: Plan; index: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.9, delay: index * 0.1, ease: EASE }}
+      className="relative h-full"
+    >
+      {plan.highlight && <div className="absolute -inset-6 -z-10 rounded-full bg-white/[0.05] blur-[80px]" />}
+      <div
+        className={cn(
+          'relative flex h-full flex-col rounded-3xl border p-8 backdrop-blur-sm',
+          plan.highlight ? 'glow-border border-white/20 bg-white/[0.04]' : 'border-white/10 bg-white/[0.02]'
+        )}
+      >
+        <div className="flex items-start justify-between gap-4">
+          <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white">
+            {plan.icon}
+          </span>
+          {plan.highlight && (
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-white/80">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
+              Más completo
+            </span>
+          )}
+        </div>
+
+        <h2 className="mt-8 font-headline text-2xl font-medium tracking-tight text-white">{plan.name}</h2>
+        <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.2em] text-white/50">{plan.tagline}</p>
+
+        <div className="my-8 flex items-end gap-3">
+          <span className="metallic-text font-headline text-6xl font-light leading-none tracking-[-0.05em]">{plan.price}</span>
+          <span className="pb-1.5 font-mono text-xs uppercase tracking-[0.2em] text-white/40">COP / mes</span>
+        </div>
+
+        <p className="text-sm font-light leading-relaxed text-on-surface-variant">{plan.description}</p>
+
+        <ul className="mt-8 space-y-4">
+          {plan.features.map((feature) => (
+            <li key={feature} className="flex gap-3">
+              <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent text-black">
+                <Check className="h-3 w-3" strokeWidth={3} />
+              </span>
+              <span className="text-sm leading-relaxed text-white/85">{feature}</span>
+            </li>
+          ))}
+        </ul>
+
+        {plan.footnote && <p className="mt-6 text-xs font-light leading-relaxed text-white/45">{plan.footnote}</p>}
+
+        <div className="mt-auto pt-10">
+          <a
+            href={plan.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => trackMetaCustomEvent('ClickToApp')}
+            className={cn(
+              'group flex w-full items-center justify-center gap-2 rounded-full py-3.5 text-sm font-medium transition-all duration-300 active:scale-[0.99]',
+              plan.highlight
+                ? 'bg-white text-black hover:bg-white/85'
+                : 'border border-white/20 text-white hover:border-white/40 hover:bg-white/10'
+            )}
+          >
+            {plan.cta}
+            <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          </a>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function Pricing() {
   return (
     <div className="min-h-screen bg-black">
       <SEO
         title="Precios"
-        description="Enndor es gratuito para todos los abogados colombianos en su fase de co-creación. Acceso ágil a la justicia mediante inteligencia artificial especializada en derecho colombiano."
+        description="Planes de Enndor: Gratis, Enndor MCP ($29.900/mes) para usar Enndor dentro de Claude o ChatGPT, y Enndor Full ($63.900/mes) sin límites. IA especializada en jurisprudencia y normatividad colombiana."
         canonical="https://enndor.ai/precios"
       />
 
       <PageHeader
-        eyebrow="Estructura de costos"
+        eyebrow="Planes y precios"
         title={
           <>
             El acceso a la justicia debe ser <span className="font-serif italic tracking-normal text-white/55">ágil.</span>
@@ -106,106 +272,70 @@ export default function Pricing() {
         }
       />
 
-      {/* Plan */}
-      <section className="overflow-hidden px-6 pb-28 md:px-8">
-        <div className="mx-auto grid max-w-7xl items-stretch gap-12 lg:grid-cols-12">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={{ visible: { transition: { staggerChildren: 0.12 } } }}
-            className="flex flex-col justify-between gap-12 lg:col-span-5"
-          >
-            <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } } }} className="space-y-6">
-              <Eyebrow index="01">Co-creación</Eyebrow>
-              <h2 className="font-headline text-3xl font-medium tracking-[-0.03em] sm:text-4xl">Co-creando el futuro del derecho</h2>
-              <p className="text-lg font-light leading-relaxed text-on-surface-variant">
-                Actualmente, <span className="text-white">Enndor</span> es gratuito para todos los abogados colombianos. Estamos en fase de co-creación y valoramos tu feedback para construir la herramienta definitiva.
-              </p>
-            </motion.div>
-            <motion.figure
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } } }}
-              className="border-l border-accent/60 pl-6"
-            >
-              <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.25em] text-white/40">Visión de futuro</p>
-              <blockquote className="font-serif text-2xl italic leading-snug text-white/80 sm:text-3xl">
-                “En el futuro introduciremos planes premium con funcionalidades avanzadas, pero nuestro compromiso con el acceso a la base legal colombiana siempre se mantendrá firme.”
-              </blockquote>
-            </motion.figure>
-          </motion.div>
+      {/* Planes */}
+      <section className="px-6 pb-28 md:px-8">
+        <div className="mx-auto max-w-7xl">
+          <Eyebrow index="01" className="mb-12">Elige tu plan</Eyebrow>
+          <div className="grid items-stretch gap-6 lg:grid-cols-3">
+            {plans.map((plan, i) => (
+              <PlanCard key={plan.id} plan={plan} index={i} />
+            ))}
+          </div>
+          <p className="mt-8 text-center font-mono text-[10px] uppercase tracking-[0.2em] text-white/35">
+            Pago mensual con Mercado Pago • Sin permanencia • Cancela cuando quieras
+          </p>
+        </div>
+      </section>
 
-          <motion.div
-            initial={{ opacity: 0, y: 40, scale: 0.98 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 1, ease: EASE }}
-            className="lg:col-span-7"
-          >
-            <div className="relative h-full">
-              <div className="absolute -inset-10 -z-10 rounded-full bg-white/[0.05] blur-[100px]" />
-              <div className="glow-border relative flex h-full flex-col rounded-3xl border border-white/10 bg-white/[0.02] p-8 backdrop-blur-sm md:p-12">
-                <div className="flex flex-wrap items-start justify-between gap-4">
-                  <div>
-                    <h2 className="font-headline text-2xl font-medium tracking-tight text-white sm:text-3xl">Acceso gratuito ilimitado</h2>
-                    <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.2em] text-white/50">Fase de lanzamiento & beta abierta</p>
-                  </div>
-                  <span className="inline-flex items-center gap-2 rounded-full border border-white/15 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-white/80">
-                    <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
-                    Vigente
-                  </span>
-                </div>
-
-                <div className="my-12 flex items-end gap-3">
-                  <span className="metallic-text font-headline text-8xl font-light leading-none tracking-[-0.06em] sm:text-9xl">$0</span>
-                  <span className="pb-3 font-mono text-xs uppercase tracking-[0.2em] text-white/40">COP / mes</span>
-                </div>
-
-                <ul className="grid gap-x-8 gap-y-6 sm:grid-cols-2">
-                  {included.map((item, i) => (
-                    <motion.li
-                      key={item.title}
-                      initial={{ opacity: 0, x: -10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: 0.3 + i * 0.08, ease: EASE }}
-                      className="flex gap-3"
+      {/* Comparación */}
+      <section className="border-t border-white/[0.06] px-6 py-28 md:px-8">
+        <div className="mx-auto max-w-7xl">
+          <Eyebrow index="02" className="mb-6">Compara los planes</Eyebrow>
+          <h2 className="mb-12 font-headline text-3xl font-medium tracking-[-0.03em] sm:text-4xl">
+            Todo claro, <span className="font-serif italic tracking-normal text-white/55">sin letra pequeña.</span>
+          </h2>
+          <div className="overflow-x-auto rounded-2xl border border-white/10">
+            <table className="w-full min-w-[640px] text-sm">
+              <thead>
+                <tr className="border-b border-white/10 text-left">
+                  <th className="p-4" />
+                  {comparisonTiers.map((tier) => (
+                    <th
+                      key={tier}
+                      className={cn(
+                        'p-4 text-center font-mono text-[11px] font-normal uppercase tracking-[0.2em]',
+                        tier === 'Full' ? 'text-accent' : 'text-white/60'
+                      )}
                     >
-                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent text-black">
-                        <Check className="h-3 w-3" strokeWidth={3} />
-                      </span>
-                      <div>
-                        <p className="text-sm font-medium text-white">{item.title}</p>
-                        <p className="mt-1 text-sm font-light leading-relaxed text-on-surface-variant">{item.desc}</p>
-                      </div>
-                    </motion.li>
+                      {tier}
+                    </th>
                   ))}
-                </ul>
-
-                <div className="mt-auto pt-12">
-                  <a
-                    href={APP_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackMetaCustomEvent('ClickToApp')}
-                    className="group flex w-full items-center justify-center gap-2 rounded-full bg-white py-4 text-base font-medium text-black transition-all duration-300 hover:bg-white/85 active:scale-[0.99]"
-                  >
-                    Comenzar Ahora Gratis
-                    <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                  </a>
-                  <p className="mt-5 text-center font-mono text-[10px] uppercase tracking-[0.2em] text-white/35">
-                    Sin tarjeta de crédito • Registro inmediato
-                  </p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+                </tr>
+              </thead>
+              <tbody>
+                {comparison.map((row) => (
+                  <tr key={row.label} className="border-b border-white/[0.06] last:border-0">
+                    <td className="p-4 font-light text-on-surface-variant">{row.label}</td>
+                    {row.values.map((value, i) => (
+                      <td key={comparisonTiers[i]} className="p-4 text-center tabular-nums text-white/85">
+                        {value}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-4 text-xs font-light text-white/40">
+            Los límites semanales se renuevan el lunes a la medianoche (hora de Colombia). Invitado es el acceso sin cuenta.
+          </p>
         </div>
       </section>
 
       {/* Pilares */}
       <section className="border-y border-white/[0.06] px-6 py-28 md:px-8">
         <div className="mx-auto max-w-7xl">
-          <Eyebrow index="02" className="mb-12">Lo que respalda el plan</Eyebrow>
+          <Eyebrow index="03" className="mb-12">Incluido en todos los planes</Eyebrow>
           <div className="grid gap-4 md:grid-cols-3">
             {pillars.map((p, i) => (
               <motion.div
@@ -232,9 +362,9 @@ export default function Pricing() {
       <section className="px-6 py-28 md:px-8">
         <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-12">
           <div className="space-y-6 lg:col-span-4">
-            <Eyebrow index="03">Preguntas frecuentes</Eyebrow>
+            <Eyebrow index="04">Preguntas frecuentes</Eyebrow>
             <h2 className="font-headline text-3xl font-medium tracking-[-0.03em] sm:text-4xl">
-              Todo claro, <span className="font-serif italic tracking-normal text-white/55">sin letra pequeña.</span>
+              Antes de <span className="font-serif italic tracking-normal text-white/55">suscribirte.</span>
             </h2>
           </div>
           <div className="lg:col-span-8">
