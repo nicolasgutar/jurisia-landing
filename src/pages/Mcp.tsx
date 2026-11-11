@@ -623,8 +623,8 @@ export default function Mcp() {
 
           <p className="mt-12 text-sm font-light text-on-surface-variant/70">
             ¿Necesita ayuda para conectarlo? Escríbanos a{' '}
-            <a href="mailto:soporte@legisia.co" className="text-accent hover:underline">
-              soporte@legisia.co
+            <a href="mailto:soporte@enndor.ai" className="text-accent hover:underline">
+              soporte@enndor.ai
             </a>
             .
           </p>

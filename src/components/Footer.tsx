@@ -1,3 +1,4 @@
+import { openCookieSettings } from '@/src/lib/cookie-consent';
 import type { SVGProps } from 'react';
 import { Link } from 'react-router-dom';
 import { Linkedin, Instagram, Facebook } from 'lucide-react';
@@ -75,6 +76,7 @@ export default function Footer() {
             <a href="/blog" className={linkClass}>Blog</a>
             <a href="/jurisprudencia" className={linkClass}>Base de Jurisprudencia</a>
             <Link to="/politica-de-tratamiento-de-datos" className={linkClass}>Política de Tratamiento de Datos</Link>
+            <button type="button" onClick={openCookieSettings} className={`${linkClass} text-left`}>Preferencias de cookies</button>
             <Link to="/terminos-y-condiciones" className={linkClass}>Términos y Condiciones</Link>
           </div>
         </div>

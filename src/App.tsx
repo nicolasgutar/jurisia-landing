@@ -16,6 +16,7 @@ import Terms from './pages/Terms';
 import Mcp from './pages/Mcp';
 import NotFound from './pages/NotFound';
 import PalettePanel from './components/PalettePanel';
+import CookieBanner from './components/CookieBanner';
 import { motion, AnimatePresence } from 'motion/react';
 
 // Router-agnostic app tree: the browser wraps it in <BrowserRouter> (below),
@@ -44,6 +45,7 @@ export function AppShell() {
       </main>
       <Footer />
       <PalettePanel />
+      <CookieBanner />
     </div>
   );
 }
