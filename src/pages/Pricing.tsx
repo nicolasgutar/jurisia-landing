@@ -12,6 +12,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 // Plans, prices and limits mirror the App's /planes page — keep in sync with
 // App/lib/billing/plans.ts (prices) and App/lib/ai/entitlements.ts (limits).
 const PLANS_URL = `${APP_URL}/planes`;
+const PAID_PLANS_NOTICE = 'Entran en vigencia a partir del 12 de noviembre';
 
 type Plan = {
   id: 'free' | 'mcp' | 'full';
@@ -72,7 +73,7 @@ const plans: Plan[] = [
   },
   {
     id: 'full',
-    name: 'Enndor Full',
+    name: 'Enndor Pro',
     tagline: 'Todo Enndor, sin límites',
     price: '$63.900',
     description: 'Para quienes usan Enndor todos los días. Sin contar mensajes ni pensar en límites.',
@@ -83,14 +84,14 @@ const plans: Plan[] = [
       'Descarga de sentencias y normas',
       'No necesitas saber qué es MCP: todo funciona directamente en Enndor',
     ],
-    cta: 'Elegir Full',
+    cta: 'Elegir Pro',
     href: PLANS_URL,
     icon: <Sparkles className="h-5 w-5" />,
     highlight: true,
   },
 ];
 
-const comparisonTiers = ['Invitado', 'Gratis', 'MCP', 'Full'] as const;
+const comparisonTiers = ['Invitado', 'Gratis', 'MCP', 'Pro'] as const;
 
 const comparison: { label: string; values: [string, string, string, string] }[] = [
   { label: 'Precio', values: ['Gratis', 'Gratis', '$29.900/mes', '$63.900/mes'] },
@@ -120,8 +121,8 @@ const faqs = [
     a: 'No. El registro es inmediato y no te pedimos ningún medio de pago.',
   },
   {
-    q: '¿Puedo pasar del plan MCP al Full?',
-    a: 'Sí. Al suscribirte a Full cancelamos automáticamente tu plan MCP para que no se te cobren ambos. El mes en curso del plan MCP no se reembolsa de forma proporcional.',
+    q: '¿Puedo pasar del plan MCP al Pro?',
+    a: 'Sí. Al suscribirte a Pro cancelamos automáticamente tu plan MCP para que no se te cobren ambos. El mes en curso del plan MCP no se reembolsa de forma proporcional.',
   },
   {
     q: '¿Necesito pagar Claude o ChatGPT?',
@@ -233,6 +234,7 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
         {plan.footnote && <p className="mt-6 text-xs font-light leading-relaxed text-white/45">{plan.footnote}</p>}
 
         <div className="mt-auto pt-10">
+          {plan.id === 'free' ? (
           <a
             href={plan.href}
             target="_blank"
@@ -248,6 +250,12 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
             {plan.cta}
             <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </a>
+          ) : (
+            // Paid plans aren't purchasable yet; swap back to the CTA at launch.
+            <p className="flex w-full items-center justify-center rounded-full border border-dashed border-white/20 py-3.5 text-sm text-white/70">
+              {PAID_PLANS_NOTICE}
+            </p>
+          )}
         </div>
       </div>
     </motion.div>
@@ -259,7 +267,7 @@ export default function Pricing() {
     <div className="min-h-screen bg-black">
       <SEO
         title="Precios"
-        description="Planes de Enndor: Gratis, Enndor MCP ($29.900/mes) para usar Enndor dentro de Claude o ChatGPT, y Enndor Full ($63.900/mes) sin límites. IA especializada en jurisprudencia y normatividad colombiana."
+        description="Planes de Enndor: Gratis, Enndor MCP ($29.900/mes) para usar Enndor dentro de Claude o ChatGPT, y Enndor Pro ($63.900/mes) sin límites. IA especializada en jurisprudencia y normatividad colombiana."
         canonical="https://enndor.ai/precios"
       />
 
@@ -304,7 +312,7 @@ export default function Pricing() {
                       key={tier}
                       className={cn(
                         'p-4 text-center font-mono text-[11px] font-normal uppercase tracking-[0.2em]',
-                        tier === 'Full' ? 'text-accent' : 'text-white/60'
+                        tier === 'Pro' ? 'text-accent' : 'text-white/60'
                       )}
                     >
                       {tier}
