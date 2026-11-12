@@ -11,8 +11,9 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 
 // Plans, prices and limits mirror the App's /planes page — keep in sync with
 // App/lib/billing/plans.ts (prices) and App/lib/ai/entitlements.ts (limits).
+// The App's /planes requires a session: signed-out visitors go through
+// /login (or /register) and come back to /planes to pay.
 const PLANS_URL = `${APP_URL}/planes`;
-const PAID_PLANS_NOTICE = 'Entran en vigencia a partir del 12 de noviembre';
 
 type Plan = {
   id: 'free' | 'mcp' | 'full';
@@ -234,7 +235,6 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
         {plan.footnote && <p className="mt-6 text-xs font-light leading-relaxed text-white/45">{plan.footnote}</p>}
 
         <div className="mt-auto pt-10">
-          {plan.id === 'free' ? (
           <a
             href={plan.href}
             target="_blank"
@@ -250,12 +250,6 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
             {plan.cta}
             <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </a>
-          ) : (
-            // Paid plans aren't purchasable yet; swap back to the CTA at launch.
-            <p className="flex w-full items-center justify-center rounded-full border border-dashed border-white/20 py-3.5 text-sm text-white/70">
-              {PAID_PLANS_NOTICE}
-            </p>
-          )}
         </div>
       </div>
     </motion.div>
